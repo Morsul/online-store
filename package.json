@@ -1,0 +1,33 @@
+{
+  "name": "online-store",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --mode development --open",    
+    "deploy": "npm run build && npx gh-pages -d dist -e online-shop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Morsul/online-store.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Morsul/online-store/issues"
+  },
+  "homepage": "https://github.com/Morsul/online-store#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1"
+  }
+}
