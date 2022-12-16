@@ -1,17 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const { merge } = require('webpack-merge');
 
-module.exports = {
+const baseConfig = {
   entry: './src/index',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.bundle.js'
-  },
-  devServer: {
-    static:{
-      watch: true
-     }
   },
   module: {
     rules: [
@@ -38,4 +35,10 @@ module.exports = {
       extensions: 'ts',
     })
   ]
+};
+
+module.exports = ({ mode }) => {
+  const isDevelopmentMode = mode === 'development';
+  const envConfig = isDevelopmentMode ? require('./webpack.dev.config') : require('./webpack.prod.config');
+  return merge(baseConfig, envConfig);
 };

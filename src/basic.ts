@@ -1,7 +1,6 @@
-export class test{
-  [basic: string]: string ;
+export interface View {
+  draw(): void;
 }
-
-export interface divClassName {
-  className: string;
-};
+export interface Callback {
+  (): void;
+}
