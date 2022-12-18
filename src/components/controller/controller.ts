@@ -1,16 +1,21 @@
-import { Callback } from "../../basic";
+import { Callback, IProduct, ICatalog } from "../../basic";
+import AppLoader from "./appLoader";
 
-class Controller {
+class Controller extends AppLoader {
 
-  getCatalog(callback: Callback): void {
-    callback();
+  getCatalog(find: string, callback: Callback<ICatalog>): void {
+    super.getResp(callback);
   }
 
-  getCart(callback: Callback): void {
-    callback();
+  getCart(find: string, callback: Callback<ICatalog>): void {
+    super.getResp(callback);
   }
 
-  getProduct(callback: Callback): void {
+  getProduct(find: string, callback: Callback<IProduct>): void {
+    super.getResp(callback);
+  }
+
+  getNotPage(callback: () => void) {
     callback();
   }
 

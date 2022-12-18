@@ -1,12 +1,19 @@
-import { View } from "../../../basic";
+import { IProduct, View } from "../../../basic";
 
-class Catalog implements View {
-  draw(): void {
-    const div:HTMLDivElement = document.createElement('div');
-    div.innerHTML = 'Catalog';
-    (<HTMLElement>document.querySelector('.main')).innerHTML = '';
-    (<HTMLElement>document.querySelector('.main')).appendChild(div);
+class CatalogView implements View {
+  draw(data: Array<IProduct>): void {
+    const fragment: DocumentFragment = document.createDocumentFragment();
+    
+    data.forEach((item) => {
+      const divprod:HTMLDivElement = document.createElement('div');
+
+      divprod.innerHTML = `${item.id} - ${item.brand} - ${item.category}`;
+
+      fragment.append(divprod);
+  });
+    (<HTMLElement>document.querySelector('.main')).innerHTML = 'Catalog';
+    (<HTMLElement>document.querySelector('.main')).appendChild(fragment);
   }
 }
 
-export default Catalog;
+export default CatalogView;

@@ -1,9 +1,9 @@
-import { View } from "../../../basic";
+import { IProduct, View } from "../../../basic";
 
 class Product implements View {
-  draw(): void {
+  draw(data: IProduct): void {
     const div:HTMLDivElement = document.createElement('div');
-    div.innerHTML = 'Product';
+    div.innerHTML = 'Product' + data;
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).appendChild(div);
   }
