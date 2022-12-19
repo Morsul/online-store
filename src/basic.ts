@@ -9,7 +9,6 @@ export interface ICallback {
   (): void;
 }
 
-export type categoryEnum = 'smartphones' | 'laptops' | 'fragrances' | 'skincare' | 'groceries' | 'home-decoration' | 'furniture' | 'tops' | 'womens-dresses' | 'womens-shoes' | 'mens-shirts' | 'mens-shoes' | 'mens-watches' | 'womens-watches' | 'womens-bags' | 'womens-jewellery' | 'sunglasses' | 'automotive' | 'motorcycle' | 'lighting';
 export interface IProduct {
   id: string,
   title: string,

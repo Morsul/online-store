@@ -4,7 +4,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const baseConfig = {
-  entry: './src/index',
+  entry: path.resolve(__dirname, './src/index'),
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),

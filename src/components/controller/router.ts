@@ -2,18 +2,27 @@ import { Callback } from "../../basic";
 
 class Router {
 
-  private _routes: Map<string, Callback<string>>;
+  private _routes: Map<RegExp, Callback<string>>;
   
-  constructor (routers: Map<string, Callback<string>>) {
+  constructor (routers: Map<RegExp, Callback<string>>) {
     this._routes = routers;
     window.addEventListener('popstate', this.handleLocation);
   }
 
   handleLocation = async () => {
     const path: string = window.location.pathname;
-    const getDate = this._routes.get(path) || this._routes.get('/404');
-    if (getDate) {
-      getDate(window.location.search);
+    let getData: Callback<string> | undefined;
+    for(const key of this._routes.keys()) {
+      if (key.test(path)) {
+        getData = this._routes.get(key);
+        break;
+      }
+      else if (key.test('404')) {
+        getData = this._routes.get(key);
+      }
+    }
+    if (getData) {
+      getData(path + window.location.search);
     }
   };
 

@@ -8,8 +8,8 @@ class Loader {
     this._baseLink = baseLink;
   }
 
-  getResp<typeResp extends ICatalog | IProduct>(callback: Callback<typeResp>): void {
-    this.load('GET', callback);
+  getResp<typeResp extends ICatalog | IProduct>(options: string, callback: Callback<typeResp>): void {
+    this.load('GET', callback, options);
   }
 
   errorHandler(res: Response): Response {
@@ -18,12 +18,16 @@ class Loader {
             console.error(`Sorry, but there is ${res.status} error: ${res.statusText}`);
         throw Error(res.statusText);
     }
-
     return res;
-}
+  }
 
-  load<T extends ICatalog | IProduct>(method: string, callback: Callback<T>): void {
-    fetch(this._baseLink, { method })
+  makeUrl(options: string): string {
+    const url = `${this._baseLink}${options}`;
+    return url;
+  }
+
+  load<T extends ICatalog | IProduct>(method: string, callback: Callback<T>, options: string): void {
+    fetch(this.makeUrl(options), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())
             .then((data: T) => callback(data))
