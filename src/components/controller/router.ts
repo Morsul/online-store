@@ -1,36 +1,47 @@
 import { Callback } from "../../basic";
 
 class Router {
-
+  private static instance: Router;
   private _routes: Map<RegExp, Callback<string>>;
   
-  constructor (routers: Map<RegExp, Callback<string>>) {
-    this._routes = routers;
-    window.addEventListener('popstate', this.handleLocation);
+  private constructor() {
+    this._routes = new Map<RegExp, Callback<string>>();
   }
 
-  handleLocation = async () => {
+  static getInstance() {
+    if (!Router.instance) {
+      Router.instance = new Router();
+      window.addEventListener('popstate', Router.instance.handleLocation);
+    }
+    return Router.instance;
+  }
+
+  set routes (routes: Map<RegExp, Callback<string>>) {
+    Router.instance._routes = routes;
+  }
+
+  handleLocation() {
     const path: string = window.location.pathname;
     let getData: Callback<string> | undefined;
-    for(const key of this._routes.keys()) {
+    for(const key of Router.getInstance()._routes.keys()) {
       if (key.test(path)) {
-        getData = this._routes.get(key);
+        getData = Router.getInstance()._routes.get(key);
         break;
       }
       else if (key.test('404')) {
-        getData = this._routes.get(key);
+        getData = Router.getInstance()._routes.get(key);
       }
     }
     if (getData) {
       getData(path + window.location.search);
     }
-  };
+  }
 
   route(event: Event, href: string): void {
     event = event || window.event;
     event.preventDefault();
     history.pushState({route: href}, '', href);
-    this.handleLocation();
+    Router.getInstance().handleLocation();
   }
 
 }

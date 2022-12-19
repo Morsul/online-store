@@ -1,4 +1,5 @@
 import { IProduct, View } from "../../../basic";
+import Router from "../../controller/router";
 
 class CatalogView implements View {
   draw(data: Array<IProduct>): void {
@@ -8,7 +9,7 @@ class CatalogView implements View {
       const divprod:HTMLDivElement = document.createElement('div');
 
       divprod.innerHTML = `${item.id} - ${item.brand} - ${item.category}`;
-
+      divprod.addEventListener('click', (e) => Router.getInstance().route(e, `/products/${item.id}`));
       fragment.append(divprod);
   });
     (<HTMLElement>document.querySelector('.main')).innerHTML = 'Catalog';
