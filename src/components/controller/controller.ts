@@ -1,17 +1,23 @@
-import { Callback, IProduct, ICatalog } from "../../basic";
-import AppLoader from "./appLoader";
+import { Callback, ICatalog } from "../../basic";
+import Loader from "./loader";
+import jsonFile from '../assets/data/products.json';
 
-class Controller extends AppLoader {
+class Controller extends Loader {
+
+  constructor() {
+    super(jsonFile.toString());
+  }
+
   getCatalog(find: string, callback: Callback<ICatalog>): void {
-    super.getResp('/products?limit=100', callback);
+    super.getResp({ options: '/products', callback });
   }
 
   getCart(find: string, callback: Callback<ICatalog>): void {
-    super.getResp('/products?limit=100', callback);
+    super.getResp({ options: '', callback });
   }
 
-  getProduct(find: string, callback: Callback<IProduct>): void {
-    super.getResp(find, callback);
+  getProduct(find: string, callback: Callback<ICatalog>): void {
+    super.getResp({ options: find, callback });
   }
 
   getNotPage(callback: () => void) {

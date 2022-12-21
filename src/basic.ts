@@ -3,12 +3,12 @@ export interface View {
 }
 
 export interface Callback<T> {
-  (data: T): void;
+  (data: T, options?: string): void;
 }
-export interface ICallback {
+/*export interface ICallback {
   (): void;
 }
-
+*/
 export interface IProduct {
   id: string,
   title: string,
@@ -29,4 +29,12 @@ export interface ICatalog {
 
 export interface ISearchProducts {
   category?: Array<string>
+}
+
+export interface FilterProduct {
+  product?: number,
+  category?: string,
+  brand?: string;
+  price?: string,
+  stock?: string
 }
