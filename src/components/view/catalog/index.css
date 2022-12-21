@@ -1,0 +1,191 @@
+.product_list{
+  display: flex;
+  gap: 15px 3%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.single_product{
+  background-repeat: no-repeat;
+  flex: 0 0 30%;
+  display: flex;
+  gap: 10px;
+  border: 1px solid rgba(136, 165, 191, 0.75);
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  flex-direction: column;
+  transition: all 0.2s;
+}
+
+.single_product img{
+  max-width: 100%;
+  height: 250px;
+  object-fit: contain;
+}
+
+.single_product:hover{
+  border: 1px solid rgba(136, 165, 191, 1);
+  box-shadow: rgba(136, 165, 191, 0.68) 6px 2px 16px 0px, rgba(255, 255, 255, 0.1) -6px -2px 16px 0px;
+}
+
+.single_product__info{
+  display: flex;
+  flex-direction:column;
+}
+
+.filter_list input[type="checkbox"]{
+  display: none;
+}
+
+.filter_list .filter_label__check_box{
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+.single_product:not(.in_cart) .remove_from_cart{
+  display: none;
+}
+.single_product.in_cart .add_to_cart{
+  display: none;
+}
+
+.single_product__info {
+  padding: 10px;
+}
+
+.single_product__info p{
+  margin: 0 0px 5px;
+}
+
+.filter_list .filter_label__check_box:hover{
+  /* color: rgb(23, 86, 228); */
+}
+
+.filter_list .filter_label__check_box:hover{
+  /* color: rgb(23, 86, 228); */
+}
+
+.filter_list .filter_label__check_box:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  outline: 1px solid #343a3f;
+  border: 2px solid transparent;
+  border-radius: 0.2em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  background: rgba(136, 165, 191, 0.48);
+  box-shadow: 1px 1px 3px #50565a;
+  background: #f3f3f3;
+}
+
+.filter_list input[type="checkbox"]:checked + .filter_label__check_box:before {
+  border: 2px solid #fff;
+  outline: none;
+  border-radius: 0.3em;
+  background: #50565a;
+  box-shadow: 1px 1px 3px 2px #50565a;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #6E6D70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #DFDEDF;
+  line-height: 1.4em;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 5px 0;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.2s ;
+}
+
+.button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.button:hover {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.2);
+  outline: 0;
+}
+
+input[type=range] {
+  box-sizing: border-box;
+  appearance: none;
+  margin: 0;
+  padding: 0 2px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1px;
+  outline: none;
+  background: linear-gradient(grey, grey) no-repeat center;
+  background-size: 100% 2px;
+  pointer-events: none;
+  width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 28px;
+  background-color: #fff;
+  position: relative;
+  margin: 5px 0;
+  cursor: pointer;
+  appearance: none;
+  pointer-events: all;
+  box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+
+}
+input[type=range]::-webkit-slider-thumb::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 13px;
+  left: 100%;
+  width: 2000px;
+  height: 2px;
+}
+
+.filter__multi_range input[type=range] {
+  position: absolute;
+}
+
+.filter__multi_range input[type=range]:nth-child(1)::-webkit-slider-thumb::before {
+  background-color: red;
+}
+
+.filter__multi_range input[type=range]:nth-child(2) {
+  background: none;
+}
+
+.filter__multi_range input[type=range]:nth-child(2)::-webkit-slider-thumb::before {
+  background-color: grey; 
+}
+
+.filter__multi_range {
+  position: relative;
+  height: 50px;
+}
+
+article.product_list{
+  flex: 0 0 75%;
+}
+
+aside.filter_list{
+  flex: 0 0 20%;
+}

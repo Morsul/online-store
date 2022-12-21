@@ -1,17 +1,53 @@
-body {
-  margin: 0 20px;
+*{
+  box-sizing: border-box;
+}
+
+body{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-header {
+
+footer{
+  margin-top: auto;
+}
+
+.container{
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.header__container{
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
-main {
-  flex: 1 0 auto;
+
+.cart{
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
 }
-.home, .cart {
-  cursor: pointer;
+
+.cart__product_count{
+  background-image: url("../assets/svg/truck-ultrathin-transport-svgrepo-com.svg");
+  background-size: 60px 60px;
+  background-position: 0 10px;
+  background-repeat: no-repeat;
+  text-align: center;
+  background-color: #fff;
+  height: 60px;
+  width: 60px;
+  padding: 29px 21px 0 0;
+  margin-left: auto;
+}
+
+main{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 15px;
+  justify-content: space-between;
 }
