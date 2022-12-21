@@ -44,9 +44,12 @@ const createLink = (href: string, options: Pick<optional, "className" | "id">): 
   return link;
 }
 
-const createDiv = (options: Pick<optional, "className" | "id">): HTMLDivElement =>{
+const createDiv = (options: Pick<optional, "className" | "id" | "text">): HTMLDivElement =>{
   const divTag = document.createElement(`div`);
   applySelector(divTag, {className: options.className, id: options.id});
+  if(options.text){
+    divTag.innerHTML = options.text;
+  }  
   return divTag;
 }
 
