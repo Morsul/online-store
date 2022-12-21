@@ -6,7 +6,7 @@ interface optional {
   for?: string;
 }
 
-interface inputOptions extends Omit<optional, "for" | "alt">{
+interface IInputOptions extends Omit<optional, "for" | "alt">{
   placeholder?: string;
   min?: string;
   max?: string;
