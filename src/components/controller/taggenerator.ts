@@ -1,4 +1,4 @@
-interface optional {
+interface IOptional {
   id?: string;
   className?: string;
   text?: string;
