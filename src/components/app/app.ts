@@ -20,7 +20,6 @@ class App {
     const main = elementGenerator.createHTMLElement('main', {className: 'main'});
     const footer = new Footer();
     document.body.append(header.createHeader(), main, footer.createFooter())
-    console.log(header.createHeader())
     Router.getInstance();
     const map: Map<RegExp, Callback<string>> = new Map();
     map.set(/404/, () => this._controller.getNotPage(() => this._view.drawNotPage()));
