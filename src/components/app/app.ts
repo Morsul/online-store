@@ -2,6 +2,9 @@ import { Callback, ICatalog, IProduct } from "../../basic";
 import Controller from "../controller/controller";
 import Router from "../controller/router";
 import AppView from "../view/appView";
+import { Header } from "../element/header";
+import { elementGenerator } from "../controller/taggenerator";
+import { Footer } from "../element/footer";
 
 class App {
   private _controller;
@@ -13,12 +16,10 @@ class App {
   }
 
   start () {
-    (<HTMLElement>document
-      .querySelector('.cart'))
-      .addEventListener('click', (e: Event): void => Router.getInstance().route(e, '/cart'));
-    (<HTMLElement>document
-      .querySelector('.home'))
-      .addEventListener('click', (e: Event): void => Router.getInstance().route(e, '/'));
+    const header = new Header();
+    const main = elementGenerator.createHTMLElement('main', {className: 'main'});
+    const footer = new Footer();
+    document.body.append(header.createHeader(), main, footer.createFooter())
     Router.getInstance();
     const map: Map<RegExp, Callback<string>> = new Map();
     map.set(/404/, () => this._controller.getNotPage(() => this._view.drawNotPage()));

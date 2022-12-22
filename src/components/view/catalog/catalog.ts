@@ -1,19 +1,18 @@
 import { IProduct, View } from "../../../basic";
-import Router from "../../controller/router";
+import { ProductList } from "../../element/productList";
+import { FilterList } from "../../element/filterList";
 
-class CatalogView implements View {
-  draw(data: Array<IProduct>): void {
-    const fragment: DocumentFragment = document.createDocumentFragment();
-    
-    data.forEach((item) => {
-      const divprod:HTMLDivElement = document.createElement('div');
+import './index.css'
 
-      divprod.innerHTML = `${item.id} - ${item.brand} - ${item.category}`;
-      divprod.addEventListener('click', (e) => Router.getInstance().route(e, `/products/${item.id}`));
-      fragment.append(divprod);
-  });
-    (<HTMLElement>document.querySelector('.main')).innerHTML = 'Catalog';
-    (<HTMLElement>document.querySelector('.main')).appendChild(fragment);
+class CatalogView implements View {  
+  draw(data: Array<IProduct>): void {  
+    const productList = new ProductList();
+    const filterList = new FilterList();
+    (<HTMLElement>document.querySelector('.main')).innerHTML = '';
+    (<HTMLElement>document.querySelector('.main')).append(
+      productList.createProductList(data),
+      filterList.createFilterList(),
+    );
   }
 }
 
