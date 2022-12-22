@@ -6,7 +6,7 @@ interface IOptional {
   for?: string;
 }
 
-interface IInputOptions extends Omit<optional, "for" | "alt">{
+interface IInputOptions extends Omit<IOptional, "for" | "alt">{
   placeholder?: string;
   min?: string;
   max?: string;
@@ -15,7 +15,7 @@ interface IInputOptions extends Omit<optional, "for" | "alt">{
   disabled?: string;
 }
 
-const applySelector = (element: HTMLElement, options: Pick<optional, "className" | "id">): void => {
+const applySelector = (element: HTMLElement, options: Pick<IOptional, "className" | "id">): void => {
   if (options.className) {
     element.className = options.className;
   }
@@ -24,7 +24,7 @@ const applySelector = (element: HTMLElement, options: Pick<optional, "className"
   }
 }
 
-const createImg = (src: string, options: Pick<optional, "className" | "id" | "alt">): HTMLImageElement => {
+const createImg = (src: string, options: Pick<IOptional, "className" | "id" | "alt">): HTMLImageElement => {
   const img = document.createElement('img');
   applySelector(img, {className: options.className, id: options.id});
 
@@ -37,14 +37,14 @@ const createImg = (src: string, options: Pick<optional, "className" | "id" | "al
   return img;
 }
 
-const createLink = (href: string, options: Pick<optional, "className" | "id">): HTMLAnchorElement => {
+const createLink = (href: string, options: Pick<IOptional, "className" | "id">): HTMLAnchorElement => {
   const link = document.createElement('a');
   applySelector(link, {className: options.className, id: options.id});
   link.setAttribute('href', href);
   return link;
 }
 
-const createDiv = (options: Pick<optional, "className" | "id" | "text">): HTMLDivElement =>{
+const createDiv = (options: Pick<IOptional, "className" | "id" | "text">): HTMLDivElement =>{
   const divTag = document.createElement(`div`);
   applySelector(divTag, {className: options.className, id: options.id});
   if(options.text){
@@ -53,7 +53,7 @@ const createDiv = (options: Pick<optional, "className" | "id" | "text">): HTMLDi
   return divTag;
 }
 
-const createParagraph = (options: Pick<optional, "className" | "id" | "text">): HTMLParagraphElement =>{
+const createParagraph = (options: Pick<IOptional, "className" | "id" | "text">): HTMLParagraphElement =>{
   const paragraphTag = document.createElement(`p`);
   applySelector(paragraphTag, {className: options.className, id: options.id});
   if(options.text){
@@ -62,7 +62,7 @@ const createParagraph = (options: Pick<optional, "className" | "id" | "text">): 
   return paragraphTag;
 }
 
-const createLabel = (options: Pick<optional, "className" | "id" | "text" | "for">): HTMLLabelElement =>{
+const createLabel = (options: Pick<IOptional, "className" | "id" | "text" | "for">): HTMLLabelElement =>{
   const labelTag = document.createElement(`label`); 
   applySelector(labelTag, {className: options.className, id: options.id});
   if(options.for){
@@ -74,7 +74,7 @@ const createLabel = (options: Pick<optional, "className" | "id" | "text" | "for"
   return labelTag;
 }
 
-const createInput = (type: string, options: inputOptions):HTMLInputElement =>{
+const createInput = (type: string, options: IInputOptions):HTMLInputElement =>{
   const input = document.createElement(`input`); 
   input.type = type;
   applySelector(input, {className: options.className, id: options.id});
@@ -96,7 +96,7 @@ const createInput = (type: string, options: inputOptions):HTMLInputElement =>{
   return input;
 }
 
-const createHTMLElement = (tagName: string ,options: Pick<optional, "className" | "id">): HTMLElement =>{
+const createHTMLElement = (tagName: string ,options: Pick<IOptional, "className" | "id">): HTMLElement =>{
   const HTMLElement = document.createElement(tagName);
   applySelector(HTMLElement, {className: options.className, id: options.id});
   return HTMLElement;

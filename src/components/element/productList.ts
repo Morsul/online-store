@@ -3,7 +3,8 @@ import { elementGenerator } from "../controller/taggenerator";
 import { SingleProduct } from "./singleProduct";  
 
 export class ProductList {
-  createProductList(data: Array<IProduct>):HTMLElement{
+  createProductList(data: Array<IProduct>):DocumentFragment{
+    const fragment = new DocumentFragment();
     const mainArticle = elementGenerator.createHTMLElement('article', {className: "product_list"});
 
     data.forEach((item) => {
@@ -11,6 +12,8 @@ export class ProductList {
       mainArticle.append(product.createProduct(item));
     });
 
-    return mainArticle;
+    fragment.append(mainArticle);
+
+    return fragment;
   }
 }

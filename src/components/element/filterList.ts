@@ -3,13 +3,15 @@ import { elementGenerator } from "../controller/taggenerator";
 // import { SingleProduct } from "./singleproduct";  
 
 export class FilterList{
-  createFilterList():HTMLElement {
+  createFilterList():DocumentFragment {
+  const fragment = new DocumentFragment();
   const filterAside = elementGenerator.createHTMLElement('aside', {className: "filter_list"});
 
   // data.forEach((item) => {
   //   filterAside.append(SingleProduct(item));
   // });
 
-  return filterAside;
+  fragment.append(filterAside)
+  return fragment;
   }
 }
