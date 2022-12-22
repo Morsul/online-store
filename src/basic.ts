@@ -5,10 +5,6 @@ export interface View {
 export interface Callback<T> {
   (data: T, options?: IFilter): void;
 }
-/*export interface ICallback {
-  (): void;
-}
-*/
 export interface IProduct {
   id: string,
   title: string,
@@ -41,3 +37,7 @@ export interface IFilter {
 }
 
 export enum SortType { DESC = 'DESC', ASC = 'ASC'}
+
+export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discount"> {
+  count: number; 
+}
