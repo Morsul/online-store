@@ -30,6 +30,7 @@
 .single_product__info{
   display: flex;
   flex-direction:column;
+  margin-top: auto;
 }
 
 .filter_list input[type="checkbox"]{

@@ -2,15 +2,18 @@ import { IProduct } from "../../basic";
 import { elementGenerator } from "../controller/taggenerator";
 import Router from "../controller/router";
 import { ILocalStorageproduct } from "../../basic";
+import { localStorageManager } from "../controller/localStorage";
 
 export class SingleProduct {
   private _productAdded: boolean ;
+  private _localStorage;
   constructor(){
     this._productAdded = false;
+    this._localStorage = new localStorageManager();
   }
 
   createProduct(item: IProduct):HTMLDivElement{
-    this._productAdded = this._getLocalStorage().find((e)=>{return e.id === item.id}) === undefined ? false : true;
+    this._productAdded = this._localStorage.getLSCart().find((e)=>{return e.id === item.id}) === undefined ? false : true;
     const className: string = this._productAdded? "in_cart": "";
 
     const product = elementGenerator.createDiv({className: `single_product ${className}`});
@@ -42,13 +45,11 @@ export class SingleProduct {
     prodInfoWrap.append(productTitle, productRating, productStock, productPrice, productDiscount, addToCart, removeFromCart, goToSingle);
 
     product.append(productImage, prodInfoWrap)
-    console.log(this._productAdded)
     return product;
   }
 
   private _addProduct(arg: Omit<ILocalStorageproduct, "count">): void{
-    const cartLocal: Array<ILocalStorageproduct> = this._getLocalStorage();   
-    
+    const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();   
     if (this._productAdded){
       cartLocal.forEach(e=>{
         if(e.id === arg.id){
@@ -67,10 +68,11 @@ export class SingleProduct {
     }
 
     localStorage.setItem("SACart", JSON.stringify(cartLocal));
+    window.dispatchEvent( new Event('storage') )
   }
   
   private _removeProduct(id: string): void{
-    const cartLocal: Array<ILocalStorageproduct> = this._getLocalStorage();
+    const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
     let t = -1;
     if (cartLocal.length>0){
       cartLocal.forEach((e, i)=>{
@@ -84,13 +86,10 @@ export class SingleProduct {
     }
     if (t >= 0){
       cartLocal.splice(t,1);
+      this._productAdded = false;
     }
     localStorage.setItem("SACart", JSON.stringify(cartLocal));
+    window.dispatchEvent( new Event('storage') )
   }
 
-  private _getLocalStorage():Array<ILocalStorageproduct>{
-    const tl: string | null = localStorage.getItem("SACart");
-    const cl: Array<ILocalStorageproduct> = tl != null? JSON.parse(tl):[];
-    return cl;
-  }
 }

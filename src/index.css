@@ -40,9 +40,11 @@ footer{
   height: 60px;
   width: 60px;
   padding: 29px 21px 0 0;
-  margin-left: auto;
+  margin: 0 0 10px auto;
 }
-
+.cart__product_price{
+  margin: 0;
+}
 main{
   display: flex;
   flex-wrap: wrap;
