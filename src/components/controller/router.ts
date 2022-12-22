@@ -40,6 +40,9 @@ class Router {
   route(event: Event, href: string): void {
     event = event || window.event;
     event.preventDefault();
+    if (href === window.location.pathname + window.location.search) {
+      return;
+    }
     history.pushState({route: href}, '', href);
     Router.getInstance().handleLocation();
   }
