@@ -33,7 +33,7 @@ class Router {
       }
     }
     if (getData) {
-      getData(path + window.location.search);
+      getData((path + window.location.search).replace('%20', ' ').replace('%2', '+'));
     }
   }
 

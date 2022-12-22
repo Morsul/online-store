@@ -8,8 +8,8 @@ class CatalogView implements View {
     data.forEach((item) => {
       const divprod:HTMLDivElement = document.createElement('div');
 
-      divprod.innerHTML = `${item.id} - ${item.brand} - ${item.category}`;
-      divprod.addEventListener('click', (e) => Router.getInstance().route(e, `/products/${item.id}`));
+      divprod.innerHTML = `${item.id} - ${item.title} - ${item.category} - ${item.brand}`;
+      divprod.addEventListener('click', (e) => Router.getInstance().route(e, `/product/${item.id}`));
       fragment.append(divprod);
   });
     (<HTMLElement>document.querySelector('.main')).innerHTML = 'Catalog';

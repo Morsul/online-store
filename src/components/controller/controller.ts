@@ -1,4 +1,4 @@
-import { Callback, ICatalog } from "../../basic";
+import { Callback, ICatalog, IFilter } from "../../basic";
 import Loader from "./loader";
 import jsonFile from '../assets/data/products.json';
 
@@ -9,15 +9,25 @@ class Controller extends Loader {
   }
 
   getCatalog(find: string, callback: Callback<ICatalog>): void {
-    super.getResp({ options: '/products', callback });
+    const filter: IFilter = { product: '-1' };
+    find.replace('/?', '').split('&').forEach((value) => {
+      const filterValue = value.split('=');
+      if (filterValue.length === 2) {
+        filter[<keyof typeof filter>filterValue[0]] = filterValue[1];
+      }
+    });
+    super.getResp(filter, callback );
   }
 
   getCart(find: string, callback: Callback<ICatalog>): void {
-    super.getResp({ options: '', callback });
+    super.getResp({ product: '-1' }, callback );
   }
 
   getProduct(find: string, callback: Callback<ICatalog>): void {
-    super.getResp({ options: find, callback });
+    const match: RegExpMatchArray | null = find.match(/[0-9]{1,3}/);
+    if (match) {
+      super.getResp({ product: match[0]} , callback );
+    }
   }
 
   getNotPage(callback: () => void) {

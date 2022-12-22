@@ -1,4 +1,5 @@
 import { Callback } from "../../basic";
+import { IFilter } from "../../basic";
 class Loader {
 
   private _baseLink: string;
@@ -7,7 +8,7 @@ class Loader {
     this._baseLink = baseLink;
   }
 
-  getResp<catalog>({ options, callback }: { options: string; callback: Callback<catalog>; }): void {
+  getResp<catalog>(options: IFilter, callback : Callback<catalog>): void {
     const method = 'GET';
     fetch(this._baseLink.toString(), { method })
       .then(this.errorHandler)

@@ -1,4 +1,4 @@
-import { Callback, ICatalog } from "../../basic";
+import { Callback } from "../../basic";
 import Controller from "../controller/controller";
 import Router from "../controller/router";
 import AppView from "../view/appView";
@@ -21,9 +21,9 @@ class App {
     Router.getInstance();
     const map: Map<RegExp, Callback<string>> = new Map();
     map.set(/404/, () => this._controller.getNotPage(() => this._view.drawNotPage()));
-    map.set(/^\/$/, (find) => this._controller.getCatalog(find, (data: ICatalog) => this._view.drawCatalog(data, find)) );
-    map.set(/^\/cart$/, (find) => this._controller.getCart(find, (data: ICatalog) => this._view.drawCart(data, find)));
-    map.set(/^\/products\/[0-9]{1,3}$/, (find) => this._controller.getProduct(find, (data: ICatalog) => this._view.drawProduct(data, find)));
+    map.set(/^\/$/, (find) => this._controller.getCatalog(find, (data, filter) => this._view.drawCatalog(data, filter)) );
+    map.set(/^\/cart$/, (find) => this._controller.getCart(find, (data, filter) => this._view.drawCart(data, filter)));
+    map.set(/^\/product\/[0-9]{1,3}$/, (find) => this._controller.getProduct(find, (data, filter) => this._view.drawProduct(data, filter)));
     Router.getInstance().routes = map;
     Router.getInstance().handleLocation();
   }

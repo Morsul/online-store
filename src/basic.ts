@@ -3,7 +3,7 @@ export interface View {
 }
 
 export interface Callback<T> {
-  (data: T, options?: string): void;
+  (data: T, options?: IFilter): void;
 }
 /*export interface ICallback {
   (): void;
@@ -31,8 +31,8 @@ export interface ISearchProducts {
   category?: Array<string>
 }
 
-export interface FilterProduct {
-  product?: number,
+export interface IFilter {
+  product?: string,
   category?: string,
   brand?: string;
   price?: string,
