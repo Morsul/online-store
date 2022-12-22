@@ -31,6 +31,6 @@ export interface ISearchProducts {
   category?: Array<string>
 }
 
-export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discountPercentage">{
+export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discountPercentage"> {
   count: number; 
 }

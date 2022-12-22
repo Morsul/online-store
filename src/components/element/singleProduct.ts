@@ -7,14 +7,14 @@ import { localStorageManager } from "../controller/localStorage";
 export class SingleProduct {
   private _productAdded: boolean ;
   private _localStorage;
-  constructor(){
+  constructor() {
     this._productAdded = false;
     this._localStorage = new localStorageManager();
   }
 
-  createProduct(item: IProduct):HTMLDivElement{
+  createProduct(item: IProduct): HTMLDivElement {
     this._productAdded = this._localStorage.getLSCart().find((e)=>{return e.id === item.id}) === undefined ? false : true;
-    const className: string = this._productAdded? "in_cart": "";
+    const className: string = this._productAdded ? "in_cart" : "";
 
     const product = elementGenerator.createDiv({className: `single_product ${className}`});
     const productImage = elementGenerator.createImg(item.thumbnail,{alt: item.title});
@@ -30,7 +30,7 @@ export class SingleProduct {
     const removeFromCart = elementGenerator.createParagraph({className: 'button remove_from_cart', text: 'Remove from cart'});
     const goToSingle = elementGenerator.createParagraph({className: 'button', text: 'View Product'});
     
-    product.addEventListener('click', (e)=>{
+    product.addEventListener('click', (e)=> {
       if (e.target === removeFromCart){
         product.classList.toggle('in_cart');
         this._removeProduct(item.id)
@@ -48,17 +48,17 @@ export class SingleProduct {
     return product;
   }
 
-  private _addProduct(arg: Omit<ILocalStorageproduct, "count">): void{
+  private _addProduct(arg: Omit<ILocalStorageproduct, "count">): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();   
-    if (this._productAdded){
-      cartLocal.forEach(e=>{
-        if(e.id === arg.id){
+    if (this._productAdded) {
+      cartLocal.forEach(e=> {
+        if(e.id === arg.id) {
           e.count += 1;
         }
       })
     } 
 
-    if (!this._productAdded){
+    if (!this._productAdded) {
       cartLocal.push({
         id: arg.id,
         count: 1,
@@ -71,9 +71,10 @@ export class SingleProduct {
     window.dispatchEvent( new Event('storage') )
   }
   
-  private _removeProduct(id: string): void{
+  private _removeProduct(id: string): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
     let t = -1;
+
     if (cartLocal.length>0){
       cartLocal.forEach((e, i)=>{
         if(e.id === id){
@@ -84,10 +85,12 @@ export class SingleProduct {
         }
       })
     }
+
     if (t >= 0){
       cartLocal.splice(t,1);
       this._productAdded = false;
     }
+
     localStorage.setItem("SACart", JSON.stringify(cartLocal));
     window.dispatchEvent( new Event('storage') )
   }

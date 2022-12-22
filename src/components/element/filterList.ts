@@ -2,8 +2,8 @@
 import { elementGenerator } from "../controller/taggenerator";
 // import { SingleProduct } from "./singleproduct";  
 
-export class FilterList{
-  createFilterList():DocumentFragment {
+export class FilterList {
+  createFilterList(): DocumentFragment {
   const fragment = new DocumentFragment();
   const filterAside = elementGenerator.createHTMLElement('aside', {className: "filter_list"});
 
