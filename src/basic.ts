@@ -14,7 +14,7 @@ export interface IProduct {
   title: string,
   description: string,
   price: number,
-  discountPercentage: number,
+  discount: number,
   rating: number,
   stock: number,
   brand: string,
@@ -37,4 +37,7 @@ export interface IFilter {
   brand?: string;
   price?: string,
   stock?: string
+  sort?: string,
 }
+
+export enum SortType { DESC = 'DESC', ASC = 'ASC'}

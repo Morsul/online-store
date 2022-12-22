@@ -1,4 +1,4 @@
-import { ICatalog, IFilter, IProduct } from "../../basic";
+import { ICatalog, IFilter, IProduct, SortType } from "../../basic";
 
 class FilterProduct {
 
@@ -35,7 +35,25 @@ class FilterProduct {
         listFilter = listFilter.filter((value) => value.stock >= +priceFilter[0] && value.stock <= +priceFilter[1]);
       }
     }
+    if (listFilter) {
+      listFilter = this.getSortList(options, listFilter);
+    }
     return listFilter;
+  }
+
+  getSortList(options: IFilter, catalog: Array<IProduct>): Array<IProduct> {
+    if (options.sort) {
+      const sort = options.sort.split('-');
+      if (sort.length === 2) {
+        if (sort[1] === SortType.DESC) {
+          catalog.sort((a, b) => (+b[<keyof typeof b>sort[0]] - +a[<keyof typeof a>sort[0]]));
+        }
+        else if (sort[1] === SortType.ASC) {
+          catalog.sort((a, b) => (+a[<keyof typeof a>sort[0]] - +b[<keyof typeof b>sort[0]]));
+        }
+      }
+    }
+    return catalog;
   }
 
 }
