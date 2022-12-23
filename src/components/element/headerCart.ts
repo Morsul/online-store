@@ -9,8 +9,8 @@ export class HeaderCart {
   private _localStorage;
   constructor() {
     this._localStorage = new localStorageManager();
-    this._productCount = elementGenerator.createParagraph({className: 'cart__product_count', text: `${this._getInfo()[0]}`});
-    this._cartCost = elementGenerator.createParagraph({className: 'cart__product_price', text: `Cart cost: ${this._getInfo()[1]}`});
+    this._productCount = elementGenerator.createParagraph({className: 'cart__product-count', text: `${this._getInfo()[0]}`});
+    this._cartCost = elementGenerator.createParagraph({className: 'cart__product-price', text: `Cart cost: ${this._getInfo()[1]}`});
   }
 
   create() {
