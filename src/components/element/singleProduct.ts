@@ -24,7 +24,7 @@ export class SingleProduct {
     const productRating = elementGenerator.createParagraph({text: `Rating: ${item.rating} `});
     const productStock = elementGenerator.createParagraph({text: `Stock: ${item.stock} `});
     const productPrice = elementGenerator.createParagraph({text: `Price: ${item.price} `});
-    const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discountPercentage} %`});
+    const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discount} %`});
     
     const addToCart = elementGenerator.createParagraph({className: 'button add_to_cart',text: 'Add to cart'});
     const removeFromCart = elementGenerator.createParagraph({className: 'button remove_from_cart', text: 'Remove from cart'});
@@ -36,9 +36,9 @@ export class SingleProduct {
         this._removeProduct(item.id)
       } else if (e.target === addToCart){
         product.classList.toggle('in_cart');
-        this._addProduct({id: item.id, price: item.price, discountPercentage: item.discountPercentage});
+        this._addProduct({id: item.id, price: item.price, discount: item.discount});
       }else {
-        Router.getInstance().route(e, `/products/${item.id}`)
+        Router.getInstance().route(e, `/product/${item.id}`)
       }
     });
 
@@ -63,7 +63,7 @@ export class SingleProduct {
         id: arg.id,
         count: 1,
         price: arg.price,
-        discountPercentage: arg.discountPercentage
+        discount: arg.discount
       })
     }
 

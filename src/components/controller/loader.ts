@@ -1,5 +1,5 @@
-import { Callback, ICatalog, IProduct } from "../../basic";
-
+import { Callback } from "../../basic";
+import { IFilter } from "../../basic";
 class Loader {
 
   private _baseLink: string;
@@ -8,30 +8,22 @@ class Loader {
     this._baseLink = baseLink;
   }
 
-  getResp<typeResp extends ICatalog | IProduct>(options: string, callback: Callback<typeResp>): void {
-    this.load('GET', callback, options);
+  getResp<catalog>(options: IFilter, callback : Callback<catalog>): void {
+    const method = 'GET';
+    fetch(this._baseLink.toString(), { method })
+      .then(this.errorHandler)
+      .then((res: Response) => res.json())
+      .then((data: catalog) => callback(data, options))
+      .catch((err: Error) => console.error(err));
   }
 
   errorHandler(res: Response): Response {
     if (!res.ok) {
-        if (res.status === 401 || res.status === 404)
-            console.error(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-        throw Error(res.statusText);
+      if (res.status === 401 || res.status === 404)
+        console.error(`Sorry, but there is ${res.status} error: ${res.statusText}`);
+      throw Error(res.statusText);
     }
     return res;
-  }
-
-  makeUrl(options: string): string {
-    const url = `${this._baseLink}${options}`;
-    return url;
-  }
-
-  load<T extends ICatalog | IProduct>(method: string, callback: Callback<T>, options: string): void {
-    fetch(this.makeUrl(options), { method })
-            .then(this.errorHandler)
-            .then((res: Response) => res.json())
-            .then((data: T) => callback(data))
-            .catch((err: Error) => console.error(err));
   }
 }
 

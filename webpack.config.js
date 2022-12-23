@@ -17,7 +17,7 @@ const baseConfig = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|json)$/i,
         type: 'asset/resource',
       },
       {
@@ -27,7 +27,7 @@ const baseConfig = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './index.html' }),
