@@ -34,7 +34,7 @@ export class HeaderCart {
     let itemCount = 0.00;
     cartLocal.forEach(e=>{
       itemCount += e.count;
-      priceSumm += Math.round(e.count*(e.price*((100-e.discountPercentage))));
+      priceSumm += Math.round(e.count*(e.price*((100-e.discount))));
     });
     return [itemCount, priceSumm/100];
   }

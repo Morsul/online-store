@@ -1,35 +1,55 @@
-import { ICatalog, IProduct } from "../../basic";
+import { ICatalog, IFilter, IProduct } from "../../basic";
 import CardView from "./cart/cart";
 import CatalogView from "./catalog/catalog";
 import NotPageView from "./notPage/notPage";
 import ProductView from "./product/product";
+import FilterProducts from "../controller/filterProducts";
 
 class AppView {
   private _catalog: CatalogView;
   private _product: ProductView;
   private _card: CardView;
   private _notePage: NotPageView;
+  private _filter: FilterProducts;
 
   constructor () {
     this._catalog = new CatalogView();
     this._product = new ProductView();
     this._card = new CardView();
     this._notePage = new NotPageView();
+    this._filter = new FilterProducts();
   }
 
-  drawCatalog(data: ICatalog) {
+  drawCatalog(data: ICatalog, options?: IFilter): void {
+    let listProduct: Array<IProduct> | null;
+    if (options) {
+      listProduct = this._filter.getFilterList(options, data.products);
+      if (listProduct) {
+        this._catalog.draw(listProduct);
+      }
+      return;
+    }
     this._catalog.draw(data.products);
   }
 
-  drawProduct(data: IProduct) {
-    this._product.draw(data);
+  drawProduct(data: ICatalog, options?: IFilter) :void {
+    let product: IProduct | null;
+    if (options) {
+      product = this._filter.getSingleProduct(options, data);
+      if (product) {
+        this._product.draw(product);
+        return
+      }
+    }
+    this.drawNotPage();
   }
 
-  drawCart(data: ICatalog) {
+  drawCart(data: ICatalog, options?: IFilter): void {
+    console.log(options);
     this._card.draw(data.products);
   }
 
-  drawNotPage() {
+  drawNotPage(): void {
     this._notePage.draw();
   }
   

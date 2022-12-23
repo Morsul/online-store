@@ -33,13 +33,16 @@ class Router {
       }
     }
     if (getData) {
-      getData(path + window.location.search);
+      getData((path + window.location.search).replace('%20', ' ').replace('%2', '+'));
     }
   }
 
   route(event: Event, href: string): void {
     event = event || window.event;
     event.preventDefault();
+    if (href === window.location.pathname + window.location.search) {
+      return;
+    }
     history.pushState({route: href}, '', href);
     Router.getInstance().handleLocation();
   }
