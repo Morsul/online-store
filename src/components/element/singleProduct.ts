@@ -14,11 +14,11 @@ export class SingleProduct {
 
   createProduct(item: IProduct): HTMLDivElement {
     this._productAdded = this._localStorage.getLSCart().find((e)=>{return e.id === item.id}) === undefined ? false : true;
-    const className: string = this._productAdded ? "in_cart" : "";
+    const className: string = this._productAdded ? "in-cart" : "";
 
-    const product = elementGenerator.createDiv({className: `single_product ${className}`});
+    const product = elementGenerator.createDiv({className: `single-product ${className}`});
     const productImage = elementGenerator.createImg(item.thumbnail,{alt: item.title});
-    const prodInfoWrap = elementGenerator.createDiv({className: "single_product__info"});
+    const prodInfoWrap = elementGenerator.createDiv({className: "single-product__info"});
 
     const productTitle = elementGenerator.createParagraph({text: `Title: ${item.title}`});
     const productRating = elementGenerator.createParagraph({text: `Rating: ${item.rating} `});
@@ -26,16 +26,16 @@ export class SingleProduct {
     const productPrice = elementGenerator.createParagraph({text: `Price: ${item.price} `});
     const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discount} %`});
     
-    const addToCart = elementGenerator.createParagraph({className: 'button add_to_cart',text: 'Add to cart'});
-    const removeFromCart = elementGenerator.createParagraph({className: 'button remove_from_cart', text: 'Remove from cart'});
+    const addToCart = elementGenerator.createParagraph({className: 'button add-to-cart',text: 'Add to cart'});
+    const removeFromCart = elementGenerator.createParagraph({className: 'button remove-from-cart', text: 'Remove from cart'});
     const goToSingle = elementGenerator.createParagraph({className: 'button', text: 'View Product'});
     
     product.addEventListener('click', (e)=> {
       if (e.target === removeFromCart){
-        product.classList.toggle('in_cart');
+        product.classList.toggle('in-cart');
         this._removeProduct(item.id)
       } else if (e.target === addToCart){
-        product.classList.toggle('in_cart');
+        product.classList.toggle('in-cart');
         this._addProduct({id: item.id, price: item.price, discount: item.discount});
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)

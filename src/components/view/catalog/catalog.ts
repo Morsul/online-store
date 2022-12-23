@@ -2,7 +2,7 @@ import { IProduct, View } from "../../../basic";
 import { ProductList } from "../../element/productList";
 import { FilterList } from "../../element/filterList";
 
-import './index.css'
+import './index.scss'
 
 class CatalogView implements View {  
   draw(data: Array<IProduct>): void {  
