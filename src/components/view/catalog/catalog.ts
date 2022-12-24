@@ -2,7 +2,7 @@ import { IProduct, View } from "../../../basic";
 import { ProductList } from "../../element/productList";
 import { FilterList } from "../../element/filterList";
 
-import './index.css'
+import './index.scss'
 
 class CatalogView implements View {  
   draw(data: Array<IProduct>): void {  
@@ -10,7 +10,7 @@ class CatalogView implements View {
     const filterList = new FilterList();
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
-      productList.createProductList(data, 'product_list'),
+      productList.createProductList(data, 'product-list'),
       filterList.createFilterList(),
     );
   }
