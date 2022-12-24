@@ -3,9 +3,9 @@ import { elementGenerator } from "../controller/taggenerator";
 import { SingleProduct } from "./singleProduct";  
 
 export class ProductList {
-  createProductList(data: Array<IProduct>):DocumentFragment {
+  createProductList(data: Array<IProduct>, classBlock: string):DocumentFragment {
     const fragment = new DocumentFragment();
-    const mainArticle = elementGenerator.createHTMLElement('article', {className: "product_list"});
+    const mainArticle = elementGenerator.createHTMLElement('article', {className: classBlock});
 
     data.forEach((item) => {
       const product = new SingleProduct();

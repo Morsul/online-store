@@ -1,12 +1,15 @@
 import { IProduct, View } from "../../../basic";
-
-class Cart implements View {
+import { ProductList } from "../../element/productList";
+import { SummaryCart } from "../../element/summaryCart";
+import './index.css';
+export class Cart implements View {
   draw(data: Array<IProduct>): void {
-    const div:HTMLDivElement = document.createElement('div');
-    div.innerHTML = 'Cart' + data;
+    const productList = new ProductList();
+    const summaryCart = new SummaryCart();
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
-    (<HTMLElement>document.querySelector('.main')).appendChild(div);
+    (<HTMLElement>document.querySelector('.main')).append(
+      productList.createProductList(data, 'cart_list'),
+      summaryCart.createSummeryCart()
+    );
   }
 }
-
-export default Cart;
