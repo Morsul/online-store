@@ -3,6 +3,10 @@
   gap: 15px 3%;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  .single-product_number {
+    display: none;
+  }
 }
 
 .single-product {
@@ -49,6 +53,15 @@
     p {
       margin: 0 0px 5px;
     }
+  }
+  .product-title {
+    font-size: 1.2rem;
+  }
+  .cart_list-description {
+    display: none;
+  }
+  .product-count {
+    display: none;
   }
 }
 
