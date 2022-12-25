@@ -46,6 +46,12 @@ class Router {
     history.pushState({route: href}, '', href);
     Router.getInstance().handleLocation();
   }
+  routeDefault(href: string): void {
+    if (href !== window.location.pathname + window.location.search) {
+      history.pushState({route: href}, '', href);
+    }
+    Router.getInstance().handleLocation();
+  }
 
 }
 export default Router;

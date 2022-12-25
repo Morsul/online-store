@@ -10,7 +10,7 @@ class CatalogView implements View {
     const filterList = new FilterList();
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
-      productList.createProductList(data),
+      productList.createProductList(data, 'product-list', false),
       filterList.createFilterList(),
     );
   }

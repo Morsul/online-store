@@ -1,5 +1,5 @@
 import { ICatalog, IFilter, IProduct } from "../../basic";
-import CardView from "./cart/cart";
+import { Cart } from "./cart/cart";
 import CatalogView from "./catalog/catalog";
 import NotPageView from "./notPage/notPage";
 import ProductView from "./product/product";
@@ -8,14 +8,14 @@ import FilterProducts from "../controller/filterProducts";
 class AppView {
   private _catalog: CatalogView;
   private _product: ProductView;
-  private _card: CardView;
+  private _cart: Cart;
   private _notePage: NotPageView;
   private _filter: FilterProducts;
 
   constructor () {
     this._catalog = new CatalogView();
     this._product = new ProductView();
-    this._card = new CardView();
+    this._cart = new Cart();
     this._notePage = new NotPageView();
     this._filter = new FilterProducts();
   }
@@ -45,8 +45,7 @@ class AppView {
   }
 
   drawCart(data: ICatalog, options?: IFilter): void {
-    console.log(options);
-    this._card.draw(data.products);
+    this._cart.draw(this._filter.getCartList(data.products, options));
   }
 
   drawNotPage(): void {
