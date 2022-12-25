@@ -41,3 +41,13 @@ export enum SortType { DESC = 'DESC', ASC = 'ASC'}
 export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discount"> {
   count: number; 
 }
+
+export interface IFilterInfo{
+  brandFilter: string[];
+  categoryFilter: string[]
+}
+
+export interface ISaticData{
+  price: number[],
+  stock: number[]
+}

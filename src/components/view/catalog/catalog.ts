@@ -5,13 +5,13 @@ import { FilterList } from "../../element/filterList";
 import './index.scss'
 
 class CatalogView implements View {  
-  draw(data: Array<IProduct>): void {  
+  async draw(data: Array<IProduct>): Promise<void> {  
     const productList = new ProductList();
     const filterList = new FilterList();
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
       productList.createProductList(data),
-      filterList.createFilterList(),
+      await filterList.createFilterList(),
     );
   }
 }

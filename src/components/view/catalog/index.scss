@@ -53,6 +53,8 @@
 }
 
 .filter-list {
+  font-size: 16px;  
+
   input[type="checkbox"] {
     display: none;
 
@@ -70,23 +72,23 @@
   .filter-label__check-box {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 10px;
+    padding-left: 2em;
+    margin-bottom: 0.8em;
     cursor: pointer;
-    line-height: 20px;
-    font-size: 15px;
+    line-height: 1.3em;
+    font-size: 1em;
 
     &:before {
       content: "";
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 1em;
+      height: 1em;
       outline: 1px solid #343a3f;
       border: 2px solid transparent;
       border-radius: 0.2em;
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 1px;
+      top: 1px;
       -webkit-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out;
       background: rgba(136, 165, 191, 0.48);
@@ -94,9 +96,18 @@
       background: #f3f3f3;
     }
   }
+  & .filter-headline{
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0  0.5em;
+  }
+  &__container{
+    max-height: 21em;    
+    margin-bottom: 1em;    
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
-
-
 
 .filter_list .filter_label__check_box:hover {
   /* color: rgb(23, 86, 228); */
@@ -173,16 +184,16 @@ input[type=range] {
 }
 
 .filter__multi-range {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  .price{
+    margin: 40px 0 0;
+  }
   input[type=range] {
     position: absolute;
-  }
-}
-
-.filter__multi-range {
-  position: relative;
-  height: 50px;
-
-  input[type=range] {
 
     &:nth-child(1)::-webkit-slider-thumb::before {
       background-color: red;
@@ -204,6 +215,6 @@ article.product-list{
   flex: 0 0 75%;
 }
 
-aside.filter-list{
+aside.filter-wrap{
   flex: 0 0 20%;
 }
