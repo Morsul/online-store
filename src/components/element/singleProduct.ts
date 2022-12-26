@@ -2,7 +2,7 @@ import { IProduct } from "../../basic";
 import { elementGenerator } from "../controller/taggenerator";
 import Router from "../controller/router";
 import { ILocalStorageproduct, ISingleProductTag} from "../../basic";
-import { localStorageManager } from "../controller/localStorage";
+import { LocalStorageManager } from "../controller/localStorage";
 
 export class SingleProduct {
   private _productAdded: boolean ;
@@ -10,7 +10,7 @@ export class SingleProduct {
   private _isIncrease: boolean;
   constructor() {
     this._productAdded = false;
-    this._localStorage = new localStorageManager();
+    this._localStorage = new LocalStorageManager();
     this._isIncrease = false;
   }
 
@@ -19,7 +19,7 @@ export class SingleProduct {
       image: elementGenerator.createImg(item.thumbnail, {alt: item.title}),
 
       title: elementGenerator.createParagraph({text: `${item.title}`, className: 'product-title'}),
-      descriprion:  elementGenerator.createParagraph({text: `${item.description}`, className: 'cart_list-description'}),
+      description:  elementGenerator.createParagraph({text: `${item.description}`, className: 'cart_list-description'}),
       category: elementGenerator.createParagraph({text: `Category: ${item.category}`}),
       brand: elementGenerator.createParagraph({text: `Brand: ${item.brand}`}),
       rating: elementGenerator.createParagraph({text: `Rating: ${item.rating} `}),
@@ -59,7 +59,7 @@ export class SingleProduct {
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        this.addProduct({id: item.id, price: item.price, discount: item.discount})
+        this.addProduct(item);
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)
       }
@@ -70,7 +70,7 @@ export class SingleProduct {
       productCount.innerText = `${f ? f.count : '0'}`
     });
 
-    prodInfoWrap.append(tagList.title, tagList.descriprion, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
+    prodInfoWrap.append(tagList.title, tagList.description, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
 
     product.append(productNumber, tagList.image, prodInfoWrap)
     return product;
@@ -99,23 +99,23 @@ export class SingleProduct {
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        this.addProduct({id: item.id, price: item.price, discount: item.discount})
+        this.addProduct(item);
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)
       }
     });
 
-    prodInfoWrap.append(tagList.title, tagList.descriprion, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
+    prodInfoWrap.append(tagList.title, tagList.description, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
 
     product.append(tagList.image, prodInfoWrap)
     return product;
   }
 
-  private addProduct(arg: Omit<ILocalStorageproduct, "count">): void {
+  private addProduct(arg: IProduct): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
     if (this._productAdded) {
       cartLocal.forEach(e=> {
-        if(e.id === arg.id) {
+        if(e.id === arg.id && e.count < arg.stock) {
           e.count += 1;
         }
       });

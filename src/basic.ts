@@ -42,10 +42,15 @@ export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "d
   count: number; 
 }
 
+export interface IPromoCode {
+  id: string,
+  title: string,
+  discount: number
+}
 export interface ISingleProductTag{
   image: HTMLImageElement;
   title: HTMLParagraphElement;
-  descriprion: HTMLParagraphElement;
+  description: HTMLParagraphElement;
   category: HTMLParagraphElement;
   brand: HTMLParagraphElement;
   rating: HTMLParagraphElement;
