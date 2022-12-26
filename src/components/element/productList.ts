@@ -1,4 +1,4 @@
-import { IProduct } from "../../basic";
+import { IProduct } from "../../type";
 import { elementGenerator } from "../controller/taggenerator";
 import { SingleProduct } from "./singleProduct";  
 

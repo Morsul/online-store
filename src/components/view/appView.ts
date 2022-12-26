@@ -1,4 +1,4 @@
-import { ICatalog, IFilter, IProduct } from "../../basic";
+import { ICatalog, IFilter, IProduct } from "../../type";
 import { Cart } from "./cart/cart";
 import CatalogView from "./catalog/catalog";
 import NotPageView from "./notPage/notPage";

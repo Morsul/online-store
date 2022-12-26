@@ -1,4 +1,4 @@
-import { View } from "../../../basic";
+import { View } from "../../../type";
 
 class NotPage implements View {
   draw(): void {

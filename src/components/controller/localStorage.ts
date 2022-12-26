@@ -1,5 +1,5 @@
 
-import { ILocalStorageproduct, IPromoCode } from "../../basic";
+import { ILocalStorageproduct, IPromoCode } from "../../type";
 
 export class LocalStorageManager {
 

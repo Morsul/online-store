@@ -1,3 +1,5 @@
+$borderColor: rgba(136, 165, 191, 0.75);
+$shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 .product-list {
   display: flex;
   gap: 15px 3%;
@@ -14,14 +16,14 @@
   flex: 0 0 30%;
   display: flex;
   gap: 10px;
-  border: 1px solid rgba(136, 165, 191, 0.75);
-  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  border: 1px solid $borderColor;
+  box-shadow: $shadow;
   flex-direction: column;
   transition: all 0.2s;
 
   &:hover {
-    border: 1px solid rgba(136, 165, 191, 1);
-    box-shadow: rgba(136, 165, 191, 0.68) 6px 2px 16px 0px, rgba(255, 255, 255, 0.1) -6px -2px 16px 0px;
+    border: 1px solid $borderColor;
+    box-shadow: $shadow;
   }
 
   img {

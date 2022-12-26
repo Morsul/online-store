@@ -1,4 +1,4 @@
-import { Callback } from "../../basic";
+import { Callback } from "../../type";
 import Controller from "../controller/controller";
 import Router from "../controller/router";
 import AppView from "../view/appView";

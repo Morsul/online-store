@@ -1,3 +1,5 @@
+$borderColor: rgba(136, 165, 191, 0.75);
+$shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 .cart_list {
   display: block;
   flex: 0 0 74%;
@@ -11,7 +13,7 @@
       align-self: center;
     }
     .product-title {
-      border-bottom: 1px solid rgba(136, 165, 191, 0.75);
+      border-bottom: 1px solid $borderColor;
       line-height: 1.2rem;
     }
     &_number{
@@ -68,14 +70,14 @@
 }
 .summary-cart {
   flex: 0 0 24%;
-  border: 1px solid rgba(136, 165, 191, 0.75);
-  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  border: 1px solid $borderColor;
+  box-shadow: $shadow;
   align-self: flex-start;
   padding: 10px;
   text-align: center;
   .summary-cart_input {
-    border: 1px solid rgba(136, 165, 191, 0.75);
-    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    border: 1px solid $borderColor;
+    box-shadow: $shadow;
     width: 70%;
     padding: 5px;
   }
@@ -86,7 +88,7 @@
     margin: 1rem 0;
     &.summary-cart_title {
       font-size: 1.2rem;
-      border-bottom: 1px solid rgba(136, 165, 191, 0.75);
+      border-bottom: 1px solid $borderColor;
     }
   }
   .button-promo {
@@ -113,7 +115,7 @@
     }
   }
   .new-price {
-    border-bottom: 1px solid rgba(136, 165, 191, 0.75);
+    border-bottom: 1px solid $borderColor;
   }
 }
 
