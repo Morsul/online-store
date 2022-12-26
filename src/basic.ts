@@ -41,3 +41,9 @@ export enum SortType { DESC = 'DESC', ASC = 'ASC'}
 export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discount"> {
   count: number; 
 }
+
+export interface IPromoCode {
+  id: string,
+  title: string,
+  discount: number
+}

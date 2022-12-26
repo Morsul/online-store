@@ -1,5 +1,5 @@
 import { ICatalog, IFilter, IProduct, SortType } from "../../basic";
-import { localStorageManager } from "../controller/localStorage";
+import { LocalStorageManager } from "../controller/localStorage";
 
 class FilterProduct {
 
@@ -59,7 +59,7 @@ class FilterProduct {
 
   getCartList(catalog: Array<IProduct>, options?: IFilter): Array<IProduct> {
     const listFilter: Array<IProduct> = new Array<IProduct>();
-    const locStrg = (new localStorageManager()).getLSCart();
+    const locStrg = (new LocalStorageManager()).getLSCart();
     if (locStrg) {
       locStrg.forEach((value) => {
         const product = catalog.find((item) => item.id === value.id);
@@ -68,7 +68,7 @@ class FilterProduct {
         }
       });
     }
-    console.log(locStrg, options);
+    console.log(options);
     return listFilter;
   }
   

@@ -2,7 +2,7 @@ import { IProduct } from "../../basic";
 import { elementGenerator } from "../controller/taggenerator";
 import Router from "../controller/router";
 import { ILocalStorageproduct } from "../../basic";
-import { localStorageManager } from "../controller/localStorage";
+import { LocalStorageManager } from "../controller/localStorage";
 
 export class SingleProduct {
   private _productAdded: boolean ;
@@ -10,13 +10,13 @@ export class SingleProduct {
   private _isIncrease: boolean;
   constructor() {
     this._productAdded = false;
-    this._localStorage = new localStorageManager();
+    this._localStorage = new LocalStorageManager();
     this._isIncrease = false;
   }
 
   createProduct(item: IProduct, index: number, isIncrease: boolean): HTMLDivElement {
     this._isIncrease = isIncrease;
-    const cartLS = this._localStorage.getLSCart().find((e)=> e.id === item.id);
+    const cartLS: ILocalStorageproduct | undefined = this._localStorage.getLSCart().find((e: ILocalStorageproduct) => e.id === item.id);
     this._productAdded = cartLS ? true : false;
     const className: string = this._productAdded ? "in-cart" : "";
 
@@ -32,8 +32,7 @@ export class SingleProduct {
     const productRating = elementGenerator.createParagraph({text: `Rating: ${item.rating} `});
     const productStock = elementGenerator.createParagraph({text: `Stock: ${item.stock} `});
     const productPrice = elementGenerator.createParagraph({text: `Price: ${item.price} `, className: 'product-price'});
-    const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discount} %`});
-    
+    const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discount} %`}); 
     
     const addToCart = elementGenerator.createParagraph({className: 'button add-to-cart',text: this._isIncrease ? '+' : 'Add to cart'});
     const countLS = cartLS?.count;

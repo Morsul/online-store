@@ -6,6 +6,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0px;
 }
 
 footer {
@@ -54,8 +55,8 @@ main {
   display: flex;
   flex-wrap: wrap;
   max-width: 1280px;
-  width: 100vw;
+  width: calc(100vw - 2%);
   margin: 0 auto;
-  gap: 15px;
+  gap: 2%;
   justify-content: space-between;
 }

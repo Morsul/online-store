@@ -53,6 +53,15 @@ const createDiv = (options: Pick<IOptional, "className" | "id" | "text">): HTMLD
   return divTag;
 }
 
+const createSpan = (options: Pick<IOptional, "className" | "id" | "text">): HTMLSpanElement => {
+  const spanTag = document.createElement(`span`);
+  applySelector(spanTag, {className: options.className, id: options.id});
+  if(options.text){
+    spanTag.innerHTML = options.text;
+  }  
+  return spanTag;
+}
+
 const createParagraph = (options: Pick<IOptional, "className" | "id" | "text">): HTMLParagraphElement => {
   const paragraphTag = document.createElement(`p`);
   applySelector(paragraphTag, {className: options.className, id: options.id});
@@ -106,6 +115,7 @@ export const elementGenerator = {
   createImg,
   createLink,
   createDiv,
+  createSpan,
   createParagraph,
   createLabel,
   createInput,
