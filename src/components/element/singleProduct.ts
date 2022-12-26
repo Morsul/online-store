@@ -1,7 +1,7 @@
 import { IProduct } from "../../basic";
 import { elementGenerator } from "../controller/taggenerator";
 import Router from "../controller/router";
-import { ILocalStorageproduct } from "../../basic";
+import { ILocalStorageproduct, ISingleProductTag} from "../../basic";
 import { localStorageManager } from "../controller/localStorage";
 
 export class SingleProduct {
@@ -14,69 +14,113 @@ export class SingleProduct {
     this._isIncrease = false;
   }
 
-  createProduct(item: IProduct, index: number, isIncrease: boolean): HTMLDivElement {
+  private createProductTags=(item: IProduct, isIncrease?: boolean): ISingleProductTag =>{
+    const tagList: ISingleProductTag = {
+      image: elementGenerator.createImg(item.thumbnail, {alt: item.title}),
+
+      title: elementGenerator.createParagraph({text: `${item.title}`, className: 'product-title'}),
+      descriprion:  elementGenerator.createParagraph({text: `${item.description}`, className: 'cart_list-description'}),
+      category: elementGenerator.createParagraph({text: `Category: ${item.category}`}),
+      brand: elementGenerator.createParagraph({text: `Brand: ${item.brand}`}),
+      rating: elementGenerator.createParagraph({text: `Rating: ${item.rating} `}),
+      stock: elementGenerator.createParagraph({text: `Stock: ${item.stock} `}),
+      price: elementGenerator.createParagraph({text: `Price: ${item.price} `, className: 'product-price'}),
+      discount: elementGenerator.createParagraph({text: `Discount: ${item.discount} %`}),
+
+      addToCart: elementGenerator.createParagraph({className: 'button add-to-cart',text: isIncrease ? '+' : 'Add to cart'}),
+      removeFromCart: elementGenerator.createParagraph({className: 'button remove-from-cart', text: isIncrease ? '-' : 'Remove from cart'}),
+      goToSingle: elementGenerator.createParagraph({className: 'button button_view', text: 'View Product'}),
+    };    
+    return tagList;
+  }
+
+  createProductInCart(item: IProduct, index: number, isIncrease: boolean){
+    const tagList = this.createProductTags(item, isIncrease);
+    this._productAdded = true;
     this._isIncrease = isIncrease;
     const cartLS = this._localStorage.getLSCart().find((e)=> e.id === item.id);
-    this._productAdded = cartLS ? true : false;
-    const className: string = this._productAdded ? "in-cart" : "";
 
-    const product = elementGenerator.createDiv({className: `single-product ${className}`});
-    const productNumber = elementGenerator.createDiv({text: index.toString(),className: 'single-product_number'});
-    const productImage = elementGenerator.createImg(item.thumbnail, {alt: item.title});
+    const product = elementGenerator.createDiv({className: `single-product in-cart`});
     const prodInfoWrap = elementGenerator.createDiv({className: "single-product__info"});
+    const productNumber = elementGenerator.createDiv({text: index.toString(), className: 'single-product_number'});
 
-    const productTitle = elementGenerator.createParagraph({text: `${item.title}`, className: 'product-title'});
-    const productDescription = elementGenerator.createParagraph({text: `${item.description}`, className: 'cart_list-description'});
-    const productCategory = elementGenerator.createParagraph({text: `Category: ${item.category}`});
-    const productBrand = elementGenerator.createParagraph({text: `Brand: ${item.brand}`});
-    const productRating = elementGenerator.createParagraph({text: `Rating: ${item.rating} `});
-    const productStock = elementGenerator.createParagraph({text: `Stock: ${item.stock} `});
-    const productPrice = elementGenerator.createParagraph({text: `Price: ${item.price} `, className: 'product-price'});
-    const productDiscount = elementGenerator.createParagraph({text: `Discount: ${item.discount} %`});
-    
-    
-    const addToCart = elementGenerator.createParagraph({className: 'button add-to-cart',text: this._isIncrease ? '+' : 'Add to cart'});
-    const countLS = cartLS?.count;
-    const productCount = elementGenerator.createParagraph({text: `${countLS ? countLS : 0}`, className: 'product-count'});
-    const removeFromCart = elementGenerator.createParagraph({className: 'button remove-from-cart', text: this._isIncrease ? '-' : 'Remove from cart'});
     const blockAddRemove = elementGenerator.createDiv({className: 'block-add-remove'});
-    blockAddRemove.append(addToCart, productCount, removeFromCart);
-    const goToSingle = elementGenerator.createParagraph({className: 'button button_view', text: 'View Product'});
+    const productCount = elementGenerator.createParagraph({text: `${cartLS ? cartLS.count: 0}` ,className: 'product-count'});
+
+    blockAddRemove.append(tagList.addToCart, productCount, tagList.removeFromCart); 
     
     product.addEventListener('click', (e)=> {
-      if (e.target === removeFromCart){
+      if (e.target === tagList.removeFromCart){
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        productCount.innerHTML = this.removeProduct(item.id).toString();
-      } else if (e.target === addToCart){
+        this.removeProduct(item.id)
+      } else if (e.target === tagList.addToCart){
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        productCount.innerHTML = this.addProduct({id: item.id, price: item.price, discount: item.discount}).toString();
+        this.addProduct({id: item.id, price: item.price, discount: item.discount})
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)
       }
     });
 
-    prodInfoWrap.append(productTitle, productDescription, productCategory, productBrand, productRating, productStock, productPrice, productDiscount, blockAddRemove, goToSingle);
+    window.addEventListener('storage', ()=> { // todo multiple calls ?!
+      const f = this._localStorage.getLSCart().find((e)=> e.id === item.id)
+      productCount.innerText = `${f ? f.count : '0'}`
+    });
 
-    product.append(productNumber, productImage, prodInfoWrap)
+    prodInfoWrap.append(tagList.title, tagList.descriprion, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
+
+    product.append(productNumber, tagList.image, prodInfoWrap)
     return product;
   }
 
-  private addProduct(arg: Omit<ILocalStorageproduct, "count">): number {
+  createProduct(item: IProduct): HTMLDivElement {
+    const tagList = this.createProductTags(item);
+    const cartLS = this._localStorage.getLSCart().find((e)=> e.id === item.id);
+    this._productAdded = cartLS ? true : false;
+    const className: string = this._productAdded ? "in-cart" : "";
+
+    const product = elementGenerator.createDiv({className: `single-product ${className}`});
+    const prodInfoWrap = elementGenerator.createDiv({className: "single-product__info"});
+
+    const blockAddRemove = elementGenerator.createDiv({className: 'block-add-remove'});
+    blockAddRemove.append(tagList.addToCart, tagList.removeFromCart);
+
+    
+    product.addEventListener('click', (e)=> {
+      if (e.target === tagList.removeFromCart){
+        if (!this._isIncrease) {
+          product.classList.toggle('in-cart');
+        }
+        this.removeProduct(item.id)
+      } else if (e.target === tagList.addToCart){
+        if (!this._isIncrease) {
+          product.classList.toggle('in-cart');
+        }
+        this.addProduct({id: item.id, price: item.price, discount: item.discount})
+      }else {
+        Router.getInstance().route(e, `/product/${item.id}`)
+      }
+    });
+
+    prodInfoWrap.append(tagList.title, tagList.descriprion, tagList.category, tagList.brand, tagList.rating, tagList.stock, tagList.price, tagList.discount, blockAddRemove, tagList.goToSingle);
+
+    product.append(tagList.image, prodInfoWrap)
+    return product;
+  }
+
+  private addProduct(arg: Omit<ILocalStorageproduct, "count">): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
-    let countProduct = 0;
     if (this._productAdded) {
       cartLocal.forEach(e=> {
         if(e.id === arg.id) {
           e.count += 1;
-          countProduct = e.count;
         }
       });
     } else {
-      countProduct = 1;
+      // countProduct = 1;
       cartLocal.push({
         id: arg.id,
         count: 1,
@@ -87,13 +131,11 @@ export class SingleProduct {
 
     localStorage.setItem("SACart", JSON.stringify(cartLocal));
     window.dispatchEvent( new Event('storage') );
-    return countProduct;
   }
   
-  private removeProduct(id: string): number {
+  private removeProduct(id: string): void { //todo remove return
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
     let t = -1;
-    let countProduct = 1;
 
     if (cartLocal.length > 0) {
       cartLocal.forEach((e, i) => {
@@ -102,7 +144,6 @@ export class SingleProduct {
           if (!this._isIncrease) {
             e.count = 0;
           }
-          countProduct = e.count;
         }
         if(e.count <= 0) {
           t = i;
@@ -120,7 +161,6 @@ export class SingleProduct {
     if (!this._productAdded && this._isIncrease) {
       Router.getInstance().routeDefault(`/cart`);
     }
-    return countProduct;
   }
 
 }
