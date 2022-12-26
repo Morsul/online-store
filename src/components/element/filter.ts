@@ -22,55 +22,65 @@ export class CheckboxFilter{
 }
 
 export class DoubleSliderFilter{
-    private upperSlider: HTMLInputElement;
-    private lowerSlider: HTMLInputElement;
-    private lowerText: HTMLParagraphElement;
-    private upperText: HTMLParagraphElement;
-    private lowerVal: number;
-    private upperVal: number;
+    private _upperSlider: HTMLInputElement;
+    private _lowerSlider: HTMLInputElement;
+    private _lowerText: HTMLParagraphElement;
+    private _upperText: HTMLParagraphElement;
+    private _lowerVal: number;
+    private _upperVal: number;
+    private _groupName: string;
+    private _filterControler: FilterControler;
     constructor(aLowerVal: string, aUpperVal: string, groupName: string){
-      this.upperSlider = elementGenerator.createInput('range', {id: `upper-${groupName}`, min: aLowerVal, max: aUpperVal, value: aUpperVal});
-      this.lowerSlider = elementGenerator.createInput('range', {id: `lower-${groupName}`, min: aLowerVal, max: aUpperVal, value: aLowerVal});
-      this.lowerText = elementGenerator.createParagraph({text: aLowerVal, className: 'price price_min'});
-      this.upperText = elementGenerator.createParagraph({text: aUpperVal, className: 'price price_max'});
-      this.lowerVal = parseInt(aLowerVal);
-      this.upperVal = parseInt(aUpperVal);
-      this.upperSlider.addEventListener("input", this.onUpperChange);
-      this.lowerSlider.addEventListener("input", this.onLowerChange);
+      this._upperSlider = elementGenerator.createInput('range', {id: `upper-${groupName}`, min: aLowerVal, max: aUpperVal, value: aUpperVal});
+      this._lowerSlider = elementGenerator.createInput('range', {id: `lower-${groupName}`, min: aLowerVal, max: aUpperVal, value: aLowerVal});
+      this._lowerText = elementGenerator.createParagraph({text: aLowerVal, className: 'price price_min'});
+      this._upperText = elementGenerator.createParagraph({text: aUpperVal, className: 'price price_max'});
+      this._lowerVal = parseInt(aLowerVal);
+      this._upperVal = parseInt(aUpperVal);
+      this._upperSlider.addEventListener("input", this.onUpperChange);
+      this._lowerSlider.addEventListener("input", this.onLowerChange);
+      this._groupName = groupName;
+      this._filterControler = new FilterControler();
     }
     
     private onUpperChange=():void=>{
-      this.lowerVal = parseInt(this.lowerSlider.value);
-      this.upperVal = parseInt(this.upperSlider.value);    
-      this.upperText.innerText = this.upperSlider.value   
-        if (this.upperVal < this.lowerVal + 1) {
-          this.lowerSlider.value = String(this.upperVal );
-          this.lowerText.innerText = String(this.upperVal );
-          if (this.lowerVal == parseInt(this.lowerSlider.min)) {
-            this.upperSlider.value = String(1);
-            this.upperText.innerText = String(1);
+      this._lowerVal = parseInt(this._lowerSlider.value);
+      this._upperVal = parseInt(this._upperSlider.value);    
+      this._upperText.innerText = this._upperSlider.value   
+        if (this._upperVal < this._lowerVal + 1) {
+          this._lowerSlider.value = String(this._upperVal );
+          this._lowerText.innerText = String(this._upperVal );
+          if (this._lowerVal == parseInt(this._lowerSlider.min)) {
+            this._upperSlider.value = String(1);
+            this._upperText.innerText = String(1);
           }
         }
+      this.setFilter();
     };
   
     private onLowerChange=():void=>{
-      this.lowerVal = parseInt(this.lowerSlider.value);
-      this.upperVal = parseInt(this.upperSlider.value); 
-      this.lowerText.innerText = this.lowerSlider.value;
-        if (this.lowerVal > this.upperVal - 1) {
-          this.upperSlider.value = String(this.lowerVal );
-          this.upperText.innerText = String(this.lowerVal );
+      this._lowerVal = parseInt(this._lowerSlider.value);
+      this._upperVal = parseInt(this._upperSlider.value); 
+      this._lowerText.innerText = this._lowerSlider.value;
+        if (this._lowerVal > this._upperVal - 1) {
+          this._upperSlider.value = String(this._lowerVal );
+          this._upperText.innerText = String(this._lowerVal );
 
-          if (this.upperVal == parseInt(this.upperSlider.max)) {
-            this.lowerSlider.value = String(parseInt(this.upperSlider.max) );
-            this.lowerText.innerText = String(parseInt(this.upperSlider.max) );
+          if (this._upperVal == parseInt(this._upperSlider.max)) {
+            this._lowerSlider.value = String(parseInt(this._upperSlider.max) );
+            this._lowerText.innerText = String(parseInt(this._upperSlider.max) );
           }    
         }
+      this.setFilter(); 
     };
+
+    private setFilter(): void{
+      this._filterControler.addRangeFilter(this._groupName, `${this._lowerVal}`,`${this._upperVal}`);
+    }
 
     getElements(){
       const sliderWrap = elementGenerator.createDiv({className: 'filter filter__multi-range'});
-      sliderWrap.append(this.lowerSlider, this.upperSlider, this.lowerText, this.upperText);
+      sliderWrap.append(this._lowerSlider, this._upperSlider, this._lowerText, this._upperText);
       return sliderWrap;
     }
 
