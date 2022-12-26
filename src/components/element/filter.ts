@@ -3,11 +3,13 @@ import { FilterControler } from '../controller/filterController'
 
 
 export class CheckboxFilter{
-  createCheckboxFiled(group: string, number: number, wrapName: string, labelText: string): HTMLDivElement{
+
+  createCheckboxFiled(group: string, number: number, wrapName: string, labelText: string, isChecked: boolean): HTMLDivElement{
     const filterControler = new FilterControler();
-    const checkboxInput = elementGenerator.createInput('checkbox', {id: `${group}${number}`});
+    const checkboxInput = elementGenerator.createInput('checkbox', {id: `${group}${number}`, checked: isChecked});
     const checkboxLabel = elementGenerator.createLabel({for: `${group}${number}`, className: "filter-label__check-box", text: labelText});
     const groupWrap = elementGenerator.createDiv({className: `${wrapName}`});
+    checkboxInput
     checkboxInput.addEventListener('change',()=>{
       if(checkboxInput.checked){
         filterControler.addFilter(group, labelText);

@@ -2,38 +2,31 @@ import { CheckboxFilter, DoubleSliderFilter } from "./filter";
 import { elementGenerator } from "../controller/taggenerator";
 import dataFilterList = require('../assets/data/filterCategories.json');
 import dataProductList = require('../assets/data/products.json');
-import { IFilterInfo, ICatalog, ISaticData} from "../../basic";
+import { IFilterInfo, ICatalog, ISaticData, IFilter} from "../../basic";
  
 
 export class FilterList {
 
-  async createFilterList(): Promise<DocumentFragment> {
+  async createFilterList(options?: IFilter): Promise<DocumentFragment> {
     const fragment = new DocumentFragment();
 
     const filterData: IFilterInfo = await this.getFilterData();
 
     const filtersWrap = elementGenerator.createHTMLElement('aside', {className: "filter-wrap"});
 
-    const filterBrand = elementGenerator.createDiv({className: "filter-list"});
-    const filterBrandContainer = elementGenerator.createDiv({className: "filter-list__container"});
-    const categoryHeadline = elementGenerator.createParagraph({text: 'Brand', className: "filter-headline"});
-    
-    filterData.brandFilter.forEach((e: string, i: number)=>{
-      const filterSet = new CheckboxFilter();
-      filterBrandContainer.append(filterSet.createCheckboxFiled('brand', i, 'filter', `${e}`));
-    });
+    const brandUrlFilter: string[] = options?.brand ? options.brand.split('|') : [''];
 
-    filterBrand.append(categoryHeadline, filterBrandContainer);
+    const filterBrand = elementGenerator.createDiv({className: "filter-list"});
+    const categoryHeadline = elementGenerator.createParagraph({text: 'Brand', className: "filter-headline"});
+
+    filterBrand.append(categoryHeadline,  this.generateFilters(filterData.brandFilter, 'brand', brandUrlFilter));
 
     const filterCategoty = elementGenerator.createDiv({className: "filter-list"});
-    const filterCategotyContainer = elementGenerator.createDiv({className: "filter-list__container"});
     const brandHeadline = elementGenerator.createParagraph({text: 'Categories', className: "filter-headline"});
 
-    filterData.categoryFilter.forEach((e: string, i: number)=>{
-      const filterSet = new CheckboxFilter();
-      filterCategotyContainer.append(filterSet.createCheckboxFiled('category', i, 'filter', `${e}`));
-    });
-    filterCategoty.append(brandHeadline, filterCategotyContainer);
+    const categoryUrlFilter: string[] = options?.category ? options.category.split('|') : [''];  
+
+    filterCategoty.append(brandHeadline, this.generateFilters(filterData.categoryFilter, 'category', categoryUrlFilter));
 
 
     const staticData: ISaticData = await this.getStatistic();
@@ -92,5 +85,16 @@ export class FilterList {
     });
 
     return staticData;
+  }
+  private generateFilters(data: string[], group: string, filterList: string[]): HTMLDivElement{
+    const filterCategotyContainer = elementGenerator.createDiv({className: "filter-list__container"});
+
+    data.forEach((e: string, i: number)=>{
+      const filterSet = new CheckboxFilter();
+      const isChecked = filterList.includes(e.toLowerCase());
+      filterCategotyContainer.append(filterSet.createCheckboxFiled(`${group}`, i, 'filter', `${e}`, isChecked));
+    });
+
+    return filterCategotyContainer;
   }
 }

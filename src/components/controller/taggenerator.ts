@@ -13,6 +13,7 @@ interface IInputOptions extends Omit<IOptional, "for" | "alt"> {
   step?: string;
   value?: string;
   disabled?: string;
+  checked?: boolean;
 }
 
 const applySelector = (element: HTMLElement, options: Pick<IOptional, "className" | "id">): void => {
@@ -80,6 +81,9 @@ const createInput = (type: string, options: IInputOptions):HTMLInputElement => {
   applySelector(input, {className: options.className, id: options.id});
   if(options.disabled){
     input.setAttribute('disabled', options.disabled);
+  }
+  if(options.checked){
+    input.checked = options.checked;
   }
   if(options.placeholder){
     input.setAttribute('placeholder', options.placeholder);
