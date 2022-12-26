@@ -8,7 +8,7 @@ export class Cart implements View {
     const summaryCart = new SummaryCart();
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
-      productList.createProductList(data, 'cart_list', true),
+      productList.createCartProductList(data, 'cart_list', true),
       summaryCart.createSummeryCart()
     );
   }

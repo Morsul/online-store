@@ -41,3 +41,18 @@ export enum SortType { DESC = 'DESC', ASC = 'ASC'}
 export interface ILocalStorageproduct extends Pick<IProduct, "id" | "price" | "discount"> {
   count: number; 
 }
+
+export interface ISingleProductTag{
+  image: HTMLImageElement;
+  title: HTMLParagraphElement;
+  descriprion: HTMLParagraphElement;
+  category: HTMLParagraphElement;
+  brand: HTMLParagraphElement;
+  rating: HTMLParagraphElement;
+  stock: HTMLParagraphElement;
+  price: HTMLParagraphElement;
+  discount: HTMLParagraphElement;
+  addToCart: HTMLParagraphElement;
+  removeFromCart: HTMLParagraphElement;
+  goToSingle: HTMLParagraphElement;
+}
