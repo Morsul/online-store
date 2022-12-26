@@ -1,5 +1,5 @@
-import { Callback } from "../../basic";
-import { IFilter } from "../../basic";
+import { Callback } from "../../type";
+import { IFilter } from "../../type";
 class Loader {
 
   private _baseLink: string;

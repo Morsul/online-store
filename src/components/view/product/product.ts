@@ -1,4 +1,4 @@
-import { IProduct, View } from "../../../basic";
+import { IProduct, View } from "../../../type";
 
 class Product implements View {
   draw(data: IProduct): void {

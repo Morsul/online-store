@@ -1,7 +1,7 @@
-import { IProduct, View } from "../../../basic";
+import { IProduct, View } from "../../../type";
 import { ProductList } from "../../element/productList";
 import { SummaryCart } from "../../element/summaryCart";
-import './index.scss';
+import './cart.scss';
 export class Cart implements View {
   draw(data: Array<IProduct>): void {
     const productList = new ProductList();

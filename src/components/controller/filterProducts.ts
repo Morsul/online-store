@@ -1,4 +1,4 @@
-import { ICatalog, IFilter, IProduct, SortType } from "../../basic";
+import { ICatalog, IFilter, IProduct, SortType } from "../../type";
 import { LocalStorageManager } from "../controller/localStorage";
 
 class FilterProduct {

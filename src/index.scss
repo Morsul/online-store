@@ -32,7 +32,7 @@ header {
     flex-direction: column;
   
     &__product-count {
-      background-image: url("../assets/svg/truck-ultrathin-transport-svgrepo-com.svg");
+      background-image: url("./components/assets/svg/truck-ultrathin-transport-svgrepo-com.svg");
       background-size: 60px 60px;
       background-position: 0 10px;
       background-repeat: no-repeat;
@@ -42,11 +42,21 @@ header {
       width: 60px;
       padding: 29px 21px 0 0;
       margin: 0 0 10px auto;
+      transform: scale(1);
+      transition: all 0.5s;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        transition: all 0.5s;
+      }
     }
   
     &__product-price {
       margin: 0;
     }
+  }
+  .home {
+    cursor: pointer;
   }
 }
 

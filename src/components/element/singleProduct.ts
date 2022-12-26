@@ -1,7 +1,7 @@
-import { IProduct } from "../../basic";
+import { IProduct } from "../../type";
 import { elementGenerator } from "../controller/taggenerator";
 import Router from "../controller/router";
-import { ILocalStorageproduct, ISingleProductTag} from "../../basic";
+import { ILocalStorageproduct, ISingleProductTag} from "../../type";
 import { LocalStorageManager } from "../controller/localStorage";
 
 export class SingleProduct {

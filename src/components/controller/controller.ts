@@ -1,4 +1,4 @@
-import { Callback, ICatalog, IFilter } from "../../basic";
+import { Callback, ICatalog, IFilter } from "../../type";
 import Loader from "./loader";
 import jsonFile from '../assets/data/products.json';
 

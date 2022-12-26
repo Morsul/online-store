@@ -1,4 +1,4 @@
-import { Callback } from "../../basic";
+import { Callback } from "../../type";
 
 class Router {
   private static instance: Router;
@@ -33,7 +33,7 @@ class Router {
       }
     }
     if (getData) {
-      getData((path + window.location.search).replace('%20', ' ').replace('%2', '+'));
+      getData(decodeURI(path + window.location.search));
     }
   }
 

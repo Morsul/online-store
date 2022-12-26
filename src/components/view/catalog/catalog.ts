@@ -1,8 +1,8 @@
-import { IProduct, View } from "../../../basic";
+import { IProduct, View } from "../../../type";
 import { ProductList } from "../../element/productList";
 import { FilterList } from "../../element/filterList";
 
-import './index.scss'
+import './catalog.scss'
 
 class CatalogView implements View {  
   draw(data: Array<IProduct>): void {  
