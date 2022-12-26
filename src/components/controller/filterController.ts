@@ -3,7 +3,7 @@ import Router from "./router";
 export class FilterControler{
   addFilter(type: string, value: string): void {
     let href = '';
-    value = value.toUpperCase();
+    value = value.toLowerCase();
     const locationQuery = window.location.search;
     if (!locationQuery) {
       href = `?${type}=${value}`;
