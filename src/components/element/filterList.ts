@@ -3,11 +3,13 @@ import { elementGenerator } from "../controller/taggenerator";
 import dataFilterList = require('../assets/data/filterCategories.json');
 import dataProductList = require('../assets/data/products.json');
 import { IFilterInfo, ICatalog, ISaticData, IFilter} from "../../basic";
+import { FilterControler } from "../controller/filterController";
  
 
 export class FilterList {
 
   async createFilterList(options?: IFilter): Promise<DocumentFragment> {
+    const filterControler = new FilterControler();
     const fragment = new DocumentFragment();
 
     const filterData: IFilterInfo = await this.getFilterData();
@@ -40,7 +42,11 @@ export class FilterList {
     const stockSliderFilter = new DoubleSliderFilter(String(staticData.stock[0]), String(staticData.stock[1]), 'stock')
     stockSlider.append(stockSliderHeadline, stockSliderFilter.getElements());
 
-    filtersWrap.append(filterBrand, filterCategoty, priceSlider, stockSlider)
+    const ressetButton = elementGenerator.createParagraph({text: 'Reset Filters', className: 'button'})
+
+    ressetButton.addEventListener('click',()=>filterControler.setDefaultFilter());
+    
+    filtersWrap.append(ressetButton, filterBrand, filterCategoty, priceSlider, stockSlider)
     fragment.append(filtersWrap);
 
     

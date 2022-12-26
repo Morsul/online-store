@@ -54,4 +54,8 @@ export class FilterControler{
     }
     Router.getInstance().routeDefault(href);
   }
+
+  setDefaultFilter(){
+    Router.getInstance().routeDefault(window.location.origin);
+  }
 }
