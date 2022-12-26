@@ -59,7 +59,7 @@ export class SingleProduct {
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        this.addProduct({id: item.id, price: item.price, discount: item.discount})
+        this.addProduct(item);
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)
       }
@@ -99,7 +99,7 @@ export class SingleProduct {
         if (!this._isIncrease) {
           product.classList.toggle('in-cart');
         }
-        this.addProduct({id: item.id, price: item.price, discount: item.discount})
+        this.addProduct(item);
       }else {
         Router.getInstance().route(e, `/product/${item.id}`)
       }
@@ -111,11 +111,11 @@ export class SingleProduct {
     return product;
   }
 
-  private addProduct(arg: Omit<ILocalStorageproduct, "count">): void {
+  private addProduct(arg: IProduct): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
     if (this._productAdded) {
       cartLocal.forEach(e=> {
-        if(e.id === arg.id) {
+        if(e.id === arg.id && e.count < arg.stock) {
           e.count += 1;
         }
       });
