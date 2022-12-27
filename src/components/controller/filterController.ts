@@ -1,10 +1,10 @@
 import Router from "./router";
 
 export class FilterControler{
-  addFilter(type: string, value: string): void {
+  addFilter(type: string, value: string, singleFilter?: boolean | undefined): void {
     let href = '';
     value = value.toLowerCase();
-    const locationQuery = window.location.search;
+    const locationQuery = decodeURI(window.location.search);
     if (!locationQuery) {
       href = `?${type}=${value}`;
     }
@@ -14,7 +14,14 @@ export class FilterControler{
     else {
       const categoryArr = locationQuery.split(type);
       const valueArr = categoryArr[1].split('&');
-      const newStr = `${valueArr[0]}|${value}`;
+      let newStr: string;
+
+      if (!singleFilter){
+         newStr = `${valueArr[0]}|${value}`;
+      } else {
+        newStr = `=${value}`;
+      }
+      
       valueArr.shift();
       href = categoryArr[0] + type + newStr + (valueArr.length ? '&' + valueArr.join('&') : '');
     }
@@ -23,13 +30,14 @@ export class FilterControler{
 
   removeFilter(type: string, value: string): void {
     let href = '';
-    const locationQuery: string = window.location.search.replace('%20', ' ');
+    const locationQuery: string = decodeURI(window.location.search);
     value = value.toLowerCase();
     const categoryArr = locationQuery.split(type);
     const valueArr = categoryArr[1].split('&');
     const newStr = valueArr[0].replace('|' + value, '').replace(value + '|', '').replace(value, '');
+    
     valueArr.shift();
-    if(newStr === '=') {
+    if(newStr === '=' || value === '*') {
       href = categoryArr[0].slice(0, -1) + (valueArr.length ? '&' + valueArr.join('&') : '');
     }
     else {

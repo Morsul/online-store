@@ -76,17 +76,24 @@ export class FilterList {
       stock: [1,1]
     }
 
-    overalData.products.forEach(element => {
-      if(element.price < staticData.price[0]){
-        staticData.price[0] = element.price
-      } else if(element.price > staticData.price[1]){
-        staticData.price[1] = element.price
-      }
-
-      if(element.stock < staticData.stock[0]){
-        staticData.stock[0] = element.stock
-      } else if(element.stock > staticData.stock[1]){
-        staticData.stock[1] = element.stock
+    overalData.products.forEach((element, index) => {
+      if (index === 0){
+        staticData.price[0] = element.price;
+        staticData.price[1] = element.price;
+        staticData.stock[0] = element.stock;
+        staticData.stock[1] = element.stock;
+      } else {
+        if(element.price < staticData.price[0]){
+          staticData.price[0] = element.price
+        } else if(element.price > staticData.price[1]){
+          staticData.price[1] = element.price
+        }
+  
+        if(element.stock < staticData.stock[0]){
+          staticData.stock[0] = element.stock
+        } else if(element.stock > staticData.stock[1]){
+          staticData.stock[1] = element.stock
+        }
       }
     });
 
