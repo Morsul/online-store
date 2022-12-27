@@ -71,6 +71,16 @@ const createParagraph = (options: Pick<IOptional, "className" | "id" | "text">):
   return paragraphTag;
 }
 
+const createHeading = (name: string, options: Pick<IOptional, "className" | "id" | "text">): HTMLHeadingElement => {
+  //const name = 'h2'
+  const paragraphTag = <HTMLHeadingElement>document.createElement(name);
+  applySelector(paragraphTag, {className: options.className, id: options.id});
+  if(options.text){
+    paragraphTag.innerHTML = options.text;
+  }  
+  return paragraphTag;
+}
+
 const createLabel = (options: Pick<IOptional, "className" | "id" | "text" | "for">): HTMLLabelElement => {
   const labelTag = document.createElement(`label`); 
   applySelector(labelTag, {className: options.className, id: options.id});
@@ -120,4 +130,5 @@ export const elementGenerator = {
   createLabel,
   createInput,
   createHTMLElement,
+  createHeading,
 }

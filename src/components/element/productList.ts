@@ -21,7 +21,7 @@ export class ProductList {
 
   createCartProductList(data: Array<IProduct>): DocumentFragment {
     const fragment = new DocumentFragment();
-    const mainArticle = elementGenerator.createHTMLElement('article', {className: 'cart_list'});
+    const mainArticle = elementGenerator.createHTMLElement('article', {className: ''});
 
     data.forEach((item, index) => {
       const product = new SingleProductCart(item, true);

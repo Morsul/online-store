@@ -34,6 +34,8 @@ export interface IFilter {
   price?: string,
   stock?: string
   sort?: string,
+  page?: string,
+  limit?: string,
 }
 
 export enum SortType { DESC = 'DESC', ASC = 'ASC'}
