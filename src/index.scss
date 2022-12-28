@@ -6,7 +6,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0px;
+  margin: 0;
 }
 
 footer {
@@ -20,6 +20,9 @@ footer {
 }
 
 header {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,;
+  border-radius: 0 0 50px 50px;
+  margin-bottom: 50px;
   .header__container {
     display: flex;
     justify-content: space-between;
@@ -44,13 +47,13 @@ header {
       margin: 0 0 10px auto;
       transform: scale(1);
       transition: all 0.5s;
+      cursor: pointer;
       &:hover {
-        cursor: pointer;
         transform: scale(1.1);
-        transition: all 0.5s;
       }
+      
     }
-  
+ 
     &__product-price {
       margin: 0;
     }

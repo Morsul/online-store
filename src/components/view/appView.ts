@@ -23,9 +23,10 @@ class AppView {
   drawCatalog(data: ICatalog, options?: IFilter): void {
     let listProduct: Array<IProduct> | null;
     if (options) {
+      console.log(options)
       listProduct = this._filter.getFilterList(options, data.products);
       if (listProduct) {
-        this._catalog.draw(listProduct);
+        this._catalog.draw(listProduct, options);
       }
       return;
     }

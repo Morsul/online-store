@@ -31,9 +31,15 @@ class FilterProduct {
       }
     }
     if (options.stock) {
-      const priceFilter: Array<string> = options.stock.split('|');
-      if(priceFilter) {
-        listFilter = listFilter.filter((value) => value.stock >= +priceFilter[0] && value.stock <= +priceFilter[1]);
+      const stockFilter: Array<string> = options.stock.split('|');
+      if(stockFilter) {
+        listFilter = listFilter.filter((value) => value.stock >= +stockFilter[0] && value.stock <= +stockFilter[1]);
+      }
+    }
+    if (options.allsearch) {
+      const allSearch: string = options.allsearch;
+      if(allSearch) {
+        listFilter = listFilter.filter((value) => value.category.toLocaleLowerCase().includes(allSearch) || value.brand.toLocaleLowerCase().includes(allSearch));
       }
     }
     if (listFilter) {
