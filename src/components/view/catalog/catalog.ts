@@ -3,7 +3,7 @@ import { ProductList } from "../../element/productList";
 import { FilterList } from "../../element/filterList";
 import { ProductsHeadline } from "../../element/productListHeader";
 
-import './index.scss'
+import './catalog.scss'
 
 class CatalogView implements View {  
   private _productList: ProductList;
