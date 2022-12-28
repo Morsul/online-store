@@ -34,6 +34,7 @@ export interface IFilter {
   price?: string,
   stock?: string
   sort?: string,
+  allsearch?: string,
 }
 
 export enum SortType { DESC = 'DESC', ASC = 'ASC'}
@@ -60,4 +61,14 @@ export interface ISingleProductTag{
   addToCart: HTMLParagraphElement;
   removeFromCart: HTMLParagraphElement;
   goToSingle: HTMLParagraphElement;
+}
+
+export interface IFilterInfo{
+  brandFilter: string[];
+  categoryFilter: string[]
+}
+
+export interface ISaticData{
+  price: number[],
+  stock: number[]
 }
