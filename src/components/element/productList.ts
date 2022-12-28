@@ -1,15 +1,17 @@
 import { IProduct } from "../../type";
 import { elementGenerator } from "../controller/taggenerator";
-import { SingleProduct } from "./singleProduct";  
+import { SingleProductCart } from "../view/cart/singleProductCart";
+import { SingleProductCatalog } from "../view/catalog/singleProductCatalog";
 
 export class ProductList {
-  createProductList(data: Array<IProduct>):DocumentFragment {
+
+  createProductList(data: Array<IProduct>): DocumentFragment {
     const fragment = new DocumentFragment();
     const mainArticle = elementGenerator.createHTMLElement('article', {className: 'product-list'});
 
     data.forEach((item) => {
-      const product = new SingleProduct();
-      mainArticle.append(product.createProduct(item));
+      const product = new SingleProductCatalog(item, false);
+      mainArticle.append(product.createProduct());
     });
 
     fragment.append(mainArticle);
@@ -17,13 +19,13 @@ export class ProductList {
     return fragment;
   }
 
-  createCartProductList(data: Array<IProduct>, classBlock: string, isShowButton: boolean):DocumentFragment {
+  createCartProductList(data: Array<IProduct>): DocumentFragment {
     const fragment = new DocumentFragment();
-    const mainArticle = elementGenerator.createHTMLElement('article', {className: classBlock});
+    const mainArticle = elementGenerator.createHTMLElement('article', {className: 'cart_list'});
 
     data.forEach((item, index) => {
-      const product = new SingleProduct();
-      mainArticle.append(product.createProductInCart(item, index + 1, isShowButton));
+      const product = new SingleProductCart(item, true);
+      mainArticle.append(product.createProduct(index + 1));
     });
 
     fragment.append(mainArticle);
