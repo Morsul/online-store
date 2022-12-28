@@ -2,7 +2,7 @@ import { CheckboxFilter, DoubleSliderFilter } from "./filter";
 import { elementGenerator } from "../controller/taggenerator";
 import dataFilterList = require('../assets/data/filterCategories.json');
 import dataProductList = require('../assets/data/products.json');
-import { IFilterInfo, ICatalog, ISaticData, IFilter} from "../../basic";
+import { IFilterInfo, ICatalog, ISaticData, IFilter} from "../../type";
 import { FilterControler } from "../controller/filterController";
  
 

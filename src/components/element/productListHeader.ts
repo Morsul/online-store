@@ -1,6 +1,6 @@
 import { elementGenerator } from "../controller/taggenerator";
 import { FilterControler } from "../controller/filterController";
-import { IFilter } from "../../basic";
+import { IFilter } from "../../type";
 
 export class ProductsHeadline{
   private _filtredProductCount: HTMLParagraphElement;
