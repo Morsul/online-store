@@ -13,6 +13,7 @@ interface IInputOptions extends Omit<IOptional, "for" | "alt"> {
   step?: string;
   value?: string;
   disabled?: string;
+  text?: string;
 }
 
 const applySelector = (element: HTMLElement, options: Pick<IOptional, "className" | "id">): void => {
@@ -72,13 +73,21 @@ const createParagraph = (options: Pick<IOptional, "className" | "id" | "text">):
 }
 
 const createHeading = (name: string, options: Pick<IOptional, "className" | "id" | "text">): HTMLHeadingElement => {
-  //const name = 'h2'
-  const paragraphTag = <HTMLHeadingElement>document.createElement(name);
-  applySelector(paragraphTag, {className: options.className, id: options.id});
+  const headingTag = <HTMLHeadingElement>document.createElement(name);
+  applySelector(headingTag, {className: options.className, id: options.id});
   if(options.text){
-    paragraphTag.innerHTML = options.text;
+    headingTag.innerHTML = options.text;
   }  
-  return paragraphTag;
+  return headingTag;
+}
+
+const createButton = (options: Pick<IOptional, "className" | "id" | "text">): HTMLButtonElement => {
+  const buttonTag = document.createElement('button');
+  applySelector(buttonTag, {className: options.className, id: options.id});
+  if(options.text) {
+    buttonTag.innerHTML = options.text;
+  }
+  return buttonTag;
 }
 
 const createLabel = (options: Pick<IOptional, "className" | "id" | "text" | "for">): HTMLLabelElement => {
@@ -131,4 +140,5 @@ export const elementGenerator = {
   createInput,
   createHTMLElement,
   createHeading,
+  createButton,
 }
