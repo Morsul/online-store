@@ -1,8 +1,8 @@
-import { View } from "../../../type";
+import { View } from '../../../type';
 
 class NotPage implements View {
   draw(): void {
-    const div:HTMLDivElement = document.createElement('div');
+    const div: HTMLDivElement = document.createElement('div');
     div.innerHTML = 'Error: 404';
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).appendChild(div);
