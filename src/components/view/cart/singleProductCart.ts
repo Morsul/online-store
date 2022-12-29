@@ -33,7 +33,7 @@ export class SingleProductCart extends SingleProduct {
           product.classList.toggle('in-cart');
         }
         this.addProduct(this.item);
-      }else {
+      } else {
         Router.getInstance().route(e, `/product/${this.item.id}`)
       }
     });

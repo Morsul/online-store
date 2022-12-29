@@ -27,7 +27,6 @@ export class SummaryCart {
     const promoTest = new PromoCodeCart(productCostBlock).createPromoCart();
     const buttonBuy = elementGenerator.createDiv({text: 'buy', className: 'button'});
     buttonBuy.addEventListener('click', () => {
-      console.log('click')
       const modalWindow = new ModalWindow();
       document.querySelector('.main')?.append(modalWindow.createWindow());
     });

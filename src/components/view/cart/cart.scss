@@ -3,6 +3,7 @@ $shadowBg: rgb(136, 165, 191);
 $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 $colorGray: #6E6D70;
 $colorWhite: #DFDEDF;
+$colorRed: red;
 .cart-list {
   display: block;
   flex: 0 0 74%;
@@ -211,6 +212,19 @@ $colorWhite: #DFDEDF;
     width: 80%;
     padding: 5px;
     margin: 0.5rem 0;
+    
+  }
+  .valid-error::after {
+    content: 'Error';
+    color: $colorRed;
+    width: 10%;
+    display: inline-block;
+  }
+  .input-error {
+    width: 70%;
+  }
+  .error-message {
+    color: $colorRed;
   }
 }
 

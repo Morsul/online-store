@@ -14,6 +14,7 @@ interface IInputOptions extends Omit<IOptional, "for" | "alt"> {
   value?: string;
   disabled?: string;
   text?: string;
+  pattern? :string;
 }
 
 const applySelector = (element: HTMLElement, options: Pick<IOptional, "className" | "id">): void => {
@@ -119,6 +120,9 @@ const createInput = (type: string, options: IInputOptions):HTMLInputElement => {
     if(options.step){
       input.setAttribute('step', options.step);
     }
+  }
+  if(options.pattern) {
+    input.pattern = options.pattern;
   }
 
   return input;
