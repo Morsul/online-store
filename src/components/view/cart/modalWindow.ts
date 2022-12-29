@@ -1,4 +1,5 @@
 import { elementGenerator } from "../../controller/taggenerator";
+import { PurchaseDone } from "./purchaseDone";
 import { paymentSystemsImg, ValidationForm } from "./validationForm";
 
 const regExprsValid = {
@@ -13,7 +14,12 @@ const regExprsValid = {
 
 export class ModalWindow {
 
+  private _window: HTMLDivElement;
   private _validationForm: ValidationForm = new ValidationForm();
+
+  constructor() {
+    this._window = elementGenerator.createDiv({ className: 'window_modal' });
+  }
 
   createWindow(): HTMLDivElement {
     const shadow: HTMLDivElement = elementGenerator.createDiv({ className: 'window' });
@@ -23,7 +29,6 @@ export class ModalWindow {
         shadow.remove();
       }
     });
-    const window: HTMLDivElement = elementGenerator.createDiv({ className: 'window_modal' });
     const title: HTMLHeadingElement = elementGenerator.createHeading('h2', { className: 'window_title', text: 'Personal details' });
     
     const name: HTMLInputElement = elementGenerator.createInput('text', { className: 'input', placeholder: 'Name', pattern: '^([^\\s]{3,}\\s){1,}[^\\s]{3,}$' });
@@ -93,14 +98,24 @@ export class ModalWindow {
     cardWrapper.append(numberCardBlock, codeBlock);
     cardBlock.append(cardWrapper);
     const confirmButton: HTMLButtonElement = elementGenerator.createButton({text: 'confirm', className: 'button' });
+
     const formTag: HTMLFormElement = document.createElement('form');
-    formTag.noValidate = true;
-    formTag.addEventListener('submit', (event) => this._validationForm.validForm(event));
     formTag.classList.add('pay-order');
+    formTag.noValidate = true;
+    formTag.addEventListener('submit', (event) => this.getValidForm(event));
     formTag.append(title, nameDiv, phoneDiv, addressDiv, emailDiv, titleCard, cardBlock, confirmButton);
-    window.append(formTag);
-    shadow.append(window);
+    this._window.append(formTag);
+    shadow.append(this._window);
     return shadow;
+  }
+
+  private getValidForm(event: Event): void {
+    const done: boolean = this._validationForm.validForm(event);
+    if(done) {
+      const msg = new PurchaseDone();
+      this._window.innerHTML = '';
+      this._window.append(msg.createWindow());
+    }
   }
 
 }

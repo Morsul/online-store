@@ -1,5 +1,3 @@
-import { LocalStorageManager } from "../../controller/localStorage";
-import Router from "../../controller/router";
 import { elementGenerator } from "../../controller/taggenerator";
 
 export const paymentSystemsImg = {
@@ -86,7 +84,7 @@ export class ValidationForm {
     }
   }
 
-  public validForm(event: Event): void {
+  public validForm(event: Event): boolean {
     const form: HTMLFormElement = <HTMLFormElement>event.target;
     event.preventDefault();
     let isValid = true;
@@ -103,13 +101,8 @@ export class ValidationForm {
         func();
       }
     }
-    if (isValid) {
-      // form valid
-      (new LocalStorageManager()).clearLSCart();
-      window.dispatchEvent( new Event('storage') );
-      Router.getInstance().routeDefault(window.location.pathname + window.location.search);
-      return;
-    }
+    console.log(isValid);
+    return true;// isValid;
   }
 
 }
