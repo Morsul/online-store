@@ -74,4 +74,8 @@ export interface IFilterInfo {
 export interface ISaticData {
   price: number[];
   stock: number[];
+  avalaiblePrice: number[];
+  abalaibleStock: number[];
+  categoryInfo: Map<string, number[]>;
+  brandInfo: Map<string, number[]>;
 }

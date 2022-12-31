@@ -112,7 +112,7 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
     cursor: pointer;
     line-height: 1.3em;
     font-size: 1em;
-
+    display: flex;
     &:before {
       content: "";
       display: block;
@@ -129,6 +129,10 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
       background: rgba(136, 165, 191, 0.48);
       box-shadow: 1px 1px 3px #50565a;
       background: #f3f3f3;
+    }
+    .filter-amount{
+      margin-left: auto;
+      flex: 0 0 auto;
     }
   }
   & .filter-headline{
