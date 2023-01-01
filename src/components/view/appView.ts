@@ -45,7 +45,13 @@ class AppView {
   }
 
   drawCart(data: ICatalog, options?: IFilter): void {
-    this._cart.draw(this._filter.getCartList(data.products, options));
+    const productList: Array<IProduct> = this._filter.getCartList(data.products, options);
+    if (productList.length) {
+      this._cart.draw(productList);
+    }
+    else {
+      this._cart.cartEmpty();
+    }
   }
 
   drawNotPage(): void {

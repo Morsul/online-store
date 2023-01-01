@@ -21,4 +21,10 @@ export class Cart implements View {
     );
   }
 
+  cartEmpty(): void {
+    const title:HTMLDivElement = elementGenerator.createHeading('h2', { text: 'Cart is Empty', className: 'title-page' });
+    (<HTMLElement>document.querySelector('.main')).innerHTML = '';
+    (<HTMLElement>document.querySelector('.main')).appendChild(title);
+  }
+
 }
