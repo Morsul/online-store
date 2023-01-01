@@ -1,12 +1,16 @@
 import { elementGenerator } from '../controller/taggenerator';
 import { FilterControler } from '../controller/filterController';
-import { IFilter } from '../../type';
+import { IFilter, SortType } from '../../type';
 
 export class ProductsHeadline {
   private _filtredProductCount: HTMLParagraphElement;
   private _search: HTMLInputElement;
   private _filterController: FilterControler;
+  private _sortPrice: HTMLParagraphElement;
+  private _sortStock: HTMLParagraphElement;
   constructor() {
+    this._sortPrice = elementGenerator.createParagraph({ className: 'sorting__price', text: 'Sort by price' });
+    this._sortStock = elementGenerator.createParagraph({ className: 'sorting__count', text: 'Sort by stock' });
     this._filtredProductCount = elementGenerator.createParagraph({
       className: 'shown-count',
       text: 'Found 0 products',
@@ -24,7 +28,14 @@ export class ProductsHeadline {
     if (options?.allsearch) {
       this._search.value = options.allsearch;
     }
-    prodHeaderWrap.append(this._filtredProductCount, this.searchComponent());
+    const sortWrap = elementGenerator.createDiv({ className: 'sorting sorting-wrap' });
+    sortWrap.addEventListener('click', (e) => {
+      this.updateSorting(e.target);
+    });
+
+    sortWrap.append(this._sortPrice, this._sortStock);
+
+    prodHeaderWrap.append(sortWrap, this._filtredProductCount, this.searchComponent());
     return prodHeaderWrap;
   }
 
@@ -57,5 +68,35 @@ export class ProductsHeadline {
     searchWrap.append(this._search, searchLabel);
 
     return searchWrap;
+  }
+
+  private updateSorting(e: EventTarget | null) {
+    if (e === this._sortPrice) {
+      if (this._sortPrice.classList.contains(SortType.DESC)) {
+        this._sortPrice.className = `sorting__price`;
+        this._filterController.removeFilter('sort', '*');
+      } else if (this._sortPrice.classList.contains(SortType.ASC)) {
+        this._sortPrice.className = `sorting__price ${SortType.DESC}`;
+        this._filterController.addFilter('sort', `price-${SortType.DESC}`, true);
+      } else {
+        this._sortPrice.className = `sorting__price ${SortType.ASC}`;
+        this._filterController.addFilter('sort', `price-${SortType.ASC}`, true);
+      }
+
+      this._sortStock.className = 'sorting__count';
+    }
+    if (e === this._sortStock) {
+      if (this._sortStock.classList.contains(SortType.DESC)) {
+        this._sortStock.className = `sorting__count`;
+        this._filterController.removeFilter('sort', '*');
+      } else if (this._sortStock.classList.contains(SortType.ASC)) {
+        this._sortStock.className = `sorting__count ${SortType.DESC}`;
+        this._filterController.addFilter('sort', `stock-${SortType.DESC}`, true);
+      } else {
+        this._sortStock.className = `sorting__count ${SortType.ASC}`;
+        this._filterController.addFilter('sort', `stock-${SortType.ASC}`, true);
+      }
+      this._sortPrice.className = 'sorting__price';
+    }
   }
 }

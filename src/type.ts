@@ -38,8 +38,8 @@ export interface IFilter {
 }
 
 export enum SortType {
-  DESC = 'DESC',
-  ASC = 'ASC',
+  DESC = 'desc',
+  ASC = 'asc',
 }
 
 export interface ILocalStorageproduct extends Pick<IProduct, 'id' | 'price' | 'discount'> {
