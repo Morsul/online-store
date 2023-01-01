@@ -1,6 +1,6 @@
-import { IPromoCode } from "../../type";
-import { LocalStorageManager } from "../controller/localStorage";
-import { elementGenerator } from "../controller/taggenerator";
+import { IPromoCode } from "../../../../type";
+import { LocalStorageManager } from "../../../controller/localStorage";
+import { elementGenerator } from "../../../controller/taggenerator";
 
 export class PromoCodeCart {
 

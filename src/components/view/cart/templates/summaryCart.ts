@@ -1,7 +1,7 @@
 //import { IPromoCode } from "../../basic";
-import { LocalStorageManager } from "../controller/localStorage";
-import { elementGenerator } from "../controller/taggenerator";
-import { ModalWindow } from "../view/cart/modalWindow";
+import { LocalStorageManager } from "../../../controller/localStorage";
+import { elementGenerator } from "../../../controller/taggenerator";
+import { ModalWindow } from "./modalWindow";
 import { PromoCodeCart } from "./promoCodeCart";
 
 export class SummaryCart {

@@ -1,5 +1,5 @@
-import Router from "../controller/router";
-import { elementGenerator } from "../controller/taggenerator";
+import Router from "../../../controller/router";
+import { elementGenerator } from "../../../controller/taggenerator";
 
 export class Pagination {
 

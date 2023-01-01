@@ -50,7 +50,8 @@ class AppView {
       this._cart.draw(productList);
     }
     else {
-      this._cart.cartEmpty();
+      const isModal: boolean = options?.modal ? true : false;
+      this._cart.cartEmpty(isModal);
     }
   }
 

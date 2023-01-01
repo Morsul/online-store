@@ -1,6 +1,8 @@
-import { elementGenerator } from "../../controller/taggenerator";
+import Router from "../../../controller/router";
+import { elementGenerator } from "../../../controller/taggenerator";
 import { PurchaseDone } from "./purchaseDone";
 import { paymentSystemsImg, ValidationForm } from "./validationForm";
+import { LocalStorageManager } from "../../../controller/localStorage";
 
 const regExprsValid = {
   name: /^(\w{3,}\s){1,}\w{3,}$/i,
@@ -14,21 +16,21 @@ const regExprsValid = {
 
 export class ModalWindow {
 
-  private _window: HTMLDivElement;
+  private _shadow: HTMLDivElement;
   private _validationForm: ValidationForm = new ValidationForm();
 
   constructor() {
-    this._window = elementGenerator.createDiv({ className: 'window_modal' });
+    this._shadow = elementGenerator.createDiv({ className: 'window' });
+    this._shadow.addEventListener('click', (event) => {
+      const target: HTMLDivElement = <HTMLDivElement>event.target;
+      if(target.classList.contains('window')) {
+        this._shadow.remove();
+      }
+    });
   }
 
   createWindow(): HTMLDivElement {
-    const shadow: HTMLDivElement = elementGenerator.createDiv({ className: 'window' });
-    shadow.addEventListener('click', (event) => {
-      const target: HTMLDivElement = <HTMLDivElement>event.target;
-      if(target.classList.contains('window')) {
-        shadow.remove();
-      }
-    });
+    const window = elementGenerator.createDiv({ className: 'window_modal' });
     const title: HTMLHeadingElement = elementGenerator.createHeading('h2', { className: 'window_title', text: 'Personal details' });
     
     const name: HTMLInputElement = elementGenerator.createInput('text', { className: 'input', placeholder: 'Name', pattern: '^([^\\s]{3,}\\s){1,}[^\\s]{3,}$' });
@@ -104,17 +106,27 @@ export class ModalWindow {
     formTag.noValidate = true;
     formTag.addEventListener('submit', (event) => this.getValidForm(event));
     formTag.append(title, nameDiv, phoneDiv, addressDiv, emailDiv, titleCard, cardBlock, confirmButton);
-    this._window.append(formTag);
-    shadow.append(this._window);
-    return shadow;
+    window.append(formTag);
+    this._shadow.append(window);
+    return this._shadow;
+  }
+
+  public createPurchaseDone() {
+    const window = elementGenerator.createDiv({ className: 'window_modal' });
+    const msg = new PurchaseDone();
+    window.innerHTML = '';
+    window.append(msg.createWindow());
+    this._shadow.append(window);
+    return this._shadow;
   }
 
   private getValidForm(event: Event): void {
-    const done: boolean = this._validationForm.validForm(event);
+   const done: boolean = this._validationForm.validForm(event);
     if(done) {
-      const msg = new PurchaseDone();
-      this._window.innerHTML = '';
-      this._window.append(msg.createWindow());
+      (new LocalStorageManager()).clearLSCart();
+      window.dispatchEvent( new Event('storage') );
+      const href = window.location.pathname + window.location.search;
+      Router.getInstance().routeDefault(href, 'modal=1');
     }
   }
 

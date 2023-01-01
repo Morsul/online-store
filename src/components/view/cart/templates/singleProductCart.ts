@@ -1,7 +1,8 @@
-import { IProduct } from "../../../type";
-import Router from "../../controller/router";
-import { elementGenerator } from "../../controller/taggenerator";
-import { SingleProduct } from "../../element/singleProduct";
+import Router from "../../../controller/router";
+import { elementGenerator } from "../../../controller/taggenerator";
+import { SingleProduct } from "../../../element/singleProduct";
+import { IProduct } from "../../../../type";
+
 
 export class SingleProductCart extends SingleProduct {
 

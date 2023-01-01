@@ -36,6 +36,7 @@ export interface IFilter {
   sort?: string,
   page?: string,
   limit?: string,
+  modal?: string,
 }
 
 export enum SortType { DESC = 'DESC', ASC = 'ASC'}

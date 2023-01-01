@@ -1,6 +1,6 @@
 import { IProduct } from "../../type";
 import { elementGenerator } from "../controller/taggenerator";
-import { SingleProductCart } from "../view/cart/singleProductCart";
+import { SingleProductCart } from "../view/cart/templates/singleProductCart";
 import { SingleProductCatalog } from "../view/catalog/singleProductCatalog";
 
 export class ProductList {
