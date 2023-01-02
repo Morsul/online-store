@@ -1,9 +1,9 @@
-import { ICatalog, IFilter, IProduct } from "../../type";
-import { Cart } from "./cart/cart";
-import CatalogView from "./catalog/catalog";
-import NotPageView from "./notPage/notPage";
-import ProductView from "./product/product";
-import FilterProducts from "../controller/filterProducts";
+import { ICatalog, IFilter, IProduct } from '../../type';
+import { Cart } from './cart/cart';
+import CatalogView from './catalog/catalog';
+import NotPageView from './notPage/notPage';
+import ProductView from './product/product';
+import FilterProducts from '../controller/filterProducts';
 
 class AppView {
   private _catalog: CatalogView;
@@ -12,7 +12,7 @@ class AppView {
   private _notePage: NotPageView;
   private _filter: FilterProducts;
 
-  constructor () {
+  constructor() {
     this._catalog = new CatalogView();
     this._product = new ProductView();
     this._cart = new Cart();
@@ -23,22 +23,23 @@ class AppView {
   drawCatalog(data: ICatalog, options?: IFilter): void {
     let listProduct: Array<IProduct> | null;
     if (options) {
+      console.log(options);
       listProduct = this._filter.getFilterList(options, data.products);
       if (listProduct) {
-        this._catalog.draw(listProduct);
+        this._catalog.draw(listProduct, options);
       }
       return;
     }
     this._catalog.draw(data.products);
   }
 
-  drawProduct(data: ICatalog, options?: IFilter) :void {
+  drawProduct(data: ICatalog, options?: IFilter): void {
     let product: IProduct | null;
     if (options) {
       product = this._filter.getSingleProduct(options, data);
       if (product) {
         this._product.draw(product);
-        return
+        return;
       }
     }
     this.drawNotPage();
@@ -49,8 +50,7 @@ class AppView {
     const isModal: boolean = options?.modal ? true : false;
     if (productList.length) {
       this._cart.draw(productList, isModal);
-    }
-    else {
+    } else {
       this._cart.cartEmpty(isModal);
     }
   }
@@ -58,7 +58,6 @@ class AppView {
   drawNotPage(): void {
     this._notePage.draw();
   }
-  
 }
 
 export default AppView;

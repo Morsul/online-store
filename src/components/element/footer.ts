@@ -1,12 +1,12 @@
-import { elementGenerator } from "../controller/taggenerator";
+import { elementGenerator } from '../controller/taggenerator';
 
 export class Footer {
-  createFooter(): DocumentFragment {    
+  createFooter(): DocumentFragment {
     const fragment = new DocumentFragment();
 
     const footer = elementGenerator.createHTMLElement('footer', {});
 
-    fragment.append(footer)
+    fragment.append(footer);
     return fragment;
   }
 }

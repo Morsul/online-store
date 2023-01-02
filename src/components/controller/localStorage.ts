@@ -1,21 +1,19 @@
-
-import { ILocalStorageproduct, IPromoCode } from "../../type";
+import { ILocalStorageproduct, IPromoCode } from '../../type';
 
 export class LocalStorageManager {
-
   getLSCart(): Array<ILocalStorageproduct> {
-    const tl: string | null = localStorage.getItem("SACart");
+    const tl: string | null = localStorage.getItem('SACart');
     const cl: Array<ILocalStorageproduct> = tl != null ? JSON.parse(tl) : [];
     return cl;
   }
 
   getInfoCost(): Array<number> {
     const cartLocal: Array<ILocalStorageproduct> = this.getLSCart();
-    let priceSumm = 0.00;
-    let itemCount = 0.00;
-    cartLocal.forEach(e => {
+    let priceSumm = 0.0;
+    let itemCount = 0.0;
+    cartLocal.forEach((e) => {
       itemCount += e.count;
-      priceSumm += Math.round(e.count * (e.price * ((100 - e.discount))));
+      priceSumm += Math.round(e.count * (e.price * (100 - e.discount)));
     });
     return [itemCount, priceSumm / 100];
   }
@@ -36,7 +34,6 @@ export class LocalStorageManager {
   }
 
   clearLSCart(): void {
-    localStorage.removeItem("SACart");
+    localStorage.removeItem('SACart');
   }
-
 }

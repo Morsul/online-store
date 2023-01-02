@@ -2,9 +2,10 @@ $borderColor: rgba(136, 165, 191, 0.75);
 $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 .product-list {
   display: flex;
-  gap: 15px 3%;
+  gap: 15px 48px;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
 
   .single-product_number {
     display: none;
@@ -20,6 +21,8 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
   box-shadow: $shadow;
   flex-direction: column;
   transition: all 0.2s;
+  background: #fff;
+  outline: 2px solid transparent;
 
   &:hover {
     border: 1px solid $borderColor;
@@ -43,8 +46,25 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
       display: none;
     }
   }
+  .button{
+    &:hover{
+      background-color: rgb(58, 157, 58);
+      color: #fff;
+      box-shadow: 0px 0.5px 1px rgba(58, 157, 58, 0.1), 0px 0px 0px 3.5px rgba(58, 157, 58, 0.5);
+    }
+  }
+  .remove-from-cart{
+    &:hover{
+      background-color: rgb(157, 58, 58);
+      box-shadow: 0px 0.5px 1px rgba(157, 58, 58, 0.1), 0px 0px 0px 3.5px rgba(157, 58, 58, 0.5);
+    }
+  }
 
   &.in-cart {
+    box-shadow: rgba(144, 238, 144, 0.68) 6px 2px 16px 0px, rgba(144, 238, 144, 0.1) -6px -2px 16px 0px;
+    outline: 2px solid rgba(144, 238, 144, 0.75);
+    border-color: rgb(144, 238, 144);
+
     .add-to-cart {
       display: none;
     }
@@ -68,6 +88,8 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
 }
 
 .filter-list {
+  font-size: 16px;  
+
   input[type="checkbox"] {
     display: none;
 
@@ -85,23 +107,23 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
   .filter-label__check-box {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 10px;
+    padding-left: 2em;
+    margin-bottom: 0.7em;
     cursor: pointer;
-    line-height: 20px;
-    font-size: 15px;
+    line-height: 1.3em;
+    font-size: 1em;
 
     &:before {
       content: "";
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 1em;
+      height: 1em;
       outline: 1px solid #343a3f;
       border: 2px solid transparent;
       border-radius: 0.2em;
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 1px;
+      top: 1px;
       -webkit-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out;
       background: rgba(136, 165, 191, 0.48);
@@ -109,9 +131,18 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
       background: #f3f3f3;
     }
   }
+  & .filter-headline{
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0  0.5em;
+  }
+  &__container{
+    max-height: 12em;    
+    margin-bottom: 1em;    
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
-
-
 
 .filter_list .filter_label__check_box:hover {
   /* color: rgb(23, 86, 228); */
@@ -129,7 +160,6 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
   border-radius: 6px;
   border: none;
   background: #6E6D70;
-  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
   color: #DFDEDF;
   line-height: 1.4em;
   cursor: pointer;
@@ -140,12 +170,13 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
   transition: all 0.2s ;
 
   &:focus {
-    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
     outline: 0;
   }
 
   &:hover {
-    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.2);
+    background: rgba(58, 108, 217, 0.9);
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.2);
     outline: 0;
   }
 }
@@ -188,19 +219,19 @@ input[type=range] {
 }
 
 .filter__multi-range {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  .price{
+    margin: 40px 0 0;
+  }
   input[type=range] {
     position: absolute;
-  }
-}
-
-.filter__multi-range {
-  position: relative;
-  height: 50px;
-
-  input[type=range] {
 
     &:nth-child(1)::-webkit-slider-thumb::before {
-      background-color: red;
+      background-color: transparent;
     }
 
     &:nth-child(2) {
@@ -219,6 +250,54 @@ article.product-list{
   flex: 0 0 75%;
 }
 
-aside.filter-list{
+aside.filter-wrap{
   flex: 0 0 20%;
+}
+
+.products-headline{
+  margin: 0 auto;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .shown-count{
+    margin: 0;
+  }
+
+  .search{
+    padding: 5px 5px 5px 5px;
+    width: 256px;
+    border: 1px solid #6E6D70;
+    outline: none;
+    border-radius: 5px;
+    &:focus{
+      box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.2);
+    }
+    &-wrap{
+      position: relative;
+    }
+
+    &-label{
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      display: none;
+      background-image: url(../../assets/svg/clear-svgrepo-com.svg);
+      background-size: 27px;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    &:not(:placeholder-shown){
+      padding-right: 20px;
+
+      +.search-label{
+        display: block;
+      }
+    }
+  }
 }

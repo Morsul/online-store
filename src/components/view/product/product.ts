@@ -1,10 +1,10 @@
-import { IProduct, View } from "../../../type";
-import Router from "../../controller/router";
-import { elementGenerator } from "../../controller/taggenerator";
+import { IProduct, View } from '../../../type';
+import Router from '../../controller/router';
+import { elementGenerator } from '../../controller/taggenerator';
 
 class Product implements View {
   draw(data: IProduct): void {
-    const div:HTMLDivElement = elementGenerator.createDiv({ text: data.title});
+    const div: HTMLDivElement = elementGenerator.createDiv({ text: data.title });
     const addCartBtn: HTMLDivElement = elementGenerator.createDiv({ text: 'add to cart', className: 'button' });
     addCartBtn.addEventListener('click', () => this.addCart());
     div.append(addCartBtn);

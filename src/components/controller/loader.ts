@@ -1,14 +1,13 @@
-import { Callback } from "../../type";
-import { IFilter } from "../../type";
+import { Callback } from '../../type';
+import { IFilter } from '../../type';
 class Loader {
-
   private _baseLink: string;
 
   constructor(baseLink: string) {
     this._baseLink = baseLink;
   }
 
-  getResp<catalog>(options: IFilter, callback : Callback<catalog>): void {
+  getResp<catalog>(options: IFilter, callback: Callback<catalog>): void {
     const method = 'GET';
     fetch(this._baseLink.toString(), { method })
       .then(this.errorHandler)

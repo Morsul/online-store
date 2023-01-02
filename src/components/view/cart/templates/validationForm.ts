@@ -1,23 +1,22 @@
-import { elementGenerator } from "../../../controller/taggenerator";
+import { elementGenerator } from '../../../controller/taggenerator';
 
 export const paymentSystemsImg = {
   0: 'https://i.guim.co.uk/img/media/b73cc57cb1d46ae742efd06b6c58805e8600d482/16_0_2443_1466/master/2443.jpg?width=700&quality=85&auto=format&fit=max&s=fb1dca6cdd4589cd9ef2fc941935de71',
   2: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Mir-logo.SVG.svg',
   4: 'https://cdn.visa.com/v2/assets/images/logos/visa/blue/logo.png',
-  5: 'https://www.mastercard.hu/content/dam/public/mastercardcom/eu/hu/images/mc-logo-52.svg'
+  5: 'https://www.mastercard.hu/content/dam/public/mastercardcom/eu/hu/images/mc-logo-52.svg',
 };
 
 export class ValidationForm {
-
   public mapFormField: Map<HTMLInputElement, () => void> = new Map<HTMLInputElement, () => void>();
 
-  public blur (field: HTMLInputElement, regExp: RegExp) {
+  public blur(field: HTMLInputElement, regExp: RegExp) {
     this.checkValidData(field, regExp);
     field.addEventListener('input', () => this.checkValidData(field, regExp));
   }
 
   public checkValidData(field: HTMLInputElement, regExp: RegExp): void {
-    if(!regExp.test(field.value.trim())) {
+    if (!regExp.test(field.value.trim())) {
       field.classList.add('input-error');
       field.parentElement?.classList.add('valid-error');
     } else {
@@ -28,7 +27,7 @@ export class ValidationForm {
 
   public validNumberCard(field: HTMLInputElement, img: HTMLImageElement): string {
     field.value = field.value.replace(/\D/g, '').slice(0, 16);
-    switch(field.value[0]) {
+    switch (field.value[0]) {
       case '2':
         img.src = paymentSystemsImg[2];
         break;
@@ -64,7 +63,7 @@ export class ValidationForm {
   }
 
   public validCVV(field: HTMLInputElement): string {
-    return field.value = field.value.replace(/\D/g, '').slice(0, 3);
+    return (field.value = field.value.replace(/\D/g, '').slice(0, 3));
   }
 
   public showCVVMessage(field: HTMLInputElement, parent: HTMLDivElement): void {
@@ -72,11 +71,17 @@ export class ValidationForm {
     this.toogleMessage(field.value.length < 3, field, parent, 'error-cvv-card', 'Card CVV - error');
   }
 
-  private toogleMessage(isShow: boolean,field: HTMLInputElement, parent: HTMLDivElement, className: string, message: string): void {
-    if(isShow) {
+  private toogleMessage(
+    isShow: boolean,
+    field: HTMLInputElement,
+    parent: HTMLDivElement,
+    className: string,
+    message: string
+  ): void {
+    if (isShow) {
       field.classList.add('error-card');
-      if (!document.querySelector( `.${className}`)) {
-        parent.after(elementGenerator.createParagraph({ text: message, className: `error-message ${className}`}));
+      if (!document.querySelector(`.${className}`)) {
+        parent.after(elementGenerator.createParagraph({ text: message, className: `error-message ${className}` }));
       }
     } else {
       field.classList.remove('error-card');
@@ -90,18 +95,17 @@ export class ValidationForm {
     let isValid = true;
     for (let j = 0; j < form.length - 1; j++) {
       const input = <HTMLInputElement>form[j];
-      if(input.value.length == 0 || input.validity.patternMismatch) {
+      if (input.value.length == 0 || input.validity.patternMismatch) {
         // form invalid
         isValid = false;
       }
       const func = this.mapFormField.get(input);
       if (func) {
         input.oninput = func;
-        input.dispatchEvent( new Event('focusout') );
+        input.dispatchEvent(new Event('focusout'));
         func();
       }
     }
     return isValid;
   }
-
 }

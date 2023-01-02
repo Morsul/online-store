@@ -1,27 +1,26 @@
-import { Callback, ICatalog, IFilter } from "../../type";
-import Loader from "./loader";
+import { Callback, ICatalog, IFilter } from '../../type';
+import Loader from './loader';
 import jsonFile from '../assets/data/products.json';
 
 class Controller extends Loader {
-
   constructor() {
     super(jsonFile.toString());
   }
 
   getCatalog(find: string, callback: Callback<ICatalog>): void {
     const filter: IFilter = this.getOptions('/?', find);
-    super.getResp(filter, callback );
+    super.getResp(filter, callback);
   }
 
   getCart(find: string, callback: Callback<ICatalog>): void {
     const filter: IFilter = this.getOptions('/cart?', find);
-    super.getResp(filter, callback );
+    super.getResp(filter, callback);
   }
 
   getProduct(find: string, callback: Callback<ICatalog>): void {
     const match: RegExpMatchArray | null = find.match(/[0-9]{1,3}/);
     if (match) {
-      super.getResp({ product: match[0]} , callback );
+      super.getResp({ product: match[0] }, callback);
     }
   }
 
@@ -31,15 +30,17 @@ class Controller extends Loader {
 
   getOptions(replaceStr: string, options: string): IFilter {
     const filter: IFilter = {};
-    options.replace(replaceStr, '').split('&').forEach((value) => {
-      const filterValue = value.split('=');
-      if (filterValue.length === 2) {
-        filter[<keyof typeof filter>filterValue[0]] = filterValue[1];
-      }
-    });
+    options
+      .replace(replaceStr, '')
+      .split('&')
+      .forEach((value) => {
+        const filterValue = value.split('=');
+        if (filterValue.length === 2) {
+          filter[<keyof typeof filter>filterValue[0]] = filterValue[1];
+        }
+      });
     return filter;
   }
-
 }
 
 export default Controller;
