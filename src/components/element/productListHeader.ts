@@ -28,6 +28,15 @@ export class ProductsHeadline {
     if (options?.allsearch) {
       this._search.value = options.allsearch;
     }
+    if (options?.sort) {
+      const s = options?.sort.split('-');
+      if (s[0] === 'stock') {
+        this._sortStock.classList.add(s[1]);
+      }
+      if (s[0] === 'price') {
+        this._sortPrice.classList.add(s[1]);
+      }
+    }
     const sortWrap = elementGenerator.createDiv({ className: 'sorting sorting-wrap' });
     sortWrap.addEventListener('click', (e) => {
       this.updateSorting(e.target);
