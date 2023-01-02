@@ -3,14 +3,8 @@ import { elementGenerator } from '../controller/taggenerator';
 import Router from '../controller/router';
 import { ILocalStorageproduct, ISingleProductTag } from '../../type';
 import { LocalStorageManager } from '../controller/localStorage';
-import { IProduct } from '../../type';
-import { elementGenerator } from '../controller/taggenerator';
-import Router from '../controller/router';
-import { ILocalStorageproduct, ISingleProductTag } from '../../type';
-import { LocalStorageManager } from '../controller/localStorage';
 
 export class SingleProduct {
-  protected _productAdded: boolean;
   protected _productAdded: boolean;
   protected _localStorage;
   protected _isIncrease: boolean;

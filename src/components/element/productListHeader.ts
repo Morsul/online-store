@@ -3,7 +3,6 @@ import { FilterControler } from '../controller/filterController';
 import { IFilter, SortType } from '../../type';
 
 export class ProductsHeadline {
-export class ProductsHeadline {
   private _filtredProductCount: HTMLParagraphElement;
   private _search: HTMLInputElement;
   private _filterController: FilterControler;
@@ -25,10 +24,6 @@ export class ProductsHeadline {
 
   createProdHeader(options?: IFilter): HTMLDivElement {
     const prodHeaderWrap = elementGenerator.createDiv({ className: 'products-headline' });
-  createProdHeader(options?: IFilter): HTMLDivElement {
-    const prodHeaderWrap = elementGenerator.createDiv({ className: 'products-headline' });
-
-    if (options?.allsearch) {
     if (options?.allsearch) {
       this._search.value = options.allsearch;
     }
@@ -57,20 +52,16 @@ export class ProductsHeadline {
   }
 
   private overalSearch(): void {
-  private overalSearch(): void {
     const val = this._search.value;
     if (val.length === 0) {
-    if (val.length === 0) {
-      this._filterController.removeFilter('allsearch', '*');
-    } else {
-      this._filterController.addFilter('allsearch', this._search.value, true);
-    }
+      if (val.length === 0) {
+        this._filterController.removeFilter('allsearch', '*');
+      } else {
+        this._filterController.addFilter('allsearch', this._search.value, true);
+      }
     }
   }
 
-  private searchComponent(): HTMLDivElement {
-    const searchWrap = elementGenerator.createDiv({ className: 'search-wrap' });
-    const searchLabel = elementGenerator.createLabel({ className: 'search-label' });
   private searchComponent(): HTMLDivElement {
     const searchWrap = elementGenerator.createDiv({ className: 'search-wrap' });
     const searchLabel = elementGenerator.createLabel({ className: 'search-label' });
