@@ -95,6 +95,7 @@ export class ValidationForm {
     let isValid = true;
     for (let j = 0; j < form.length - 1; j++) {
       const input = <HTMLInputElement>form[j];
+      input.value = input.value.trim();
       if (input.value.length == 0 || input.validity.patternMismatch) {
         // form invalid
         isValid = false;
