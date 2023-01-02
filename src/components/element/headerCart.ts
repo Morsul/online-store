@@ -1,7 +1,6 @@
 import { elementGenerator } from '../controller/taggenerator';
 import Router from '../controller/router';
 import { LocalStorageManager } from '../controller/localStorage';
-//import { ILocalStorageproduct } from "../../basic";
 
 export class HeaderCart {
   private _productCount: HTMLParagraphElement;

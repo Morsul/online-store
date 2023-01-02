@@ -42,8 +42,8 @@ export interface IFilter {
 }
 
 export enum SortType {
-  DESC = 'DESC',
-  ASC = 'ASC',
+  DESC = 'desc',
+  ASC = 'asc',
 }
 
 export interface ILocalStorageproduct extends Pick<IProduct, 'id' | 'price' | 'discount'> {
@@ -78,4 +78,8 @@ export interface IFilterInfo {
 export interface ISaticData {
   price: number[];
   stock: number[];
+  avalaiblePrice: number[];
+  abalaibleStock: number[];
+  categoryInfo: Map<string, number[]>;
+  brandInfo: Map<string, number[]>;
 }

@@ -1,5 +1,40 @@
 $borderColor: rgba(136, 165, 191, 0.75);
 $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+
+@mixin sorting-buttons {
+  cursor: pointer;
+  padding: 0 0 0 20px;
+  position: relative;
+  line-height: 20px;
+  margin: 0;
+  &::before{
+    content: "";
+    display: block;
+    position: absolute;
+    background-image: url(../../assets/svg/sort-arrows-icon.svg);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    left: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+  }
+  &.asc{
+    &::before{
+      height: 10px;
+      top: 5px;
+    }
+  }
+  &.desc{
+    &::before{
+      height: 10px;
+      top: 5px;
+      background-position: 0px -11px;
+    }
+  }
+}
+
 .product-list {
   display: flex;
   gap: 15px 48px;
@@ -112,7 +147,7 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
     cursor: pointer;
     line-height: 1.3em;
     font-size: 1em;
-
+    display: flex;
     &:before {
       content: "";
       display: block;
@@ -129,6 +164,10 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
       background: rgba(136, 165, 191, 0.48);
       box-shadow: 1px 1px 3px #50565a;
       background: #f3f3f3;
+    }
+    .filter-amount{
+      margin-left: auto;
+      flex: 0 0 auto;
     }
   }
   & .filter-headline{
@@ -260,7 +299,7 @@ aside.filter-wrap{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
+  margin: 0 0 20px;
   .shown-count{
     margin: 0;
   }
@@ -299,5 +338,16 @@ aside.filter-wrap{
         display: block;
       }
     }
+  }
+}
+
+.sorting{
+  display: flex;
+  gap: 20px;
+  &__count{
+    @include sorting-buttons;
+  }
+  &__price{
+    @include sorting-buttons;
   }
 }
