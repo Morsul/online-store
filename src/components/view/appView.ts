@@ -48,8 +48,10 @@ class AppView {
   drawCart(data: ICatalog, options?: IFilter): void {
     const productList: Array<IProduct> = this._filter.getCartList(data.products, options);
     const isModal: boolean = options?.modal ? true : false;
+    //const updateList: boolean = options?.updateList ? true : false;
     if (productList.length) {
-      this._cart.draw(productList, isModal);
+      this._cart.draw(productList, options);
+      //isModal, updateList);
     } else {
       this._cart.cartEmpty(isModal);
     }

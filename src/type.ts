@@ -38,6 +38,7 @@ export interface IFilter {
   stock?: string;
   sort?: string;
   allsearch?: string;
+  updateList?: string;
 }
 
 export enum SortType {
