@@ -21,7 +21,6 @@ class Router {
   }
 
   handleLocation(hrefOptions?: string) {
-    console.log(hrefOptions);
     const path: string = window.location.pathname;
     let getData: Callback<string> | undefined;
     for(const key of Router.getInstance()._routes.keys()) {

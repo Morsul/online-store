@@ -7,18 +7,19 @@ import './cart.scss';
 import { ModalWindow } from "./templates/modalWindow";
 export class Cart implements View {
 
-  draw(data: Array<IProduct>): void {
+  draw(data: Array<IProduct>, isShow?: boolean): void {
     
     const productList = new ProductList();
     const summaryCart = new SummaryCart();
     const pagination = new Pagination();
-
+    const popup = new ModalWindow();
     const mainArticle = elementGenerator.createHTMLElement('article', {className: 'cart-list'});
     mainArticle.append(pagination.createPagination(), productList.createCartProductList(data));
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
       mainArticle,
-      summaryCart.createSummeryCart()
+      summaryCart.createSummeryCart(),
+      isShow ? popup.createWindow() : ''
     );
   }
 
