@@ -11,7 +11,7 @@ class Router {
   static getInstance() {
     if (!Router.instance) {
       Router.instance = new Router();
-      window.addEventListener('popstate', Router.instance.handleLocation);
+      window.addEventListener('popstate', () => Router.instance.handleLocation());
     }
     return Router.instance;
   }
@@ -20,7 +20,7 @@ class Router {
     Router.instance._routes = routes;
   }
 
-  handleLocation() {
+  handleLocation(hrefOptions?: string) {
     const path: string = window.location.pathname;
     let getData: Callback<string> | undefined;
     for (const key of Router.getInstance()._routes.keys()) {
@@ -32,7 +32,8 @@ class Router {
       }
     }
     if (getData) {
-      getData(decodeURI(path + window.location.search));
+      const addOption = hrefOptions ? (window.location.search ? '&' : '?') + hrefOptions : '';
+      getData(decodeURI(path + window.location.search) + addOption);
     }
   }
 
@@ -46,11 +47,11 @@ class Router {
     Router.getInstance().handleLocation();
   }
 
-  routeDefault(href: string): void {
+  routeDefault(href: string, hrefOptions?: string): void {
     if (href !== window.location.pathname + window.location.search) {
       history.pushState({ route: href }, '', href);
     }
-    Router.getInstance().handleLocation();
+    Router.getInstance().handleLocation(hrefOptions);
   }
 }
 export default Router;

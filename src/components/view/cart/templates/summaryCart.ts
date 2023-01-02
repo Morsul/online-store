@@ -1,6 +1,7 @@
-//import { IPromoCode } from "../../basic";
-import { LocalStorageManager } from '../controller/localStorage';
-import { elementGenerator } from '../controller/taggenerator';
+//import { IPromoCode } from '../../basic';
+import { LocalStorageManager } from '../../../controller/localStorage';
+import { elementGenerator } from '../../../controller/taggenerator';
+import { ModalWindow } from './modalWindow';
 import { PromoCodeCart } from './promoCodeCart';
 
 export class SummaryCart {
@@ -24,6 +25,10 @@ export class SummaryCart {
 
     const promoTest = new PromoCodeCart(productCostBlock).createPromoCart();
     const buttonBuy = elementGenerator.createDiv({ text: 'buy', className: 'button' });
+    buttonBuy.addEventListener('click', () => {
+      const modalWindow = new ModalWindow();
+      document.querySelector('.main')?.append(modalWindow.createWindow());
+    });
     cartAside.append(title, productCountBlock, productCostBlock, promoTest, buttonBuy);
     fragment.append(cartAside);
 

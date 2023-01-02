@@ -13,6 +13,8 @@ interface IInputOptions extends Omit<IOptional, 'for' | 'alt'> {
   step?: string;
   value?: string;
   disabled?: string;
+  text?: string;
+  pattern?: string;
   checked?: boolean;
 }
 
@@ -72,6 +74,24 @@ const createParagraph = (options: Pick<IOptional, 'className' | 'id' | 'text'>):
   return paragraphTag;
 };
 
+const createHeading = (name: string, options: Pick<IOptional, 'className' | 'id' | 'text'>): HTMLHeadingElement => {
+  const headingTag = <HTMLHeadingElement>document.createElement(name);
+  applySelector(headingTag, { className: options.className, id: options.id });
+  if (options.text) {
+    headingTag.innerHTML = options.text;
+  }
+  return headingTag;
+};
+
+const createButton = (options: Pick<IOptional, 'className' | 'id' | 'text'>): HTMLButtonElement => {
+  const buttonTag = document.createElement('button');
+  applySelector(buttonTag, { className: options.className, id: options.id });
+  if (options.text) {
+    buttonTag.innerHTML = options.text;
+  }
+  return buttonTag;
+};
+
 const createLabel = (options: Pick<IOptional, 'className' | 'id' | 'text' | 'for'>): HTMLLabelElement => {
   const labelTag = document.createElement(`label`);
   applySelector(labelTag, { className: options.className, id: options.id });
@@ -105,6 +125,9 @@ const createInput = (type: string, options: IInputOptions): HTMLInputElement => 
       input.setAttribute('step', options.step);
     }
   }
+  if (options.pattern) {
+    input.pattern = options.pattern;
+  }
 
   return input;
 };
@@ -124,4 +147,6 @@ export const elementGenerator = {
   createLabel,
   createInput,
   createHTMLElement,
+  createHeading,
+  createButton,
 };

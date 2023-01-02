@@ -32,4 +32,8 @@ export class LocalStorageManager {
     });
     return +(priceCart - (priceCart * discount) / 100).toFixed(2);
   }
+
+  clearLSCart(): void {
+    localStorage.removeItem('SACart');
+  }
 }

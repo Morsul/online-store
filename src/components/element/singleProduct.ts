@@ -3,8 +3,14 @@ import { elementGenerator } from '../controller/taggenerator';
 import Router from '../controller/router';
 import { ILocalStorageproduct, ISingleProductTag } from '../../type';
 import { LocalStorageManager } from '../controller/localStorage';
+import { IProduct } from '../../type';
+import { elementGenerator } from '../controller/taggenerator';
+import Router from '../controller/router';
+import { ILocalStorageproduct, ISingleProductTag } from '../../type';
+import { LocalStorageManager } from '../controller/localStorage';
 
 export class SingleProduct {
+  protected _productAdded: boolean;
   protected _productAdded: boolean;
   protected _localStorage;
   protected _isIncrease: boolean;
@@ -38,7 +44,10 @@ export class SingleProduct {
         className: 'button remove-from-cart',
         text: this._isIncrease ? '-' : 'Remove from cart',
       }),
-      goToSingle: elementGenerator.createParagraph({ className: 'button button_view', text: 'View Product' }),
+      goToSingle: elementGenerator.createParagraph({
+        className: 'button button_view',
+        text: 'View Product',
+      }),
     };
   }
 
@@ -71,7 +80,6 @@ export class SingleProduct {
     localStorage.setItem('SACart', JSON.stringify(cartLocal));
     window.dispatchEvent(new Event('storage'));
   }
-
   protected removeProduct(id: string): void {
     //todo remove return
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
