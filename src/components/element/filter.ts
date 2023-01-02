@@ -1,8 +1,18 @@
 import { elementGenerator } from '../controller/taggenerator';
 import { FilterControler } from '../controller/filterController';
+// import { ISaticData } from '../../type';
 
 export class CheckboxFilter {
+  private _spanAmountFound: HTMLSpanElement;
+  private _spanAmountTotal: HTMLSpanElement;
+  private _checkboxLabel: HTMLLabelElement;
+  constructor() {
+    this._spanAmountFound = elementGenerator.createSpan({ className: 'filter-amount__found' });
+    this._spanAmountTotal = elementGenerator.createSpan({ className: 'filter-amount__found' });
+    this._checkboxLabel = elementGenerator.createLabel({ className: 'filter-label__check-box' });
+  }
   createCheckboxFiled(
+    staticData: Map<string, number[]>,
     group: string,
     number: number,
     wrapName: string,
@@ -11,13 +21,17 @@ export class CheckboxFilter {
   ): HTMLDivElement {
     const filterControler = new FilterControler();
     const checkboxInput = elementGenerator.createInput('checkbox', { id: `${group}${number}`, checked: isChecked });
-    const checkboxLabel = elementGenerator.createLabel({
-      for: `${group}${number}`,
-      className: 'filter-label__check-box',
-      text: labelText,
-    });
+    this._checkboxLabel.innerText = labelText;
+    this._checkboxLabel.dataset.name = labelText;
+    this._checkboxLabel.setAttribute('for', `${group}${number}`);
+
     const groupWrap = elementGenerator.createDiv({ className: `${wrapName}` });
-    checkboxInput;
+    const spanAmountWrap = elementGenerator.createSpan({ className: 'filter-amount' });
+
+    this.updateStatistic(staticData);
+
+    spanAmountWrap.append(this._spanAmountFound, this._spanAmountTotal);
+    this._checkboxLabel.append(spanAmountWrap);
     checkboxInput.addEventListener('change', () => {
       if (checkboxInput.checked) {
         filterControler.addFilter(group, labelText);
@@ -25,9 +39,21 @@ export class CheckboxFilter {
         filterControler.removeFilter(group, labelText);
       }
     });
-    groupWrap.append(checkboxInput, checkboxLabel);
+    groupWrap.append(checkboxInput, this._checkboxLabel);
 
     return groupWrap;
+  }
+
+  updateStatistic(staticData: Map<string, number[]>) {
+    const name = this._checkboxLabel.dataset.name;
+    let val: number[] = [0, 0];
+
+    if (name) {
+      val = staticData.get(name) || [0, 0];
+    }
+
+    this._spanAmountFound.innerText = `${val[0]}`;
+    this._spanAmountTotal.innerText = ` / ${val[1]}`;
   }
 }
 
@@ -40,27 +66,33 @@ export class DoubleSliderFilter {
   private _upperVal: number;
   private _groupName: string;
   private _filterControler: FilterControler;
-  constructor(aLowerVal: string, aUpperVal: string, groupName: string) {
+  private _activeMinVal: string;
+  private _activeMaxVal: string;
+  constructor(aLowerVal: string, aUpperVal: string, groupName: string, activeValue?: string) {
+    this._lowerVal = parseInt(aLowerVal);
+    this._upperVal = parseInt(aUpperVal);
+    this._groupName = groupName;
+    this._filterControler = new FilterControler();
+    this._activeMinVal = activeValue?.split('|')[0] || String(this._lowerVal);
+    this._activeMaxVal = activeValue?.split('|')[1] || String(this._upperVal);
+
     this._upperSlider = elementGenerator.createInput('range', {
       id: `upper-${groupName}`,
       min: aLowerVal,
       max: aUpperVal,
-      value: aUpperVal,
+      value: this._activeMaxVal,
     });
     this._lowerSlider = elementGenerator.createInput('range', {
       id: `lower-${groupName}`,
       min: aLowerVal,
       max: aUpperVal,
-      value: aLowerVal,
+      value: this._activeMinVal,
     });
-    this._lowerText = elementGenerator.createParagraph({ text: aLowerVal, className: 'price price_min' });
-    this._upperText = elementGenerator.createParagraph({ text: aUpperVal, className: 'price price_max' });
-    this._lowerVal = parseInt(aLowerVal);
-    this._upperVal = parseInt(aUpperVal);
     this._upperSlider.addEventListener('input', this.onUpperChange);
     this._lowerSlider.addEventListener('input', this.onLowerChange);
-    this._groupName = groupName;
-    this._filterControler = new FilterControler();
+
+    this._lowerText = elementGenerator.createParagraph({ text: this._activeMinVal, className: 'price price_min' });
+    this._upperText = elementGenerator.createParagraph({ text: this._activeMaxVal, className: 'price price_max' });
   }
 
   private onUpperChange = (): void => {
@@ -71,8 +103,8 @@ export class DoubleSliderFilter {
       this._lowerSlider.value = String(this._upperVal);
       this._lowerText.innerText = String(this._upperVal);
       if (this._lowerVal == parseInt(this._lowerSlider.min)) {
-        this._upperSlider.value = String(1);
-        this._upperText.innerText = String(1);
+        this._upperSlider.value = String(this._lowerVal + 1);
+        this._upperText.innerText = String(this._lowerVal + 1);
       }
     }
     this.setFilter();
@@ -87,8 +119,8 @@ export class DoubleSliderFilter {
       this._upperText.innerText = String(this._lowerVal);
 
       if (this._upperVal == parseInt(this._upperSlider.max)) {
-        this._lowerSlider.value = String(parseInt(this._upperSlider.max));
-        this._lowerText.innerText = String(parseInt(this._upperSlider.max));
+        this._lowerSlider.value = String(parseInt(this._upperSlider.max) - 1);
+        this._lowerText.innerText = String(parseInt(this._upperSlider.max) - 1);
       }
     }
     this.setFilter();
