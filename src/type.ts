@@ -31,6 +31,9 @@ export interface IFilter {
   product?: string;
   category?: string;
   brand?: string;
+  page?: string;
+  limit?: string;
+  modal?: string;
   price?: string;
   stock?: string;
   sort?: string;

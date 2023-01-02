@@ -1,6 +1,6 @@
-import { IPromoCode } from '../../type';
-import { LocalStorageManager } from '../controller/localStorage';
-import { elementGenerator } from '../controller/taggenerator';
+import { IPromoCode } from '../../../../type';
+import { LocalStorageManager } from '../../../controller/localStorage';
+import { elementGenerator } from '../../../controller/taggenerator';
 
 export class PromoCodeCart {
   private _promoCodes: Array<IPromoCode>;
@@ -34,7 +34,7 @@ export class PromoCodeCart {
     }
     const applyPromo = this._promoLS.map((value) => this.createApplyPromoCode(value));
     const promoTest = elementGenerator.createParagraph({
-      text: 'Promo for test: "rs", "epm"',
+      text: "Promo for test: 'rs', 'epm'",
       className: 'example-promo',
     });
     this._inputPromo.addEventListener('input', (event) => this.checkInputPromo(event));
