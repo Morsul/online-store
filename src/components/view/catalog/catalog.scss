@@ -153,15 +153,13 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
 }
 
 .button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
   padding: 6px 14px;
   border-radius: 6px;
   border: none;
   background: #6E6D70;
   color: #DFDEDF;
-  line-height: 1.4em;
+  line-height: 20px;
   cursor: pointer;
   text-decoration: none;
   margin: 5px 0;
