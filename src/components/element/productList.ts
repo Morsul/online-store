@@ -6,14 +6,19 @@ import { SingleProductCatalog } from '../view/catalog/singleProductCatalog';
 export class ProductList {
   createProductList(data: Array<IProduct>): DocumentFragment {
     const fragment = new DocumentFragment();
-    const mainArticle = elementGenerator.createHTMLElement('article', { className: 'product-list' });
+    if (data.length > 0) {
+      const mainArticle = elementGenerator.createHTMLElement('article', { className: 'product-list' });
 
-    data.forEach((item) => {
-      const product = new SingleProductCatalog(item, false);
-      mainArticle.append(product.createProduct());
-    });
+      data.forEach((item) => {
+        const product = new SingleProductCatalog(item, false);
+        mainArticle.append(product.createProduct());
+      });
 
-    fragment.append(mainArticle);
+      fragment.append(mainArticle);
+    } else {
+      const text = elementGenerator.createParagraph({ text: 'Sorry cant find anything', className: 'nothing-found' });
+      fragment.append(text);
+    }
 
     return fragment;
   }

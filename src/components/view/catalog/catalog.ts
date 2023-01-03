@@ -31,13 +31,14 @@ class CatalogView implements View {
     (<HTMLElement>document.querySelector('.main')).append(
       this._prodHeadline.createProdHeader(options),
       this._productList.createProductList(data),
-      await this._filterList.createFilterList(options)
+      await this._filterList.createFilterList(data, options)
     );
   }
 
-  private updateView(data: Array<IProduct>): void {
+  private async updateView(data: Array<IProduct>): Promise<void> {
     const main = <HTMLElement>document.querySelector('.main');
     main.childNodes[1].replaceWith(this._productList.createProductList(data));
+    await this._filterList?.updateFilterState(data);
   }
 }
 
