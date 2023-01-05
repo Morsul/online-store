@@ -62,11 +62,12 @@ export class SingleProductCart extends SingleProduct {
     product.append(productNumber, this.tagList.image, prodInfoWrap);
     return product;
   }
-
+  /*
   protected removeProduct(id: string): void {
     super.removeProduct(id);
     if (!this._productAdded && this._isIncrease) {
-      Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
+      console.log('update list');
+      //Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
     }
-  }
+  }*/
 }

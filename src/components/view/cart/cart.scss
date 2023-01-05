@@ -100,6 +100,14 @@ $colorGreenShadow: 0px 0.5px 1px rgba(58, 157, 58, 0.1), 0px 0px 0px 3.5px rgba(
     padding: 5px;
     display: inline;
   }
+  .pagination-not-active {
+    opacity: .7;
+    &:hover {
+      background-color: $colorGray;
+      box-shadow: none;
+      cursor: default;
+    }
+  }
   .number-page {
     margin: 0.5rem;
   }
