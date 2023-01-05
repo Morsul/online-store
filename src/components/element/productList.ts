@@ -23,13 +23,13 @@ export class ProductList {
     return fragment;
   }
 
-  createCartProductList(data: Array<IProduct>): DocumentFragment {
+  createCartProductList(data: Array<IProduct>, indexStart = 0): DocumentFragment {
     const fragment = new DocumentFragment();
     const mainArticle = elementGenerator.createHTMLElement('article', { className: '' });
 
     data.forEach((item, index) => {
       const product = new SingleProductCart(item, true);
-      mainArticle.append(product.createProduct(index + 1));
+      mainArticle.append(product.createProduct(indexStart + index + 1));
     });
 
     fragment.append(mainArticle);

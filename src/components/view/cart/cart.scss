@@ -3,7 +3,18 @@ $shadowBg: rgb(136, 165, 191);
 $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 $colorGray: #6E6D70;
 $colorWhite: #DFDEDF;
-$colorRed: red;
+$colorRed: rgb(157, 58, 58);
+$colorGreen: rgb(58, 157, 58);
+$colorGreenShadow: 0px 0.5px 1px rgba(58, 157, 58, 0.1), 0px 0px 0px 3.5px rgba(58, 157, 58, 0.5);
+.cart-list, .summary-cart, .window {
+  .button{
+    &:hover{
+      background-color: $colorGreen;
+      color: #fff;
+      box-shadow: $colorGreenShadow;
+    }
+  }
+}
 .cart-list {
   display: block;
   flex: 0 0 74%;
@@ -26,6 +37,9 @@ $colorRed: red;
       align-self: center;
     }
     &.in-cart {
+      border: 1px solid $borderColor;
+      box-shadow: $shadow;
+      outline: 2px solid transparent;
       .add-to-cart {
         display: flex;
         width: 2rem;
