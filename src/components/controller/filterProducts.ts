@@ -65,7 +65,7 @@ class FilterProduct {
     return catalog;
   }
 
-  getCartList(catalog: Array<IProduct>, options?: IFilter): Array<IProduct> {
+  getCartList(catalog: Array<IProduct> /*, options?: IFilter*/): Array<IProduct> {
     const listFilter: Array<IProduct> = new Array<IProduct>();
     const locStrg = new LocalStorageManager().getLSCart();
     if (locStrg) {
@@ -76,7 +76,7 @@ class FilterProduct {
         }
       });
     }
-    console.log(options);
+    //console.log(options);
     return listFilter;
   }
 }

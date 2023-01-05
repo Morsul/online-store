@@ -6,6 +6,7 @@ export class Pagination {
   private _limit: number;
   private _page: number;
   private _pageHTML: HTMLSpanElement;
+  private _paginationSetActive: () => void;
 
   constructor(item = 3, page = 1) {
     this._limit = item;
@@ -14,6 +15,9 @@ export class Pagination {
       text: this._page.toString(),
       className: 'number-page',
     });
+    this._paginationSetActive = () => {
+      return null;
+    };
   }
 
   public createPagination(): HTMLDivElement {
@@ -33,20 +37,21 @@ export class Pagination {
       text: '<',
       className: 'button button-pagination',
     });
-    /*const numberPage: HTMLSpanElement = elementGenerator.createSpan({
-      text: this._page.toString(),
-      className: 'number-page',
-    });*/
     const buttonRight: HTMLSpanElement = elementGenerator.createSpan({
       text: '>',
       className: 'button button-pagination',
     });
+    this._paginationSetActive = () => {
+      this.setActiveButton(buttonLeft, 1);
+      this.setActiveButton(buttonRight, this.maxPage());
+    };
+    this._paginationSetActive();
+
     leafBlock.append(buttonLeft, this._pageHTML, buttonRight);
     pageInput.addEventListener('input', (event) => this.numberProductsOnPage(event));
-
     buttonLeft.addEventListener('click', () => this.increasePage());
     buttonRight.addEventListener('click', () => this.decreasePage());
-
+    window.addEventListener('storage', () => this.removeProduct());
     paginationBlock.append(title, itemsBlock, leafBlock);
     return paginationBlock;
   }
@@ -55,8 +60,9 @@ export class Pagination {
     if (this._page <= 1) {
       return;
     }
-    this._page = this._page - 1;
+    this._page--;
     this._pageHTML.innerHTML = this._page.toString();
+    this._paginationSetActive();
     this.setRouter();
   }
 
@@ -64,8 +70,9 @@ export class Pagination {
     if (this.maxPage() <= this._page) {
       return;
     }
-    this._page = this._page + 1;
+    this._page++;
     this._pageHTML.innerHTML = this._page.toString();
+    this._paginationSetActive();
     this.setRouter();
   }
 
@@ -76,6 +83,7 @@ export class Pagination {
       const max = this.maxPage();
       this._page = max > this._page ? this._page : max;
       this._pageHTML.innerHTML = this._page.toString();
+      this._paginationSetActive();
       this.setRouter();
     }
   }
@@ -87,5 +95,23 @@ export class Pagination {
   private maxPage(): number {
     const count: number = new LocalStorageManager().getLSCart().length;
     return Math.ceil(count / this._limit);
+  }
+
+  private setActiveButton(button: HTMLSpanElement, numPage: number): void {
+    if (this._page === numPage) {
+      button.classList.add('pagination-not-active');
+    } else {
+      button.classList.remove('pagination-not-active');
+    }
+  }
+
+  private removeProduct() {
+    if (this._page <= this.maxPage() || this.maxPage() === 0) {
+      Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
+    } else {
+      if (this._page >= this.maxPage()) {
+        this.increasePage();
+      }
+    }
   }
 }

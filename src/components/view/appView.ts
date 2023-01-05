@@ -45,7 +45,7 @@ class AppView {
   }
 
   drawCart(data: ICatalog, options?: IFilter): void {
-    const productList: Array<IProduct> = this._filter.getCartList(data.products, options);
+    const productList: Array<IProduct> = this._filter.getCartList(data.products /*, options*/);
     const isModal: boolean = options?.modal ? true : false;
     //const updateList: boolean = options?.updateList ? true : false;
     if (productList.length) {
@@ -55,7 +55,6 @@ class AppView {
       this._cart.cartEmpty(isModal);
     }
   }
-
   drawNotPage(): void {
     this._notePage.draw();
   }
