@@ -6,7 +6,7 @@ import './productView.scss';
 
 class Product implements View {
   draw(data: IProduct): void {
-    const productrView = new SingleProductView(data, true);
+    const productrView = new SingleProductView(data, false);
 
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(productrView.createProduct());

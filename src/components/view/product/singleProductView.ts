@@ -11,17 +11,14 @@ export class SingleProductView extends SingleProduct {
 
   createProduct() {
     const cartLS = this._localStorage.getLSCart().find((e) => e.id === this.item.id);
-
-    const product = elementGenerator.createDiv({ className: `product-view` });
+    this._productAdded = cartLS ? true : false;
+    const className: string = this._productAdded ? 'in-cart' : '';
+    const product = elementGenerator.createDiv({ className: `product-view ${className}` });
     const prodInfoWrap = elementGenerator.createDiv({ className: 'product-view__info' });
 
     const blockAddRemove = elementGenerator.createDiv({ className: 'block-add-remove' });
-    const productCount = elementGenerator.createParagraph({
-      text: `${cartLS ? cartLS.count : 0}`,
-      className: 'product-count',
-    });
 
-    blockAddRemove.append(this.tagList.addToCart, productCount, this.tagList.removeFromCart);
+    blockAddRemove.append(this.tagList.addToCart, this.tagList.removeFromCart);
 
     blockAddRemove.addEventListener('click', (e) => {
       if (e.target === this.tagList.removeFromCart) {
@@ -37,12 +34,8 @@ export class SingleProductView extends SingleProduct {
       }
     });
 
-    window.addEventListener('storage', () => {
-      const f = this._localStorage.getLSCart().find((e) => e.id === this.item.id);
-      productCount.innerText = `${f ? f.count : '0'}`;
-    });
-
     const buyButton = elementGenerator.createParagraph({ className: `button button-to-cart`, text: 'Buy product' });
+
     buyButton.addEventListener('click', () => {
       this.addProduct(this.item);
       Router.getInstance().routeDefault('/cart', 'modal=1');
@@ -72,7 +65,15 @@ export class SingleProductView extends SingleProduct {
     imageBlock.append(imageList, this.tagList.image);
     imageList.addEventListener('click', (e) => this.updateImage(e.target));
 
-    product.append(imageBlock, prodInfoWrap);
+    const breadcrumbs = elementGenerator.createParagraph({ className: 'breadcrumbs' });
+    const homebc = elementGenerator.createSpan({ text: `Store` });
+    const otherbc = elementGenerator.createSpan({
+      text: ` / ${this.item.category}  / ${this.item.category} / ${this.item.title}`,
+    });
+    homebc.addEventListener('click', (e: Event): void => Router.getInstance().route(e, '/'));
+    breadcrumbs.append(homebc, otherbc);
+
+    product.append(breadcrumbs, imageBlock, prodInfoWrap);
     return product;
   }
 
@@ -82,5 +83,3 @@ export class SingleProductView extends SingleProduct {
     }
   }
 }
-// присутствует кнопка быстрой покупки товара. При клике, если товара нет в корзине, происходит автоматическое добавление в корзину и переход на страницу корзины, с уже открытым модальным окном. Если товар уже был в корзине, повторное добавление не требуется +5
-// Router.getInstance().routeDefault('/cart', 'modal=1');
