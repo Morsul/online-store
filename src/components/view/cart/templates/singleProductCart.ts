@@ -39,13 +39,14 @@ export class SingleProductCart extends SingleProduct {
         Router.getInstance().route(e, `/product/${this.item.id}`);
       }
     });
-
+    /*
     window.addEventListener('storage', () => {
       // todo multiple calls ?!
+      console.log('dkf');
       const f = this._localStorage.getLSCart().find((e) => e.id === this.item.id);
       productCount.innerText = `${f ? f.count : '0'}`;
     });
-
+    */
     prodInfoWrap.append(
       this.tagList.title,
       this.tagList.description,
@@ -62,12 +63,4 @@ export class SingleProductCart extends SingleProduct {
     product.append(productNumber, this.tagList.image, prodInfoWrap);
     return product;
   }
-  /*
-  protected removeProduct(id: string): void {
-    super.removeProduct(id);
-    if (!this._productAdded && this._isIncrease) {
-      console.log('update list');
-      //Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
-    }
-  }*/
 }

@@ -7,6 +7,7 @@ export class Pagination {
   private _page: number;
   private _pageHTML: HTMLSpanElement;
   private _paginationSetActive: () => void;
+  private _prevLS: number;
 
   constructor(item = 3, page = 1) {
     this._limit = item;
@@ -18,6 +19,7 @@ export class Pagination {
     this._paginationSetActive = () => {
       return null;
     };
+    this._prevLS = new LocalStorageManager().getLSCart().length;
   }
 
   public createPagination(): HTMLDivElement {
@@ -106,12 +108,16 @@ export class Pagination {
   }
 
   private removeProduct() {
+    this._paginationSetActive();
+    this.setRouter();
     if (this._page <= this.maxPage() || this.maxPage() === 0) {
-      Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
-    } else {
-      if (this._page >= this.maxPage()) {
-        this.increasePage();
+      const newLS = new LocalStorageManager().getLSCart().length;
+      if (this._prevLS !== newLS) {
+        this._prevLS = newLS;
+        Router.getInstance().routeDefault(window.location.pathname + window.location.search, 'updateList=1');
       }
+    } else if (this._page >= this.maxPage()) {
+      this.increasePage();
     }
   }
 }
