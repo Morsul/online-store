@@ -23,6 +23,7 @@ export class FilterControler {
       valueArr.shift();
       href = categoryArr[0] + type + newStr + (valueArr.length ? '&' + valueArr.join('&') : '');
     }
+
     Router.getInstance().routeDefault(href, 'updateList=1');
   }
 

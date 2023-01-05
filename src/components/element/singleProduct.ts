@@ -55,6 +55,7 @@ export class SingleProduct {
 
   protected addProduct(arg: IProduct): void {
     const cartLocal: Array<ILocalStorageproduct> = this._localStorage.getLSCart();
+
     if (this._productAdded) {
       cartLocal.forEach((e) => {
         if (e.id === arg.id && e.count < arg.stock) {
@@ -62,7 +63,6 @@ export class SingleProduct {
         }
       });
     } else {
-      // countProduct = 1;
       cartLocal.push({
         id: arg.id,
         count: 1,
@@ -70,7 +70,7 @@ export class SingleProduct {
         discount: arg.discount,
       });
     }
-
+    this._productAdded = true;
     localStorage.setItem('SACart', JSON.stringify(cartLocal));
     window.dispatchEvent(new Event('storage'));
   }
