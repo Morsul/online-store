@@ -23,7 +23,7 @@ export class FilterControler {
       valueArr.shift();
       href = categoryArr[0] + type + newStr + (valueArr.length ? '&' + valueArr.join('&') : '');
     }
-    Router.getInstance().routeDefault(href);
+    Router.getInstance().routeDefault(href, 'updateList=1');
   }
 
   removeFilter(type: string, value: string): void {
@@ -44,7 +44,7 @@ export class FilterControler {
       href = categoryArr[0] + type + newStr + (valueArr.length ? '&' + valueArr.join('&') : '');
     }
     href = href.length === 0 ? '' : '?' + href.slice(1);
-    Router.getInstance().routeDefault(href);
+    Router.getInstance().routeDefault(href, 'updateList=1');
   }
 
   addRangeFilter(type: string, valueStart: string, valueEnd: string) {
@@ -59,7 +59,7 @@ export class FilterControler {
       indexEnd = indexEnd === -1 ? locationQuery.length : indexEnd;
       href = locationQuery.slice(0, indexStart) + newFilter + locationQuery.slice(indexEnd, locationQuery.length);
     }
-    Router.getInstance().routeDefault(href);
+    Router.getInstance().routeDefault(href, 'updateList=1');
   }
 
   setDefaultFilter() {

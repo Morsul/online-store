@@ -9,6 +9,7 @@ class CatalogView implements View {
   private _productList: ProductList;
   private _filterList: FilterList | null;
   private _prodHeadline: ProductsHeadline;
+
   constructor() {
     this._productList = new ProductList();
     this._filterList = null;
@@ -16,7 +17,8 @@ class CatalogView implements View {
   }
 
   draw(data: Array<IProduct>, options?: IFilter): void {
-    if (!this._filterList) {
+    const isUpdateAll = options?.updateList ? false : true;
+    if (isUpdateAll) {
       this.createView(data, options);
     } else {
       this.updateView(data);
