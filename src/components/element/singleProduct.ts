@@ -1,6 +1,6 @@
 import { IProduct } from '../../type';
 import { elementGenerator } from '../controller/taggenerator';
-import Router from '../controller/router';
+//import Router from '../controller/router';
 import { ILocalStorageproduct, ISingleProductTag } from '../../type';
 import { LocalStorageManager } from '../controller/localStorage';
 
@@ -100,9 +100,6 @@ export class SingleProduct {
 
     localStorage.setItem('SACart', JSON.stringify(cartLocal));
     window.dispatchEvent(new Event('storage'));
-    if (!this._productAdded && this._isIncrease) {
-      Router.getInstance().routeDefault(`/cart`);
-    }
   }
 
   public createProduct(): HTMLDivElement {
