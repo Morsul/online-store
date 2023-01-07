@@ -135,4 +135,13 @@ export class DoubleSliderFilter {
     sliderWrap.append(this._lowerSlider, this._upperSlider, this._lowerText, this._upperText);
     return sliderWrap;
   }
+
+  updateValues(up: number, low: number) {
+    this._upperVal = up;
+    this._lowerVal = low;
+    this._lowerSlider.value = String(this._upperVal - 1);
+    this._lowerText.innerText = String(this._upperVal - 1);
+    this._upperSlider.value = String(this._lowerVal + 1);
+    this._upperText.innerText = String(this._lowerVal + 1);
+  }
 }

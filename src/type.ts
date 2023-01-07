@@ -39,6 +39,7 @@ export interface IFilter {
   sort?: string;
   allsearch?: string;
   updateList?: string;
+  view?: string;
 }
 
 export enum SortType {
@@ -79,7 +80,7 @@ export interface ISaticData {
   price: number[];
   stock: number[];
   avalaiblePrice: number[];
-  abalaibleStock: number[];
+  avalaibleStock: number[];
   categoryInfo: Map<string, number[]>;
   brandInfo: Map<string, number[]>;
 }

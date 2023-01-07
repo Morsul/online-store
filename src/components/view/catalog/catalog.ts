@@ -21,7 +21,7 @@ class CatalogView implements View {
     if (isUpdateAll) {
       this.createView(data, options);
     } else {
-      this.updateView(data);
+      this.updateView(data, options);
     }
     this._prodHeadline.shownCount(data.length);
   }
@@ -32,15 +32,18 @@ class CatalogView implements View {
     (<HTMLElement>document.querySelector('.main')).innerHTML = '';
     (<HTMLElement>document.querySelector('.main')).append(
       this._prodHeadline.createProdHeader(options),
-      this._productList.createProductList(data),
+      this._productList.createProductList(data, options?.view),
       await this._filterList.createFilterList(data, options)
     );
   }
 
-  private async updateView(data: Array<IProduct>): Promise<void> {
+  private async updateView(data: Array<IProduct>, options?: IFilter): Promise<void> {
     const main = <HTMLElement>document.querySelector('.main');
-    main.childNodes[1].replaceWith(this._productList.createProductList(data));
-    await this._filterList?.updateFilterState(data);
+    main.childNodes[1].replaceWith(this._productList.createProductList(data, options?.view));
+    const updatePrice = options?.price !== undefined ? false : true;
+    const updateStoc = options?.stock !== undefined ? false : true;
+
+    await this._filterList?.updateFilterState(data, updatePrice, updateStoc);
   }
 }
 

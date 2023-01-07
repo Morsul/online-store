@@ -2,12 +2,44 @@ import { IProduct } from '../../type';
 import { elementGenerator } from '../controller/taggenerator';
 import { SingleProductCart } from '../view/cart/templates/singleProductCart';
 import { SingleProductCatalog } from '../view/catalog/singleProductCatalog';
+import { FilterControler } from '../controller/filterController';
 
 export class ProductList {
-  createProductList(data: Array<IProduct>): DocumentFragment {
+  createProductList(data: Array<IProduct>, optionView?: string | undefined): DocumentFragment {
     const fragment = new DocumentFragment();
+    const filterController = new FilterControler();
+    console.log(optionView);
     if (data.length > 0) {
-      const mainArticle = elementGenerator.createHTMLElement('article', { className: 'product-list' });
+      const mainArticle = elementGenerator.createHTMLElement('article', { className: `product-list` });
+      const viewSwitch = elementGenerator.createDiv({ className: 'view-switcher' });
+      const fullSwitch = elementGenerator.createDiv({ className: 'view-switcher__full' });
+      const partialSwitch = elementGenerator.createDiv({ className: 'view-switcher__partial' });
+
+      if (optionView === 'partialview') {
+        partialSwitch.classList.add('active');
+        mainArticle.classList.add('partial-view');
+      } else {
+        fullSwitch.classList.add('active');
+      }
+
+      viewSwitch.append(fullSwitch, partialSwitch);
+
+      viewSwitch.addEventListener('click', (e) => {
+        if (e.target === fullSwitch && !fullSwitch.classList.contains('active')) {
+          fullSwitch.classList.add('active');
+          partialSwitch.classList.remove('active');
+          mainArticle.classList.remove('partial-view');
+          filterController.removeFilter('view', '*');
+        }
+        if (e.target === partialSwitch && !partialSwitch.classList.contains('active')) {
+          fullSwitch.classList.remove('active');
+          partialSwitch.classList.add('active');
+          mainArticle.classList.add('partial-view');
+          filterController.addFilter('view', 'partialview', true);
+        }
+      });
+
+      mainArticle.append(viewSwitch);
 
       data.forEach((item) => {
         const product = new SingleProductCatalog(item, false);
