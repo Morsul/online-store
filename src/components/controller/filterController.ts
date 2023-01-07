@@ -50,7 +50,7 @@ export class FilterControler {
 
   addRangeFilter(type: string, valueStart: string, valueEnd: string) {
     const locationQuery = window.location.search;
-    const indexStart = locationQuery.indexOf(type);
+    const indexStart = locationQuery.indexOf(`${type}=`);
     const newFilter = `${type}=${valueStart}|${valueEnd}`;
     let href = '';
     if (indexStart === -1) {

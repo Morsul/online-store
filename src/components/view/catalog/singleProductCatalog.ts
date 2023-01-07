@@ -37,7 +37,6 @@ export class SingleProductCatalog extends SingleProduct {
 
     prodInfoWrap.append(
       this.tagList.title,
-      this.tagList.description,
       this.tagList.category,
       this.tagList.brand,
       this.tagList.rating,

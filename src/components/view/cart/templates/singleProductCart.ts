@@ -47,6 +47,7 @@ export class SingleProductCart extends SingleProduct {
       productCount.innerText = `${f ? f.count : '0'}`;
     });
     */
+    console.log(this.tagList.description);
     prodInfoWrap.append(
       this.tagList.title,
       this.tagList.description,
