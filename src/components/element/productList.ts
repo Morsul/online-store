@@ -15,7 +15,7 @@ export class ProductList {
       const fullSwitch = elementGenerator.createDiv({ className: 'view-switcher__full' });
       const partialSwitch = elementGenerator.createDiv({ className: 'view-switcher__partial' });
 
-      if (optionView === 'partialview') {
+      if (optionView === 'partial') {
         partialSwitch.classList.add('active');
         mainArticle.classList.add('partial-view');
       } else {
@@ -35,7 +35,7 @@ export class ProductList {
           fullSwitch.classList.remove('active');
           partialSwitch.classList.add('active');
           mainArticle.classList.add('partial-view');
-          filterController.addFilter('view', 'partialview', true);
+          filterController.addFilter('view', 'partial', true);
         }
       });
 
