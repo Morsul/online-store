@@ -54,11 +54,9 @@ export class ProductsHeadline {
   private overalSearch(): void {
     const val = this._search.value;
     if (val.length === 0) {
-      if (val.length === 0) {
-        this._filterController.removeFilter('allsearch', '*');
-      } else {
-        this._filterController.addFilter('allsearch', this._search.value, true);
-      }
+      this._filterController.removeFilter('allsearch', '*');
+    } else {
+      this._filterController.addFilter('allsearch', this._search.value, true);
     }
   }
 
