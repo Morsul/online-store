@@ -27,15 +27,13 @@ export class ProductsHeadline {
     if (options?.allsearch) {
       this._search.value = options.allsearch;
     }
+
     if (options?.sort) {
-      const s = options?.sort.split('-');
-      if (s[0] === 'stock') {
-        this._sortStock.classList.add(s[1]);
-      }
-      if (s[0] === 'price') {
-        this._sortPrice.classList.add(s[1]);
-      }
+      this.setSorting(options.sort);
+    } else {
+      this.setSorting(null);
     }
+
     const sortWrap = elementGenerator.createDiv({ className: 'sorting sorting-wrap' });
     sortWrap.addEventListener('click', (e) => {
       this.updateSorting(e.target);
@@ -104,6 +102,21 @@ export class ProductsHeadline {
         this._sortStock.className = `sorting__count ${SortType.ASC}`;
         this._filterController.addFilter('sort', `stock-${SortType.ASC}`, true);
       }
+      this._sortPrice.className = 'sorting__price';
+    }
+  }
+
+  setSorting(sortingOptions: string | null) {
+    if (sortingOptions != null) {
+      const s = sortingOptions.split('-');
+      if (s[0] === 'stock') {
+        this._sortStock.classList.add(s[1]);
+      }
+      if (s[0] === 'price') {
+        this._sortPrice.classList.add(s[1]);
+      }
+    } else {
+      this._sortStock.className = 'sorting__count';
       this._sortPrice.className = 'sorting__price';
     }
   }

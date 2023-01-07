@@ -35,12 +35,58 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
   }
 }
 
+@mixin viewSwitcher{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transition: 0.2s;
+  border-radius: 5px;
+  &.active{
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+  }
+}
+
 .product-list {
   display: flex;
   gap: 15px 48px;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-bottom: auto;
+
+  &.partial-view{
+    gap: 15px 64px;
+    .single-product{
+      flex: 0 0 20%;
+      position: relative;
+      transition: none;
+      p:not(.button){
+        display: none;
+      }
+      &:hover{
+        .single-product__info{
+          opacity: 1;
+        }
+      }
+    }
+
+    .single-product__info{
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0, 0.2);
+      transition: 0.2s;
+    }
+  }
 
   .single-product_number {
     display: none;
@@ -332,4 +378,24 @@ aside.filter-wrap{
   &__price{
     @include sorting-buttons;
   }
+}
+
+.view{
+  &-switcher{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    &__full{
+      @include viewSwitcher;      
+      background-size: 80% 80%;
+      background-image: url(../../assets/svg/list-icon.svg);
+    }
+    &__partial{
+      @include viewSwitcher;      
+      background-size: 100% 100%;
+      background-image: url(../../assets/svg/grid-icon.svg);
+    }
+  }
+
 }

@@ -8,8 +8,13 @@ import { FilterControler } from '../controller/filterController';
 export class FilterList {
   private _brandInfo: CheckboxFilter[];
   private _categoryInfo: CheckboxFilter[];
+  private _priceSliderFilter: DoubleSliderFilter | undefined;
+  private _stockSliderFilter: DoubleSliderFilter | undefined;
   constructor() {
-    (this._brandInfo = []), (this._categoryInfo = []);
+    this._brandInfo = [];
+    this._categoryInfo = [];
+    this._priceSliderFilter;
+    this._stockSliderFilter;
   }
 
   async createFilterList(data: Array<IProduct>, options?: IFilter): Promise<DocumentFragment> {
@@ -43,23 +48,24 @@ export class FilterList {
 
     const priceSlider = elementGenerator.createDiv({ className: 'filter-list' });
     const priceSliderHeadline = elementGenerator.createParagraph({ text: 'Price range', className: 'filter-headline' });
-    const priceSliderFilter = new DoubleSliderFilter(
+
+    this._priceSliderFilter = new DoubleSliderFilter(
       String(staticData.price[0]),
       String(staticData.price[1]),
       'price',
-      options?.price
+      options?.price || `${staticData.avalaiblePrice[0]}|${staticData.avalaiblePrice[1]}`
     );
-    priceSlider.append(priceSliderHeadline, priceSliderFilter.getElements());
+    priceSlider.append(priceSliderHeadline, this._priceSliderFilter.getElements());
 
     const stockSlider = elementGenerator.createDiv({ className: 'filter-list' });
     const stockSliderHeadline = elementGenerator.createParagraph({ text: 'Stock range', className: 'filter-headline' });
-    const stockSliderFilter = new DoubleSliderFilter(
+    this._stockSliderFilter = new DoubleSliderFilter(
       String(staticData.stock[0]),
       String(staticData.stock[1]),
       'stock',
-      options?.stock
+      options?.stock || `${staticData.avalaibleStock[0]}|${staticData.avalaibleStock[1]}`
     );
-    stockSlider.append(stockSliderHeadline, stockSliderFilter.getElements());
+    stockSlider.append(stockSliderHeadline, this._stockSliderFilter.getElements());
 
     const ressetButton = elementGenerator.createParagraph({ text: 'Reset Filters', className: 'button' });
 
@@ -93,10 +99,31 @@ export class FilterList {
       price: [1, 1],
       stock: [1, 1],
       avalaiblePrice: [1, 1],
-      abalaibleStock: [1, 1],
+      avalaibleStock: [1, 1],
       categoryInfo: new Map<string, number[]>(),
       brandInfo: new Map<string, (number | number)[]>(),
     };
+
+    data.forEach((element, index) => {
+      if (index === 0) {
+        staticData.avalaiblePrice[0] = element.price;
+        staticData.avalaiblePrice[1] = element.price;
+        staticData.avalaibleStock[0] = element.stock;
+        staticData.avalaibleStock[1] = element.stock;
+      } else {
+        if (element.price < staticData.avalaiblePrice[0]) {
+          staticData.avalaiblePrice[0] = element.price;
+        } else if (element.price > staticData.avalaiblePrice[1]) {
+          staticData.avalaiblePrice[1] = element.price;
+        }
+
+        if (element.stock < staticData.avalaibleStock[0]) {
+          staticData.avalaibleStock[0] = element.stock;
+        } else if (element.stock > staticData.avalaibleStock[1]) {
+          staticData.avalaibleStock[1] = element.stock;
+        }
+      }
+    });
 
     overalData.products.forEach((element, index) => {
       if (index === 0) {
@@ -155,7 +182,7 @@ export class FilterList {
     return filterCategotyContainer;
   }
 
-  async updateFilterState(data: Array<IProduct>) {
+  async updateFilterState(data: Array<IProduct>, updatePriceDrag: boolean, updateStockDrag: boolean) {
     const filterData: IFilterInfo = await this.getFilterData();
     const staticData: ISaticData = await this.getStatistic(filterData, data);
     this._brandInfo.forEach((e) => {
@@ -165,5 +192,11 @@ export class FilterList {
     this._categoryInfo.forEach((e) => {
       e.updateStatistic(staticData.categoryInfo);
     });
+    if (updatePriceDrag) {
+      this._priceSliderFilter?.updateValues(Number(staticData.avalaiblePrice[0]), Number(staticData.avalaiblePrice[1]));
+    }
+    if (updateStockDrag) {
+      this._stockSliderFilter?.updateValues(Number(staticData.avalaibleStock[0]), Number(staticData.avalaibleStock[1]));
+    }
   }
 }
