@@ -16,6 +16,7 @@ export class SingleProduct {
     this._localStorage = new LocalStorageManager();
     this._isIncrease = isIncrease;
     this._item = item;
+    const price: string = item.price.toString().includes('.') ? item.price.toString() : `${item.price}.00`;
 
     this._tagList = {
       image: elementGenerator.createImg(item.thumbnail, { alt: item.title }),
@@ -28,7 +29,7 @@ export class SingleProduct {
       brand: elementGenerator.createParagraph({ text: `Brand: ${item.brand}` }),
       rating: elementGenerator.createParagraph({ text: `Rating: ${item.rating} ` }),
       stock: elementGenerator.createParagraph({ text: `Stock: ${item.stock} ` }),
-      price: elementGenerator.createParagraph({ text: `Price: ${item.price} `, className: 'product-price' }),
+      price: elementGenerator.createParagraph({ text: `Price: ${price} `, className: 'product-price' }),
       discount: elementGenerator.createParagraph({ text: `Discount: ${item.discount} %` }),
       addToCart: elementGenerator.createParagraph({
         className: 'button add-to-cart',
