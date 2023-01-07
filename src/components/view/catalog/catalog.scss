@@ -51,14 +51,14 @@ $shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6
 
 .product-list {
   display: flex;
-  gap: 15px 48px;
+  gap: 15px 5%;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: auto;
 
   &.partial-view{
-    gap: 15px 64px;
+    gap: 15px 6.5%;
     .single-product{
       flex: 0 0 20%;
       position: relative;
