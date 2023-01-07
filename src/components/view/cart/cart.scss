@@ -6,6 +6,14 @@ $colorWhite: #DFDEDF;
 $colorRed: rgb(157, 58, 58);
 $colorGreen: rgb(58, 157, 58);
 $colorGreenShadow: 0px 0.5px 1px rgba(58, 157, 58, 0.1), 0px 0px 0px 3.5px rgba(58, 157, 58, 0.5);
+
+@mixin button-size{
+  width: 2rem;
+  height: 2rem;
+  padding: 5px 0;
+  display: block;
+}
+
 .cart-list, .summary-cart, .window {
   .button{
     &:hover{
@@ -41,13 +49,10 @@ $colorGreenShadow: 0px 0.5px 1px rgba(58, 157, 58, 0.1), 0px 0px 0px 3.5px rgba(
       box-shadow: $shadow;
       outline: 2px solid transparent;
       .add-to-cart {
-        display: flex;
-        width: 2rem;
-        height: 2rem;
+        @include button-size;
       }
       .remove-from-cart {
-        height: 2rem;
-        width: 2rem;
+        @include button-size;
       }
       .product-count {
         font-size: 1.2rem;
