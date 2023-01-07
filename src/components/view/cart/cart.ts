@@ -21,7 +21,13 @@ export class Cart implements View {
     }
   }
 
-  private updatePage(dataPage: Array<IProduct>, isShow: boolean, limit: number, page: number, indexStart: number) {
+  private updatePage(
+    dataPage: Array<IProduct>,
+    isShow: boolean,
+    limit: number,
+    page: number,
+    indexStart: number
+  ): void {
     const summaryCart = new SummaryCart();
     const pagination = new Pagination(limit, page);
     const popup = new ModalWindow();
@@ -36,11 +42,13 @@ export class Cart implements View {
     );
   }
 
-  private updateListProduct(dataPage: Array<IProduct>, indexStart: number) {
+  private updateListProduct(dataPage: Array<IProduct>, indexStart: number): void {
     const productList = new ProductList();
     const cart: HTMLElement = <HTMLElement>document.querySelector('.cart-list');
-    cart.children.item(1)?.remove();
-    cart.append(productList.createCartProductList(dataPage, indexStart));
+    if (cart) {
+      cart.children.item(1)?.remove();
+      cart.append(productList.createCartProductList(dataPage, indexStart));
+    }
   }
 
   cartEmpty(isShow?: boolean): void {

@@ -1,6 +1,7 @@
 import { elementGenerator } from '../controller/taggenerator';
 import Router from '../controller/router';
 import { HeaderCart } from './headerCart';
+import '../assets/svg/logo.svg';
 
 export class Header {
   createHeader(): DocumentFragment {
@@ -8,7 +9,7 @@ export class Header {
 
     const header = elementGenerator.createHTMLElement('header', {});
     const headerContainer = elementGenerator.createDiv({ className: 'header__container container' });
-    const home = elementGenerator.createParagraph({ className: 'home', text: 'Home' });
+    const home = elementGenerator.createParagraph({ className: 'home' });
     const cart = new HeaderCart();
 
     home.addEventListener('click', (e: Event): void => Router.getInstance().route(e, '/'));

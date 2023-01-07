@@ -41,7 +41,13 @@ class FilterProduct {
         listFilter = listFilter.filter(
           (value) =>
             value.category.toLocaleLowerCase().includes(allSearch) ||
-            value.brand.toLocaleLowerCase().includes(allSearch)
+            value.brand.toLocaleLowerCase().includes(allSearch) ||
+            value.description.toLocaleLowerCase().includes(allSearch) ||
+            value.title.toLocaleLowerCase().includes(allSearch) ||
+            value.discount.toString().toLocaleLowerCase().includes(allSearch) ||
+            value.price.toString().toLocaleLowerCase().includes(allSearch) ||
+            value.rating.toString().toLocaleLowerCase().includes(allSearch) ||
+            value.stock.toString().toLocaleLowerCase().includes(allSearch)
         );
       }
     }
