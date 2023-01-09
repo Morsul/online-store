@@ -108,6 +108,9 @@ export class Pagination {
   }
 
   private removeProduct() {
+    if (window.location.pathname !== '/cart') {
+      return;
+    }
     this._paginationSetActive();
     this.setRouter();
     if (this._page <= this.maxPage() || this.maxPage() === 0) {

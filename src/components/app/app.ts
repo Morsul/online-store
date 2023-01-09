@@ -27,7 +27,7 @@ class App {
       this._controller.getCatalog(find, (data, filter) => this._view.drawCatalog(data, filter))
     );
     map.set(/^\/cart$/, (find) => this._controller.getCart(find, (data, filter) => this._view.drawCart(data, filter)));
-    map.set(/^\/product\/[0-9]{1,3}$/, (find) =>
+    map.set(/^\/product\/[0-9a-zA-Z]{1,}$/, (find) =>
       this._controller.getProduct(find, (data, filter) => this._view.drawProduct(data, filter))
     );
     Router.getInstance().routes = map;
