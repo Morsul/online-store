@@ -47,7 +47,6 @@ export class FilterControler {
     }
     href = href.length === 0 ? '' : '?' + href.slice(1);
     Router.getInstance().routeDefault(href, 'updateList=1');
-    console.log(href);
     return href;
   }
 
