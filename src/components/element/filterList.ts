@@ -68,10 +68,15 @@ export class FilterList {
     stockSlider.append(stockSliderHeadline, this._stockSliderFilter.getElements());
 
     const ressetButton = elementGenerator.createParagraph({ text: 'Reset Filters', className: 'button' });
+    const copyButtonButton = elementGenerator.createParagraph({ text: 'Copy link', className: 'button' });
 
     ressetButton.addEventListener('click', () => filterControler.setDefaultFilter());
+    copyButtonButton.addEventListener('click', () => {
+      const url = document.location.href;
+      navigator.clipboard.writeText(url);
+    });
 
-    filtersWrap.append(ressetButton, filterBrand, filterCategoty, priceSlider, stockSlider);
+    filtersWrap.append(copyButtonButton, ressetButton, filterBrand, filterCategoty, priceSlider, stockSlider);
     fragment.append(filtersWrap);
 
     return fragment;

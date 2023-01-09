@@ -58,7 +58,7 @@ export class ValidationForm {
 
   public showDateMessage(field: HTMLInputElement, parent: HTMLDivElement): void {
     field.value = this.validDateCard(field);
-    const isShow: boolean = field.value.length < 5 || +field.value.slice(0, 2) > 12;
+    const isShow: boolean = field.value.length < 5 || +field.value.slice(0, 2) > 12 || +field.value.slice(-2) < 23;
     this.toogleMessage(isShow, field, parent, 'error-date-card', 'Card valid thru - error');
   }
 

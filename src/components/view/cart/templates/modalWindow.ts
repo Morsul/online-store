@@ -36,7 +36,7 @@ export class ModalWindow {
     });
     const name: HTMLInputElement = elementGenerator.createInput('text', {
       className: 'input',
-      placeholder: 'Name',
+      placeholder: 'Name Surname',
       pattern: '^([^\\s]{3,}\\s){1,}[^\\s]{3,}$',
     });
     name.addEventListener('focusout', () => this._validationForm.blur(name, regExprsValid.name), { once: true });
@@ -46,7 +46,7 @@ export class ModalWindow {
 
     const phoneNumber: HTMLInputElement = elementGenerator.createInput('text', {
       className: 'input',
-      placeholder: 'Phone number',
+      placeholder: 'Phone number: +9999999999',
       pattern: '^\\+[0-9]{9,}',
     });
     phoneNumber.addEventListener(
@@ -64,7 +64,7 @@ export class ModalWindow {
 
     const address: HTMLInputElement = elementGenerator.createInput('text', {
       className: 'input',
-      placeholder: 'Delivery address',
+      placeholder: 'Delivery address: country, city, street...',
       pattern: '^([^\\s]{5,}\\s){2,}[^\\s]{5,}$',
     });
     address.addEventListener('focusout', () => this._validationForm.blur(address, regExprsValid.address), {
