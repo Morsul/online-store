@@ -2,7 +2,7 @@ import { Callback, ICatalog, IFilter } from '../../type';
 import Loader from './loader';
 import jsonFile from '../assets/data/products.json';
 
-class Controller extends Loader {
+export class Controller extends Loader {
   constructor() {
     super(jsonFile.toString());
   }
@@ -42,5 +42,3 @@ class Controller extends Loader {
     return filter;
   }
 }
-
-export default Controller;

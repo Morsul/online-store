@@ -1,7 +1,7 @@
 import Router from './router';
 
 export class FilterControler {
-  addFilter(type: string, value: string, singleFilter?: boolean | undefined): void {
+  addFilter(type: string, value: string, singleFilter?: boolean | undefined): string {
     let href = '';
     value = value.toLowerCase();
     const locationQuery = decodeURI(window.location.search);
@@ -25,9 +25,10 @@ export class FilterControler {
     }
 
     Router.getInstance().routeDefault(href, 'updateList=1');
+    return href;
   }
 
-  removeFilter(type: string, value: string): void {
+  removeFilter(type: string, value: string): string {
     let href = '';
     const locationQuery: string = decodeURI(window.location.search);
     value = value.toLowerCase();
@@ -46,9 +47,11 @@ export class FilterControler {
     }
     href = href.length === 0 ? '' : '?' + href.slice(1);
     Router.getInstance().routeDefault(href, 'updateList=1');
+    console.log(href);
+    return href;
   }
 
-  addRangeFilter(type: string, valueStart: string, valueEnd: string) {
+  addRangeFilter(type: string, valueStart: string, valueEnd: string): string {
     const locationQuery = window.location.search;
     const indexStart = locationQuery.indexOf(`${type}=`);
     const newFilter = `${type}=${valueStart}|${valueEnd}`;
@@ -61,6 +64,7 @@ export class FilterControler {
       href = locationQuery.slice(0, indexStart) + newFilter + locationQuery.slice(indexEnd, locationQuery.length);
     }
     Router.getInstance().routeDefault(href, 'updateList=1');
+    return href;
   }
 
   setDefaultFilter() {
