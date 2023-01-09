@@ -8,7 +8,6 @@ export class ProductList {
   createProductList(data: Array<IProduct>, optionView?: string | undefined): DocumentFragment {
     const fragment = new DocumentFragment();
     const filterController = new FilterControler();
-    console.log(optionView);
     if (data.length > 0) {
       const mainArticle = elementGenerator.createHTMLElement('article', { className: `product-list` });
       const viewSwitch = elementGenerator.createDiv({ className: 'view-switcher' });
