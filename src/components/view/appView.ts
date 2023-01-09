@@ -33,7 +33,6 @@ class AppView {
   }
 
   drawProduct(data: ICatalog, options?: IFilter): void {
-    console.log(options);
     if (options) {
       const product = this._filter.getSingleProduct(options, data);
       if (product) {
