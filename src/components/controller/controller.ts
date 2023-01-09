@@ -18,7 +18,7 @@ export class Controller extends Loader {
   }
 
   getProduct(find: string, callback: Callback<ICatalog>): void {
-    const match: RegExpMatchArray | null = find.match(/[0-9]{1,3}/);
+    const match: RegExpMatchArray | null = find.replace('/product/', '').match(/[0-9a-zA-Z]{1,}/);
     if (match) {
       super.getResp({ product: match[0] }, callback);
     }
