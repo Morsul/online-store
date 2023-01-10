@@ -71,9 +71,14 @@ export class FilterList {
     const copyButtonButton = elementGenerator.createParagraph({ text: 'Copy link', className: 'button' });
 
     ressetButton.addEventListener('click', () => filterControler.setDefaultFilter());
-    copyButtonButton.addEventListener('click', () => {
+    copyButtonButton.addEventListener('click', (e: Event) => {
       const url = document.location.href;
       navigator.clipboard.writeText(url);
+      const button = <HTMLParagraphElement>e.target;
+      button.innerHTML = 'Copied!';
+      setTimeout(() => {
+        button.innerHTML = 'Copy link';
+      }, 1000);
     });
 
     filtersWrap.append(copyButtonButton, ressetButton, filterBrand, filterCategoty, priceSlider, stockSlider);
