@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+header {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,;
+  border-radius: 0 0 50px 50px;
+  margin-bottom: 50px;
+  height: 130px;
+  padding: 0 15px;
+  .header__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cart {
+    margin-left: auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+  
+    &__product-count {
+      background-image: url("./components/assets/svg/truck-ultrathin-transport-svgrepo-com.svg");
+      background-size: 60px 60px;
+      background-position: 0 10px;
+      background-repeat: no-repeat;
+      text-align: center;
+      background-color: #fff;
+      height: 60px;
+      width: 60px;
+      padding: 29px 21px 0 0;
+      margin: 0 0 10px auto;
+      transform: scale(1);
+      transition: all 0.5s;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+      
+    }
+ 
+    &__product-price {
+      margin: 0;
+    }
+  }
+  .home {
+    height: 100px;
+    width: 100px;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+    background: url('./components//assets//svg/logo.svg') no-repeat;
+  }
+}
+
+
+main {
+  min-height: calc((100vh - 150px - 180px));
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1280px;
+  width: calc(100vw - 2%);
+  margin: 0 auto;
+  gap: 2%;
+  justify-content: space-between;
+  padding: 15px;
+  & .title-page {
+    font-size: 1.3rem;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+footer {
+  height: 100px;
+  padding: 2rem 15px 1rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,;
+  border-radius: 50px 50px 0 0;
+  margin: 50px 0 0;
+  text-align: center;
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 2rem;
+    .logo-rss {
+      width: 100px;
+    }
+    .gitHubBg { 
+      background: url('../src/components/assets/svg/github-logo.svg') no-repeat;
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .title {
+    margin: 4px 0 0 0;
+  }
+}
