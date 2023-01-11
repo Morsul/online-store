@@ -6,7 +6,7 @@ import { LocalStorageManager } from '../../../controller/localStorage';
 
 const regExprsValid = {
   name: /^(\w{3,}\s){1,}\w{3,}$/i,
-  phone: /^\+[0-9]{9,}/,
+  phone: /^\+[0-9]{9,}$/,
   address: /^([^\s]{5,}\s){2,}[^\s]{5,}$/i,
   email: /^[a-z0-9._%+-]+@[a-z0-9-]+[.][a-z]{2,4}$/i,
   cardNumber: /[0-9]{16}/,
